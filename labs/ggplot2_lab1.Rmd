@@ -1,0 +1,35 @@
+---
+title: "Lab 1 - Creating a Histogram and Explaining its Features"
+author: "Ariane Ducellier"
+date: "7/17/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab, you are going to plot the temperature distribution for Vancouver and Miami.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(ggplot2)
+```
+
+## Data
+
+Load the data.
+
+```{r data}
+df_t <- read.csv("../data/historical-hourly-weather-data/temperature.csv")
+```
+
+## Plot
+
+Fill the cell with the code to make the plots.
+
+```{r plot}
+```
