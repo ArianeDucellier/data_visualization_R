@@ -40,3 +40,24 @@ ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
 ```{r block5}
 ggplot(RetailSales, aes(x=Month, y=Sales)) + geom_bar(stat="identity")
 ```
+
+## Box plots
+
+```{r block6}
+df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
+df_hum$datetime <- as.character(df_hum$datetime)
+df_hum$month <- substr(df_hum$datetime, 6, 7)
+ggplot(df_hum, aes(x=month, y=Vancouver)) + geom_boxplot()
+```
+
+## Scatter plots and line plots
+
+```{r block7}
+a = 3.4
+v0 = 27
+time <- runif(50, min=0, max=200)
+distance <- sapply(time, function(x) v0 * x + 0.5 * a * x^2)
+df <- data.frame(time,distance)
+ggplot(df, aes(x=time, y=distance)) + geom_point()
+ggplot(df, aes(x=time, y=distance)) + geom_line()
+```
