@@ -1,0 +1,15 @@
+\frametitle{Bar plots}
+
+Or a combination of a categorical variable and a continuous variable:
+
+\begin{exampleblock}{}
+\begin{center}
+\begin{BVerbatim}
+ggplot(RetailSales, aes(x=Month, y=Sales)) +
+geom_bar(stat=« identity »)
+\end{BVerbatim}
+\end{center}
+\end{exampleblock}{}
+
+Using \verb|stat = « identity »| tells ggplot2 to sum the values for each group (Month) and plot bars proportional to the sums.
+

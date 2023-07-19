@@ -2,6 +2,7 @@
 \documentclass{beamer}
 
 \usepackage{color}
+\usepackage{fancyvrb}
 \usepackage{gensymb}
 \usepackage{hyperref}
 \usepackage{textcomp}
@@ -19,26 +20,129 @@
 	\end{frame}
 
 	\begin{frame}
+		Something about ggplot2 and why we are learning it
+	\end{frame}
 
-Tutorial ggplot2
+	\begin{frame}
+		\frametitle{Main concepts of Ggplot2}
 
-ggplot2 is made of geometric objects (e.g, lines, bars, points) that are used to visualize data.
+		Ggplot2 is made of geometric objects (e.g, lines, bars, points) that are used to visualize data.
 
-One-dimensional objects for one-dimensional data:
+		Examples of one-dimensional objects for one-dimensional data:
+		\begin{itemize}
+			\item histogram
+			\item bar-chart
+		\end{itemize}
 
-histogram
-bar-chart
+		Two-dimensional objects for the relationship between two variables:
+	\end{frame}
 
-Two-dimensional objects for the relationship between two variables
+	\begin{frame}
+		\frametitle{Main concepts of Ggplot2}
+		
+		To the geometric objects, we are going to add aesthetics:
+		\begin{itemize}
+			\item Coordinates scale,
+			\item Fonts,
+			\item Colors...
+		\end{itemize}
 
-Command line
+		The aesthetics are described using the grammar of graphics.
+	\end{frame}
 
-ggplot ( dataset, as = describe the variables from the dataset that we want to visualize and their qualities)
+	\begin{frame}[fragile]
+		\frametitle{Example: Histograms}
 
-do not plot anything
+		Built-in R graphics package:
 
-need to add + geom\_histogram() to explain the kind of object that you want to plot.
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		hist(airquality$Temp)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
 
+		Quick plot using ggplot2:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		qplot(airquality$Temp)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Ggplot2 command structure}
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		ggplot(airquality, aes(x=Temp))
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+dataset, aes = describe the variables from the dataset that we want to visualize and their qualities)
+
+		This command does not plot anything.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Ggplot2 command structure}
+
+		We need to add a command to explain the kind of object that we want to plot:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		ggplot(airquality, aes(x=Temp)) + geom_histogram()
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+		
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Bar plots}
+
+		We can use bar plots to visualize one categorical variable:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		df_desc <- read.csv(« ../data/
+		    historical-hourly-weather-data/
+		    weather_description.csv »)
+		ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		The height of the bar is proportional to the number of cases in each group.
+		
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Bar plots}
+
+		Or a combination of a categorical variable and a continuous variable:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		ggplot(RetailSales, aes(x=Month, y=Sales)) + 
+		geom_bar(stat=« identity »)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		Using \verb|stat = « identity »| tells ggplot2 to sum the values for each group (Month) and plot bars proportional to the sums.
+		
 	\end{frame}
 
 \end{document}
