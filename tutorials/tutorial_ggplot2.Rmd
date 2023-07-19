@@ -1,0 +1,42 @@
+---
+title: "Tutorial - Command lines"
+author: "Ariane Ducellier"
+date: "7/18/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries}
+library(ggplot2)
+library(Lock5Data)
+```
+
+# Tutorial
+
+## Histograms
+
+```{r block1}
+hist(airquality$Temp)
+```
+
+```{r block2}
+qplot(airquality$Temp)
+```
+
+```{r block3}
+ggplot(airquality, aes(x=Temp)) + geom_histogram()
+```
+
+## Bar plots
+
+```{r block4}
+df_desc <- read.csv("../data/historical-hourly-weather-data/weather_description.csv")
+ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
+```
+
+```{r block5}
+ggplot(RetailSales, aes(x=Month, y=Sales)) + geom_bar(stat="identity")
+```
