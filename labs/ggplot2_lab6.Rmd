@@ -1,0 +1,38 @@
+---
+title: "Lab 6 - Using Color Differentiation in Plots"
+author: "Ariane Ducellier"
+date: "7/20/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab, we are going to visualize the relationship between loan amounts and home ownership for different credit grades (column name = grade).
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(ggplot2)
+```
+
+## Data
+
+Load the data.
+
+```{r data}
+df <- read.csv("../data/LoanStats.csv")
+dfn <- df[, c("home_ownership", "loan_amnt", "grade")]
+dfn <- na.omit(dfn)
+dfn <- subset(dfn, !dfn$home_ownership %in% c("NONE"))
+```
+
+## Plot
+
+Complete the cell with the code to make the plot.
+
+```{r plot}
+```
