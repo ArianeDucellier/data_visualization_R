@@ -307,5 +307,107 @@ dataset, aes = describe the variables from the dataset that we want to visualize
 		\end{exampleblock}{}
 
 	\end{frame}
-		
+
+	\begin{frame}[fragile]
+		\frametitle{Facets}
+
+		A Trellis display allows creating a plot for each group of a categorical variable:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		p <- ggplot(df,
+		     aes(x=gdp_per_capita,
+		     y=Electricity_consumption_per_capita)) +
+		     geom_point()
+		p + facet_grid(Country ~ .)
+		p + facet_grid(. ~ Country)
+		p + facet_wrap(~Country)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		You can group subplots horizontally, vertically or wrapped together.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Shapes and colors}
+
+		You can change shape and color for the entire plot:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		ggplot(df, aes_string(x=var1, y=var2)) +
+		geom_point(color=2, shape=2)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		Or assign a different shape and color for each group of a categorical variable:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		ggplot(df, aes_string(x=var1, y=var2)) +
+		geom_point(aes(color=Country, shape=Country))
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Themes}
+
+		Theme is used to change the non-data elements of the plot:
+
+		\begin{center}
+		\begin{tabular}{|l|l|l|}
+		\hline
+    		Theme & Type & Arguments \\ 
+		\hline
+		axis.title.x & element\_text & size, color, family, angle \\
+		\hline
+		axis.title.y & element\_text & size, color, family, angle \\
+		\hline
+		plot.background & element\_rect & fill, color, linewidth \\
+		\hline
+		panel.background & element\_rect & fill, fill, color, line width \\
+		\hline
+		panel.grid.major & element\_line & color, linetype, linewidth \\
+		\hline
+		\end{tabular}
+		\end{center}
+
+		Type \verb|?theme| to show all possible types of themes, their types and their arguments.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Facets}
+
+		A Trellis display allows creating a plot for each group of a categorical variable:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		p1 <- ggplot(dfn, aes(Genre, WorldGross)) 
+		p2 <- p1+ geom_bar(aes(fill=LeadStudio), 
+		                    stat="Identity", position="dodge")
+		p3 <- p2 + theme(axis.title.x=element_text(size=15),
+		                 axis.title.y=element_text(size=15),
+		plot.background=element_rect(fill="gray87"),
+		panel.background = element_rect(fill="beige"),
+		panel.grid.major = element_line(color="Gray",
+		                                linetype=1))
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		You can group subplots horizontally, vertically or wrapped together.
+
+	\end{frame}
+	
 \end{document}
