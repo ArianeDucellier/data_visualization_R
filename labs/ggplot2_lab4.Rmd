@@ -1,0 +1,35 @@
+---
+title: "Lab 4 - Applying Grammar of Graphics to Create a Complex Visualization"
+author: "Ariane Ducellier"
+date: "7/19/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab, we are going to visualize the relationship between electricity consumption per capita and GDP per capita.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(ggplot2)
+```
+
+## Data
+
+Load the data.
+
+```{r data}
+df <- read.csv("../data/gapminder-data.csv")
+```
+
+## Plot
+
+Complete the cell with the code to make the plot.
+
+```{r plot}
+```

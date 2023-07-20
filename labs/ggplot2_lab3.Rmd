@@ -1,0 +1,44 @@
+---
+title: "Lab 3 - Improving the Default Visualization"
+author: "Ariane Ducellier"
+date: "7/19/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab, we are going to improve some of the plots from Lab 2 by adding aesthetics to the plot.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(ggplot2)
+```
+
+## Data
+
+Load the data.
+
+```{r data}
+df_edu <- read.csv("../data/xAPI-Edu-Data.csv")
+```
+
+## Plot 1
+
+Complete the cell with the code to improve the plot.
+
+```{r plot1}
+ggplot(df_edu, aes(x=Topic)) + geom_bar()
+```
+
+## Plot 2
+
+Complete the cell with the code to improve the plot.
+
+```{r plot2}
+ggplot(df_edu, aes(x=VisitedResources)) + geom_histogram()
+```

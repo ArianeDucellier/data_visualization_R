@@ -1,5 +1,5 @@
 ---
-title: "Tutorial - Command lines"
+title: "Ggplot2 tutorial - Command lines"
 author: "Ariane Ducellier"
 date: "7/18/2023"
 output: pdf_document
@@ -14,7 +14,7 @@ library(ggplot2)
 library(Lock5Data)
 ```
 
-# Tutorial
+# Part 1 - Basic plotting in ggplot2
 
 ## Histograms
 
@@ -60,4 +60,71 @@ distance <- sapply(time, function(x) v0 * x + 0.5 * a * x^2)
 df <- data.frame(time,distance)
 ggplot(df, aes(x=time, y=distance)) + geom_point()
 ggplot(df, aes(x=time, y=distance)) + geom_line()
+```
+
+## Changing histogram defaults and adding aesthetics
+
+```{r block8}
+df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
+ggplot(df_hum, aes(x=Vancouver)) + geom_histogram()
+ggplot(df_hum, aes(x=Vancouver)) + geom_histogram(bins=15)
+ggplot(df_hum, aes(x=Vancouver)) + geom_histogram(bins=15, fill="white", color=1)
+ggplot(df_hum, aes(x=Vancouver)) +
+geom_histogram(bins=15, fill="white", color=1) +
+ggtitle("Humidity for Vancouver city") +
+xlab("Humidity") +
+theme(axis.text.x=element_text(size=12), axis.text.y=element_text(size=12))
+```
+
+## Changing boxplot defaults and adding aesthetics
+
+```{r block9}
+df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
+df_hum$datetime <- as.character(df_hum$datetime)
+df_hum$month <- substr(df_hum$datetime, 6, 7)
+ggplot(df_hum, aes(x=month, y=Vancouver)) + 
+geom_boxplot(color=1, fill=3) + 
+ylab("Humidity") + 
+theme(axis.text.x=element_text(size=15),
+axis.text.y=element_text(size=15),
+axis.title.x=element_text(size=15, color=2),
+axis.title.y=element_text(size=15, color=2))
+```
+
+# Part 2 - Grammar of graphics and visual components
+
+## Layers
+
+```{r block10}
+df <- read.csv("../data/gapminder-data.csv")
+p1 <- ggplot(df, aes(x=Electricity_consumption_per_capita))
+p2 <- p1 + geom_histogram()
+p3 <- p1 + geom_histogram(bins=15)
+p4 <- p3 + xlab("Electricity consumption per capita")
+p2
+p3
+p4
+```
+
+## Scales
+
+```{r block11}
+p1 <- ggplot(df, aes(x=gdp_per_capita))
+p2 <- p1 + geom_histogram()
+p3 <- p2 + scale_x_continuous(name='GDP per capita ($)',
+                              limits=c(0, 50000),
+                              breaks=seq(0, 40000, 4000),
+                              labels=c('0', '4K', '8K', '12K', '16K', '20K',
+                                       '24K', '28K', '32K', '36K', '40K'))
+p3
+```
+
+### Polar coordinates
+
+```{r block12}
+t <- seq(0, 360, by=15)
+r <- 2
+qplot(r, t) + 
+coord_polar(theta="y") +
+scale_y_continuous(breaks=seq(0, 360, 30))
 ```
