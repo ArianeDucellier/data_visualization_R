@@ -1,22 +1,15 @@
-\frametitle{Facets}
+\frametitle{Themes}
 
-A Trellis display allows creating a plot for each group of a categorical variable:
+You can also change the color palette.
+
+Type \verb|?scale_fill_brewer| to see all the color palettes available.
 
 \begin{exampleblock}{}
 \begin{center}
 \begin{BVerbatim}
-p1 <- ggplot(dfn, aes(Genre, WorldGross))
-p2 <- p1+ geom_bar(aes(fill=LeadStudio),
-                    stat="Identity", position="dodge")
-p3 <- p2 + theme(axis.title.x=element_text(size=15),
-                 axis.title.y=element_text(size=15),
-plot.background=element_rect(fill="gray87"),
-panel.background = element_rect(fill="beige"),
-panel.grid.major = element_line(color="Gray",
-                                linetype=1))
+p4 <- p2 + theme_bw() + ggtitle("theme_bw()")
+p4 + scale_fill_brewer(palette="Spectral")
 \end{BVerbatim}
 \end{center}
 \end{exampleblock}{}
-
-You can group subplots horizontally, vertically or wrapped together.
 
