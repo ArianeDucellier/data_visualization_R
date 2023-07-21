@@ -1,0 +1,35 @@
+---
+title: "Lab 7 - Using Theemes and Color Differentiation in a Plot"
+author: "Ariane Ducellier"
+date: "7/20/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab, we are going to visualize the relationship between BMI for males and BMI for females for different countries.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(ggplot2)
+```
+
+## Data
+
+Load the data.
+
+```{r data}
+df <- read.csv("../data/gapminder-data.csv")
+```
+
+## Plot
+
+Complete the cell with the code to make the plot.
+
+```{r plot}
+```
