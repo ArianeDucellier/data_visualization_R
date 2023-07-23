@@ -386,9 +386,9 @@ dataset, aes = describe the variables from the dataset that we want to visualize
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{Facets}
+		\frametitle{Themes}
 
-		A Trellis display allows creating a plot for each group of a categorical variable:
+		You can add themes to the plot to customize the non-data elements:
 
 		\begin{exampleblock}{}
 		\begin{center}
@@ -406,8 +406,80 @@ dataset, aes = describe the variables from the dataset that we want to visualize
 		\end{center}
 		\end{exampleblock}{}
 
-		You can group subplots horizontally, vertically or wrapped together.
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Themes}
+
+		You can also use predefined themes:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		p2 + theme_bw() + ggtitle("theme_bw()")
+		p2 + theme_classic() + ggtitle("theme_classic()")
+		p2 + theme_classic() + ggtitle("theme_gray()")
+		p2 + theme_minimal() + ggtitle("theme_minimal()")
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
 
 	\end{frame}
-	
+
+	\begin{frame}[fragile]
+		\frametitle{Themes}
+
+		You can also use define your own theme:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		mytheme <- theme(legend.title=element_blank(),
+		legend.position="bottom",
+		text=element_text(colour="Blue"),
+		axis.text=element_text(size=12, color="Red"),
+		axis.title=element_text(size=rel(1.5)))
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		and use it for a single plot:
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		p2 + mytheme + ggtitle("Changed Plot with my theme")
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		or for all the plots by placing it at the beginning of your code:
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		theme_set(my_theme)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Themes}
+
+		You can also change the color palette.
+
+		Type \verb|?scale_fill_brewer| to see all the color palettes available.
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		p4 <- p2 + theme_bw() + ggtitle("theme_bw()")
+		p4 + scale_fill_brewer(palette="Spectral")
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+	\end{frame}
+
 \end{document}
