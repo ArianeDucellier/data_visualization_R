@@ -1,0 +1,35 @@
+---
+title: "Lab 8 - Using Density PLots to Compare Distributions"
+author: "Ariane Ducellier"
+date: "7/22/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab, we are going to visualize the distribution of tip amounts in restaurants for different days of the week.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(ggplot2)
+```
+
+## Data
+
+Use the data from the RestaurantTips dataset.
+
+```{r data}
+library("Lock5Data")
+```
+
+## Plot
+
+Complete the cell with the code to make the plot.
+
+```{r plot}
+```

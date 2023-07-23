@@ -1,0 +1,45 @@
+---
+title: "Lab 9 - Plot the Monthly Closing Stock Prices and the Mean Values"
+author: "Ariane Ducellier"
+date: "7/22/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab, we are going to visualize the monthly fluctuation in stock prices.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(ggplot2)
+```
+
+## Data
+
+Use the data from the RestaurantTips dataset.
+
+```{r data}
+df_fb <- read.csv("../data/FB.csv")
+df_fb$Date <- as.Date(df_fb$Date)
+df_fb$Month <- strftime(df_fb$Date, "%m")
+df_fb$Month <- as.numeric(df_fb$Month)
+```
+
+## Plot
+
+Complete the cell with the code to make the plot.
+
+```{r plot}
+ggplot(df_fb, aes(Month, Close)) + 
+geom_point(color="red", alpha=1/2, position = position_jitter(h=0.0, w=0.0)) +
+stat_summary(geom = "line", fun = "mean", color = "orange", size = 1) +
+stat_summary(geom = "line", fun = "quantile", fun.args = list(probs=.9), linetype = 2, color = "red") +
+scale_x_continuous(breaks=seq(0, 13, 1)) +
+ggtitle("Monthly Closing Stock Prices: Facebook") +
+theme_classic()
+```
