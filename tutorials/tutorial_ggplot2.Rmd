@@ -1,13 +1,15 @@
 ---
 title: "Ggplot2 tutorial - Command lines"
 author: "Ariane Ducellier"
-date: "7/18/2023"
+date: "Fall 2023"
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Load R packages
 
 ```{r libraries}
 library(corrplot)
@@ -18,7 +20,7 @@ library(maps)
 library(mapproj)
 ```
 
-# Part 1 - Basic plotting in ggplot2
+# Part 1 - Basic Plotting in ggplot2
 
 ## Histograms
 
@@ -42,7 +44,12 @@ ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
 ```
 
 ```{r block5}
-ggplot(RetailSales, aes(x=Month, y=Sales)) + geom_bar(stat="identity")
+df <- na.omit(RetailSales)
+months_of_the_year <- c("Jan", "Feb", "Mar", "Apr", "May", "June",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec")
+ggplot(df) +
+geom_bar(aes(x=factor(Month, months_of_the_year), y=Sales), stat="identity") +
+xlab("Month")
 ```
 
 ## Box plots
@@ -50,8 +57,9 @@ ggplot(RetailSales, aes(x=Month, y=Sales)) + geom_bar(stat="identity")
 ```{r block6}
 df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
 df_hum$datetime <- as.character(df_hum$datetime)
-df_hum$month <- substr(df_hum$datetime, 6, 7)
-ggplot(df_hum, aes(x=month, y=Vancouver)) + geom_boxplot()
+df_hum$Month <- substr(df_hum$datetime, 6, 7)
+ggplot(df_hum, aes(x=Month, y=Vancouver)) +
+geom_boxplot()
 ```
 
 ## Scatter plots and line plots
@@ -85,17 +93,17 @@ theme(axis.text.x=element_text(size=12), axis.text.y=element_text(size=12))
 ```{r block9}
 df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
 df_hum$datetime <- as.character(df_hum$datetime)
-df_hum$month <- substr(df_hum$datetime, 6, 7)
-ggplot(df_hum, aes(x=month, y=Vancouver)) + 
-geom_boxplot(color=1, fill=3) + 
+df_hum$Month <- substr(df_hum$datetime, 6, 7)
+ggplot(df_hum, aes(x=Month, y=Vancouver)) + 
+geom_boxplot(color="gray20", fill="cadetblue2") + 
 ylab("Humidity") + 
 theme(axis.text.x=element_text(size=15),
 axis.text.y=element_text(size=15),
-axis.title.x=element_text(size=15, color=2),
-axis.title.y=element_text(size=15, color=2))
+axis.title.x=element_text(size=15, color="gray20"),
+axis.title.y=element_text(size=15, color="gray20"))
 ```
 
-# Part 2 - Grammar of graphics and visual components
+# Part 2 - Grammar of Graphics and Visual Components
 
 ## Layers
 
@@ -103,16 +111,23 @@ axis.title.y=element_text(size=15, color=2))
 df <- read.csv("../data/gapminder-data.csv")
 p1 <- ggplot(df, aes(x=Electricity_consumption_per_capita))
 p2 <- p1 + geom_histogram()
-p3 <- p1 + geom_histogram(bins=15)
-p4 <- p3 + xlab("Electricity consumption per capita")
 p2
+```
+
+```{r block11}
+p3 <- p1 + geom_histogram(bins=15)
 p3
+```
+
+```{r block12}
+p4 <- p3 + xlab("Electricity consumption per capita")
 p4
 ```
 
 ## Scales
 
-```{r block11}
+```{r block13}
+df <- read.csv("../data/gapminder-data.csv")
 p1 <- ggplot(df, aes(x=gdp_per_capita))
 p2 <- p1 + geom_histogram()
 p3 <- p2 + scale_x_continuous(name='GDP per capita ($)',
@@ -125,26 +140,36 @@ p3
 
 ## Polar coordinates
 
-```{r block12}
+```{r block14}
 t <- seq(0, 360, by=15)
 r <- 2
 qplot(r, t) + 
 coord_polar(theta="y") +
-scale_y_continuous(breaks=seq(0, 360, 30))
+scale_y_continuous(breaks=seq(0, 360, 30)) +
+theme(axis.title.x=element_blank(),
+      axis.title.y=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks.y=element_blank())
 ```
 
 ## Facets
 
-```{r block13}
+```{r block15, fig.height = 12, fig.width = 4, fig.align="center"}
+df <- read.csv("../data/gapminder-data.csv")
 p <- ggplot(df, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) + geom_point()
-p + facet_grid(Country ~ .)
+p + facet_grid(factor(Country, stringr::str_sort(unique(Country))) ~ .) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita")
+```
+
+```{r block}
 p + facet_grid(. ~ Country)
 p + facet_wrap(~Country)
 ```
 
 ## Shapes and colors
 
-```{r block14}
+```{r block16}
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States"))
 var1 <- "Electricity_consumption_per_capita"
 var2 <- "gdp_per_capita"
@@ -161,7 +186,7 @@ grid.arrange(p1, p2, nrow = 2)
 
 ## Themes
 
-```{r block15}
+```{r block17}
 dfn <- subset(HollywoodMovies,
               Genre %in% c("Action", "Adventure", "Comedy", "Drama",
               "Romantic Comedy") &
@@ -177,7 +202,7 @@ p3 <- p2 + theme(axis.title.x=element_text(size=15),
 p3
 ```
 
-```{r block16}
+```{r block18}
 p4 <- p2 + theme_bw() + ggtitle("theme_bw()")
 p5 <- p2 + theme_classic() + ggtitle("theme_classic()")
 p6 <- p2 + theme_classic() + ggtitle("theme_gray()")
@@ -185,7 +210,7 @@ p7 <- p2 + theme_minimal() + ggtitle("theme_minimal()")
 grid.arrange(p4, p5, p6, p7, nrow=2, ncol=2)
 ```
 
-```{r block17}
+```{r block19}
 mytheme <- theme(legend.title=element_blank(),
 legend.position="bottom",
 text = element_text(color="Blue"),
@@ -196,7 +221,7 @@ p8 <- p2 + mytheme + ggtitle("Changed Plot with my theme")
 grid.arrange(p2, p8, ncol=2)
 ```
 
-```{r block18}
+```{r block20}
 p4 + scale_fill_brewer(palette="Spectral")
 p4 + scale_fill_brewer(palette="Pastel1")
 p4 + scale_fill_brewer(palette="Oranges")
@@ -206,7 +231,7 @@ p4 + scale_fill_brewer(palette="Oranges")
 
 ## Bubble charts
 
-```{r block19}
+```{r block21}
 df <- read.csv("../data/gapminder-data.csv")
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
 
@@ -219,12 +244,12 @@ scale_size(breaks=c(0, 1e+8, 0.3e+9, 0.5e+9, 1e+9, 1.5e+9), range=c(1, 5))
 
 ## Density plots
 
-```{r block20}
+```{r block22}
 df <- read.csv("../data/LoanStats.csv")
 ggplot(df, aes(x=loan_amnt)) + geom_density() + facet_wrap(~grade)
 ```
 
-```{r block21}
+```{r block23}
 df <- read.csv("../data/LoanStats.csv")
 ggplot(df, aes(x=loan_amnt)) + geom_density(aes(fill=grade), alpha=1/2) +
 scale_fill_brewer(palette="Dark2") + xlab("Loan Amount") + theme_light()
@@ -232,7 +257,7 @@ scale_fill_brewer(palette="Dark2") + xlab("Loan Amount") + theme_light()
 
 ## Time series
 
-```{r block22}
+```{r block24}
 df_fb <- read.csv("../data/FB.csv")
 df_fb$Date <- as.Date(df_fb$Date)
 ggplot(df_fb, aes(x=Date, y=Close, group=1)) + 
@@ -245,7 +270,7 @@ theme_bw()
 
 ## Statistical summaries
 
-```{r block_a}
+```{r block_25}
 df_fb <- read.csv("../data/FB.csv")
 df_fb$Date <- as.Date(df_fb$Date)
 df_fb$Month <- strftime(df_fb$Date,"%m")
@@ -263,7 +288,7 @@ theme_classic()
 
 ## Linear regression
 
-```{r block_b}
+```{r block_26}
 df <- read.csv("../data/gapminder-data.csv")
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
 ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita)) + geom_point(aes(color=Country)) +
@@ -271,7 +296,7 @@ xlim(0, 30000) +
 stat_smooth(method=lm)
 ```
 
-```{r block_c}
+```{r block_27}
 df <- read.csv("../data/gapminder-data.csv")
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
 ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita, color=Country)) +
@@ -281,7 +306,7 @@ stat_smooth(method=lm)
 
 ## Correlations
 
-```{r block_d}
+```{r block_28}
 df <- read.csv("../data/gapminder-data.csv")
 df <- df[, colnames(df)[4:9]]
 df <- na.omit(df)
@@ -294,17 +319,17 @@ corrplot(M, method="ellipse")
 
 ## Maps
 
-```{r block23}
+```{r block29}
 states_map <- map_data("state")
 ggplot(states_map, aes(x=long, y=lat, group=group)) +    geom_polygon(fill="white", colour="black")
 ```
 
-```{r block24}
+```{r block30}
 ggplot(states_map, aes(x=long, y=lat, group=group)) +    
 geom_path() + coord_map("mercator")
 ```
 
-```{r block25}
+```{r block31}
 europe <- map_data("world",
     region=c("Germany", "Spain", "Italy", "France", "UK", "Ireland")) 
 ggplot(europe, aes(x=long, y=lat, group=group, fill=region)) +    geom_polygon(color="black") +
