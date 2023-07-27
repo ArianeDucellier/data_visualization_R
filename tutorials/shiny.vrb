@@ -1,0 +1,19 @@
+\frametitle{R Markdown with interactive Shiny elements}
+
+\begin{exampleblock}{}
+\begin{BVerbatim}
+Go to File >
+      New File >
+      R Markdown >
+      Shiny
+\end{BVerbatim}
+\end{exampleblock}{}
+
+\vspace{2em}
+
+Fill the document with the code from \verb|tutorial_shiny_1.Rmd|.
+
+\vspace{2em}
+
+Click on \verb|Run Document|.
+

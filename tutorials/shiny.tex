@@ -1,0 +1,137 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Shiny tutorial]{Data Visualization with R \\ Shiny tutorial}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2023}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{What is Shiny?}
+		
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Shiny: Example 1}
+
+		Let us run several examples:
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		library(shiny)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		runExample(« 0! »_html)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		runExample("01_hello")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Shiny: Example 1}
+
+		UI part:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		ui <- fluidPage(
+		      titlePanel(...),
+		            sidebarLayout(
+		                  sidebarPanel(
+		                        sliderInput(
+		                              ...
+		                        ),
+		                  mainPanel(
+		                        plotOutput(ouputId="displot »)
+		                  )
+		            )
+		      )
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Shiny: Example 1}
+
+		Server part:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		server <- function(input, output) {
+		      output$distplot <- renderPlot({
+		            ...
+		      })
+		}
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		Creation of Shiny app:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		shinyApp(ui=ui, server=server)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+	
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{R Markdown with interactive Shiny elements}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		Go to File >
+		      New File >
+		      R Markdown >
+		      Shiny
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		Fill the document with the code from \verb|tutorial_shiny_1.Rmd|.
+
+		\vspace{2em}
+
+		Click on \verb|Run Document|.
+	
+	\end{frame}
+
+\end{document}
