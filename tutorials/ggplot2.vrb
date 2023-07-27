@@ -1,0 +1,27 @@
+\frametitle{Maps}
+
+To plot the data, we may use \verb|geom_polygom| or \verb|geom_path|.
+
+\vspace{2em}
+
+The projection is defined with \verb|coord_map|.
+
+\vspace{2em}
+
+\begin{exampleblock}{}
+\begin{BVerbatim}
+ggplot(states_map, aes(x=long, y=lat, group=group)) +
+geom_polygon(fill="white", color="black")
+\end{BVerbatim}
+\end{exampleblock}{}
+
+\vspace{2em}
+
+\begin{exampleblock}{}
+\begin{BVerbatim}
+ggplot(states_map, aes(x=long, y=lat, group=group)) +
+geom_path() +
+coord_map("mercator")
+\end{BVerbatim}
+\end{exampleblock}{}
+
