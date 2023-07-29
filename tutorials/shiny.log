@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.15)  26 JUL 2023 16:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.15)  29 JUL 2023 11:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1194,26 +1194,12 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 ]
 \openout4 = `shiny.vrb'.
 
- (./shiny.vrb
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no « in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no   in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no   in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no » in font cmtt10!
-) [3
+ (./shiny.vrb) [3
 
 ]
 \openout4 = `shiny.vrb'.
 
- (./shiny.vrb
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no   in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no » in font cmtt10!
-) [4
+ (./shiny.vrb) [4
 
 ]
 \openout4 = `shiny.vrb'.
@@ -1227,6 +1213,31 @@ Missing character: There is no » in font cmtt10!
 [6
 
 ]
+\openout4 = `shiny.vrb'.
+
+ (./shiny.vrb) [7
+
+]
+\openout4 = `shiny.vrb'.
+
+ (./shiny.vrb) [8
+
+]
+\openout4 = `shiny.vrb'.
+
+ (./shiny.vrb) [9
+
+]
+\openout4 = `shiny.vrb'.
+
+ (./shiny.vrb
+Overfull \hbox (3.13927pt too wide) in paragraph at lines 8--14
+[][]  
+ []
+
+) [10
+
+]
 \tf@nav=\write7
 \openout7 = `shiny.nav'.
 
@@ -1236,11 +1247,11 @@ Missing character: There is no » in font cmtt10!
 \tf@snm=\write9
 \openout9 = `shiny.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 137.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 137.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 252.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 252.
  (./shiny.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 137.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 137.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 252.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 252.
 Package rerunfilecheck Info: File `shiny.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1248,13 +1259,13 @@ Package rerunfilecheck Info: File `shiny.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 137.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 252.
  ) 
 Here is how much of TeX's memory you used:
- 22670 strings out of 493117
- 470837 string characters out of 6135433
+ 22730 strings out of 493117
+ 472052 string characters out of 6135433
  560290 words of memory out of 5000000
- 25614 multiletter control sequences out of 15000+600000
+ 25658 multiletter control sequences out of 15000+600000
  5620 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,71p,385b,552s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1262,10 +1273,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
 usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on shiny.pdf (6 pages, 62990 bytes).
+Output written on shiny.pdf (10 pages, 74323 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 179 compressed objects within 2 object streams
- 13 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 315 PDF objects out of 1000 (max. 8388607)
+ 283 compressed objects within 3 object streams
+ 21 named destinations out of 1000 (max. 500000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,32 @@
+\documentclass[letterpaper, 12pt]{article}
+
+%\usepackage{color}
+%\usepackage{fancyvrb}
+%\usepackage{gensymb}
+%\usepackage{hyperref}
+%\usepackage{textcomp}
+%\usepackage{tikz}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large{Shiny - Lab 2}}
+\end{center}
+
+\vspace{2em}
+
+Create a folder with two files \verb|ui.R| and \verb|server.R|.
+
+\vspace{1em}
+
+Write code to:
+\begin{itemize}
+	\item Let the user define the number of observations $N$ and the title of the plot,
+	\item Make a histogram of the values obtained when generating $N$ samples from a normal distribution.
+\end{itemize}
+
+\vspace{1em}
+
+You may use \verb|sliderInput(inputId, label, min, max, value, step)| for the slider and \verb|plotOutput()| to include the plot in the file \verb|ui.R|. You may use \verb|renderPlot()| to make the plot in the file \verb|server.R|.
+ 
+\end{document}

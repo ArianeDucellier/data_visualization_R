@@ -1,19 +1,28 @@
-\frametitle{R Markdown with interactive Shiny elements}
+\frametitle{Shiny - Minimal example}
+
+\verb|server.R| contains a function describing how to use the input from \verb|ui.R| to produce the outputs from \verb|ui.R|.
+
+\vspace{1em}
 
 \begin{exampleblock}{}
 \begin{BVerbatim}
-Go to File >
-      New File >
-      R Markdown >
-      Shiny
+function(input, output){
+  output$textDisplay = renderText({...input$comment...
+  })
+ )
 \end{BVerbatim}
 \end{exampleblock}{}
 
-\vspace{2em}
+\vspace{1em}
 
-Fill the document with the code from \verb|tutorial_shiny_1.Rmd|.
+The \verb|function(input, output)| contains the reactive components of the application. For example:
 
-\vspace{2em}
-
-Click on \verb|Run Document|.
+\begin{exampleblock}{}
+\begin{BVerbatim}
+renderText(expr,
+           env = parent.frame(),
+           quoted = FALSE,
+           func = NULL)
+\end{BVerbatim}
+\end{exampleblock}{}
 
