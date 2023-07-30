@@ -1,28 +1,23 @@
-\frametitle{Shiny - Minimal example}
+\frametitle{Reactive objects}
 
-\verb|server.R| contains a function describing how to use the input from \verb|ui.R| to produce the outputs from \verb|ui.R|.
+In the \verb|server.r| file, we filter the data using a reactive object:
 
 \vspace{1em}
 
 \begin{exampleblock}{}
-\begin{BVerbatim}
-function(input, output){
-  output$textDisplay = renderText({...input$comment...
-  })
- )
-\end{BVerbatim}
+\begin{lstlisting}
+theData = reactive({
+  mapData %>%
+    filter(year >= input$year
+})
+\end{lstlisting}
 \end{exampleblock}{}
 
 \vspace{1em}
 
-The \verb|function(input, output)| contains the reactive components of the application. For example:
-
-\begin{exampleblock}{}
-\begin{BVerbatim}
-renderText(expr,
-           env = parent.frame(),
-           quoted = FALSE,
-           func = NULL)
-\end{BVerbatim}
-\end{exampleblock}{}
+\begin{itemize}
+\item A reactive object changes when its input changes.
+\item When it runs, the output is cached.
+\item If it is called several times in an application, it will not run again if the inputs are unchanged.
+\end{itemize}
 

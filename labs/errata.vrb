@@ -1,9 +1,7 @@
-\frametitle{Errata in: Applied Data Visualization with R and Ggplot2}
+\frametitle{Errata in: Web Application Development with R Using Shiny}
 
 \begin{itemize}
 
-\item \textbf{Page 10}: Use command: \begin{verbatim}dim(df_hum)\end{verbatim} instead of: \begin{verbatim}ndim(df_hum)\end{verbatim}.
-
-\item \textbf{Page 16}: The function qplot is deprecated in the latest versions of ggplot2. It should still work but give a warning.
+\item \textbf{Page 46}: To use \verb|mutate_geocode|, you need to set an account on \href{https://mapsplatform.google.com/}{Google Maps Platform} and get an API key. Once you have the key, run \verb|register_google(key="your_key »)| in the console to enable \verb|mutate_geocode| to fetch the data from Google Maps Platform.
 
 \end{itemize}

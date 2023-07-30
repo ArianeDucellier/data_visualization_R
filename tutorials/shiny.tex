@@ -5,6 +5,7 @@
 \usepackage{fancyvrb}
 \usepackage{gensymb}
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage{textcomp}
 \usepackage{tikz}
 
@@ -136,7 +137,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{Shiny - Minimal example}
+		\frametitle{Minimal example}
 
 		We need the files \verb|ui.R| and \verb|server.R| that are kept within the same folder. \verb|ui.R| describe the user interface.
 
@@ -164,7 +165,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{Shiny - Minimal example}
+		\frametitle{Minimal example}
 		
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
@@ -186,7 +187,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{Shiny - Minimal example}
+		\frametitle{Minimal example}
 
 		The panels contain input and output widgets:
 
@@ -219,7 +220,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{Shiny - Minimal example}
+		\frametitle{Minimal example}
 
 		\verb|server.R| contains a function describing how to use the input from \verb|ui.R| to produce the outputs from \verb|ui.R|.
 
@@ -246,6 +247,185 @@
 		           func = NULL)
 		\end{BVerbatim}
 		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Run the minimal example}
+
+		Set the working directory to the folder that contains \verb|ui.R| and \verb|server.R|,
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		setwd("/Users/my_name/Documents/my_folder/")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		load the Shiny package:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		library(shiny)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		and run the application:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		runApp()
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Various widgets}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		checkboxGroupInput(inputId, label, choices=NULL, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		checkboxInput(inputId, label, value=FALSE, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		dateInput(inputId, label, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		dateRangeInput(inputId, label, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		numericInput(inputId, label, value, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		radioButtons(inputId, label, choices=NULL, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Various widgets}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		selectInput(inputId, label, choices, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		sliderInput(inputId, label, min, max, value, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		textInput(inputId, label, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		To see an example of how the widgets look like, type:
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		library(shiny)
+		runGist(6571951)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Panels}
+
+		We can show multiple frames in screen and let the user select one. The processing of the data is only carried out for the currently selected tab.
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		tabsetPanel(
+		  tabPanel("title_text", textOutput("name_text")),
+		  tabPanel("title_plot", plotoutput("name_plot")),
+		  tabPanel("title_map", leafletOutput("name_map"))
+		)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		The \verb|leaflet| package allows us to produce maps shown with \verb|leafletOutput| in the \verb|ui.R| and created with \verb|renderLeaflet| in the \verb|server.R| file.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Reactive objects}
+
+		In the \verb|server.r| file, we filter the data using a reactive object:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{lstlisting}
+		theData = reactive({
+		  mapData %>%
+		    filter(year >= input$year
+		})
+		\end{lstlisting}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{itemize}
+			\item A reactive object changes when its input changes.
+			\item When it runs, the output is cached.
+			\item If it is called several times in an application, it will not run again if the inputs are unchanged.
+		\end{itemize}
 
 	\end{frame}
 

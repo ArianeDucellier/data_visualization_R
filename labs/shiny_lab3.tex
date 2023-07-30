@@ -1,0 +1,26 @@
+\documentclass[letterpaper, 12pt]{article}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large{Shiny - Lab 3}}
+\end{center}
+
+\vspace{2em}
+
+In this lab, we will visualize the national sites dataset (\verb|nationalSites.Rdata|). Create a folder with two files \verb|ui.R| and \verb|server.R| and the data file.
+
+\vspace{1em}
+
+Write code to:
+\begin{itemize}
+	\item Let the user choose between plotting sites that contain the string "National Park", "National Historic Site", or "National Monument".
+	\item See the corresponding number of sites in one tab.
+	\item See a map of the sites in another tab. Include the possibility of clicking on a site to see its name.
+\end{itemize}
+
+\vspace{1em}
+
+You may use the \verb|str_detect| function from the \verb|tidyverse| package to filter the national sites and the \verb|popup| argument from the \verb|addCircleMarkers| function to be able to click on a site and see its name.
+ 
+\end{document}
