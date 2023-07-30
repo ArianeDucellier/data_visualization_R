@@ -1,37 +1,23 @@
-\frametitle{Various widgets}
+\frametitle{Reactive objects}
 
-\begin{exampleblock}{}
-\begin{BVerbatim}
-selectInput(inputId, label, choices, ...)
-\end{BVerbatim}
-\end{exampleblock}{}
+In the \verb|server.r| file, we filter the data using a reactive object:
 
 \vspace{1em}
 
 \begin{exampleblock}{}
-\begin{BVerbatim}
-sliderInput(inputId, label, min, max, value, ...)
-\end{BVerbatim}
+\begin{lstlisting}
+theData = reactive({
+  mapData %>%
+    filter(year >= input$year
+})
+\end{lstlisting}
 \end{exampleblock}{}
 
 \vspace{1em}
 
-\begin{exampleblock}{}
-\begin{BVerbatim}
-textInput(inputId, label, ...)
-\end{BVerbatim}
-\end{exampleblock}{}
-
-\vspace{1em}
-
-To see an example of how the widgets look like, type:
-
-\vspace{1em}
-
-\begin{exampleblock}{}
-\begin{BVerbatim}
-library(shiny)
-runGist(6571951)
-\end{BVerbatim}
-\end{exampleblock}{}
+\begin{itemize}
+\item A reactive object changes when its input changes.
+\item When it runs, the output is cached.
+\item If it is called several times in an application, it will not run again if the inputs are unchanged.
+\end{itemize}
 

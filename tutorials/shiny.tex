@@ -5,6 +5,7 @@
 \usepackage{fancyvrb}
 \usepackage{gensymb}
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage{textcomp}
 \usepackage{tikz}
 
@@ -376,6 +377,55 @@
 		runGist(6571951)
 		\end{BVerbatim}
 		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Panels}
+
+		We can show multiple frames in screen and let the user select one. The processing of the data is only carried out for the currently selected tab.
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		tabsetPanel(
+		  tabPanel("title_text", textOutput("name_text")),
+		  tabPanel("title_plot", plotoutput("name_plot")),
+		  tabPanel("title_map", leafletOutput("name_map"))
+		)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		The \verb|leaflet| package allows us to produce maps shown with \verb|leafletOutput| in the \verb|ui.R| and created with \verb|renderLeaflet| in the \verb|server.R| file.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Reactive objects}
+
+		In the \verb|server.r| file, we filter the data using a reactive object:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{lstlisting}
+		theData = reactive({
+		  mapData %>%
+		    filter(year >= input$year
+		})
+		\end{lstlisting}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{itemize}
+			\item A reactive object changes when its input changes.
+			\item When it runs, the output is cached.
+			\item If it is called several times in an application, it will not run again if the inputs are unchanged.
+		\end{itemize}
 
 	\end{frame}
 
