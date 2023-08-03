@@ -1,6 +1,5 @@
 
 library(tidyverse)
-library(gapminder)
 library(leaflet)
 
 load("geocodedData.Rdata")
