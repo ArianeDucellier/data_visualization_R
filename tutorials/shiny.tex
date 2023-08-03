@@ -656,5 +656,103 @@
 		\end{exampleblock}{}
 
 	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{R Flexdashboard}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		Go to File >
+		      New File >
+		      R Markdown >
+		      From Template >
+		      Flex Dashboard
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		Click on \verb|Knit| to see the empty dashboard.
 	
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{R Flexdashboard}
+
+		In the first R block, load the libraries and the data:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		library(flex dashboard)
+		library(tidyverse)
+		library(leaflet)
+		load("geocodedData.Rdata")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		Change the names of the R Markdown headers and fill the R blocks with the code from \verb|dashboard1.Rmd|.
+
+		\vspace{2em}
+
+		Click on \verb|Knit| to see the final dashboard.
+	
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Adding shiny to the flexdashboard}
+
+		Modify the header by adding shiny and using a \verb|rows| orientation:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		title: "Flexdashboard 2"
+		runtime: shiny
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		We will add one sidebar column:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		Column {.sidebar}
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		We fill the R block with R shiny code to create a slider and a checkbox as done previously in \verb|ui.R|.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Adding shiny to the flexdashboard}
+
+		Create a simple row and a row with several tabs:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		Row
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		Row {.tabset}
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		We fill the R block with R shiny code to create plots as done previously in \verb|server.R|.
+
+		\vspace{2em}
+
+		In this case, the filtering is done for every block of R code. We cannot define a reactive object to filter the years.
+ 	
+	\end{frame}
+
 \end{document}

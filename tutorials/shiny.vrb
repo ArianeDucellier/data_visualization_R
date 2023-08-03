@@ -1,22 +1,24 @@
-\frametitle{Progress bar}
+\frametitle{Adding shiny to the flexdashboard}
 
-If some computation in \verb|server.R| can take a long time, it is useful to wrap the corresponding code inside the Shiny \verb|withProgress()| function.
+Create a simple row and a row with several tabs:
 
-\vspace{1em}
-
-In \verb|server.R|
 \begin{exampleblock}{}
 \begin{BVerbatim}
-withProgress(message = ... ,
-  detail = ‘ ... ‘, value = 0,
-  ... function code ...
-  incProgress(1/3)
-  ... function code ...
-  incProgress(1/3)
-  ... function code ...
-  incProgress(1/3)
-  ... function code ...
-})
+Row
 \end{BVerbatim}
 \end{exampleblock}{}
+
+\begin{exampleblock}{}
+\begin{BVerbatim}
+Row {.tabset}
+\end{BVerbatim}
+\end{exampleblock}{}
+
+\vspace{2em}
+
+We fill the R block with R shiny code to create plots as done previously in \verb|server.R|.
+
+\vspace{2em}
+
+In this case, the filtering is done for every block of R code. We cannot define a reactive object to filter the years.
 
