@@ -429,4 +429,232 @@
 
 	\end{frame}
 
+	\begin{frame}[fragile]
+		\frametitle{Simple layouts}
+		
+		Left-to-right and top-to-bottom. The elements reorder themselves when resizing the window.
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		flowLayout( ... )
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Top-to-bottom
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		verticalLayout( ... )
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Left-to-right with manually set widths
+		\begin{exampleblock}{}
+		\begin{lstlisting}
+		splitLayout(cellWidths = c("25%", "75%"),
+		            ... ),
+		\end{lstlisting}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Complete layouts}
+		
+		Side bar and main panel
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		fluidpage(
+		  sidebarLayout(sidebarPanel, mainPanel, position))
+		)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Top level navigation bar and several tabs
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		navbarPage(title, tabPanel)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Left navigation bar and several tabs
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		fluidpage(
+		  navlistPanel(title, tabPanel)
+		)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Complete layouts}
+		
+		Rows and columns. The sum of the widths of the columns must be equal to 12.
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		fluidpage(
+		  fluidrow(
+		    column(width=4, ...),
+		    column(width=4, ...), ... ))
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Combination of layouts
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		fluidPage(
+		  fluidRow(
+		    column(width=4, ...), column(width=8, ...)),
+		  splitLayout( ... ),
+		  verticalLayout( ... )
+		)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Hiding elements}
+		
+		Name the panels:
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		tabsetPanel(id = "theTabs",
+		  tabPanel( ... , value = "trend"),
+		  ...
+		)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Add a condition to show an UI element only if a tab is selected:
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		conditionalpanel(
+		  condition = "input.theTabs == ‘trend’",
+		  checkboxInput( ... )
+		)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Tables - Basic Shiny}
+		
+		In \verb|ui.R|:
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		tableOutput("textDisplay")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		In \verb|server.R|
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		output$textDisplay = renderTable({
+		  getMat = matrix(c( ... ), ncol = 2, byrow = TRUE)
+		  colnames(getMat) = c("Value", "Class")
+		  getMat
+		})
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Tables - With package DT (DataTable)}
+		
+		In \verb|ui.R|:
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		dataTableOutput("countryTable")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		In \verb|server.R|
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		output$countryTable = renderDataTable({
+		  dataTable(
+		    ... ,
+		    colnames = ... ,
+		    caption = ... ,
+		    filter = "top",
+		    options = list(pageLength = 15,
+		                   lengthMenu = c(10, 20, 50))
+		})
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Reactive user interfaces}
+		
+		In \verb|ui.R|:
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		uiOutput("yearSelectorUI")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		In \verb|server.R|
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		output$yearSelectorUI = renderUI(
+		  selectedYears = ...
+		  selectInput( ... , selectedYears)
+		})
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		When the value in \verb|selectedYears| change, the choice of years in the widget will also change.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Progress bar}
+
+		If some computation in \verb|server.R| can take a long time, it is useful to wrap the corresponding code inside the Shiny \verb|withProgress()| function.
+
+		\vspace{1em}
+
+		In \verb|server.R|
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		withProgress(message = ... ,
+		  detail = ‘ ... ‘, value = 0,
+		  ... function code ...
+		  incProgress(1/3)
+		  ... function code ...
+		  incProgress(1/3)
+		  ... function code ...
+		  incProgress(1/3)
+		  ... function code ...
+		})
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+	
 \end{document}

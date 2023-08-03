@@ -1,23 +1,22 @@
-\frametitle{Reactive objects}
+\frametitle{Progress bar}
 
-In the \verb|server.r| file, we filter the data using a reactive object:
+If some computation in \verb|server.R| can take a long time, it is useful to wrap the corresponding code inside the Shiny \verb|withProgress()| function.
 
 \vspace{1em}
 
+In \verb|server.R|
 \begin{exampleblock}{}
-\begin{lstlisting}
-theData = reactive({
-  mapData %>%
-    filter(year >= input$year
+\begin{BVerbatim}
+withProgress(message = ... ,
+  detail = ‘ ... ‘, value = 0,
+  ... function code ...
+  incProgress(1/3)
+  ... function code ...
+  incProgress(1/3)
+  ... function code ...
+  incProgress(1/3)
+  ... function code ...
 })
-\end{lstlisting}
+\end{BVerbatim}
 \end{exampleblock}{}
-
-\vspace{1em}
-
-\begin{itemize}
-\item A reactive object changes when its input changes.
-\item When it runs, the output is cached.
-\item If it is called several times in an application, it will not run again if the inputs are unchanged.
-\end{itemize}
 
