@@ -1,24 +1,27 @@
-\frametitle{Adding shiny to the flexdashboard}
+\frametitle{Improving the UI - Adding info boxes}
 
-Create a simple row and a row with several tabs:
-
-\begin{exampleblock}{}
-\begin{BVerbatim}
-Row
-\end{BVerbatim}
-\end{exampleblock}{}
+In the file \verb|ui.R|:
 
 \begin{exampleblock}{}
 \begin{BVerbatim}
-Row {.tabset}
+infoBoxOutput(width = 3, "infoYears")
 \end{BVerbatim}
 \end{exampleblock}{}
 
-\vspace{2em}
+\vspace{1em}
 
-We fill the R block with R shiny code to create plots as done previously in \verb|server.R|.
+In the file \verb|server.R|:
 
-\vspace{2em}
-
-In this case, the filtering is done for every block of R code. We cannot define a reactive object to filter the years.
+\begin{exampleblock}{}
+\begin{BVerbatim}
+output$infoYears = renderInfoBox({
+  infoBox(title,
+    value = NULL,
+    icon = ... ,
+    color = ... ,
+    fill = ...
+  )
+)
+\end{BVerbatim}
+\end{exampleblock}{}
 
