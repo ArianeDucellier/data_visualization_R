@@ -1,22 +1,27 @@
-\frametitle{Progress bar}
+\frametitle{Improving the UI - Adding info boxes}
 
-If some computation in \verb|server.R| can take a long time, it is useful to wrap the corresponding code inside the Shiny \verb|withProgress()| function.
+In the file \verb|ui.R|:
+
+\begin{exampleblock}{}
+\begin{BVerbatim}
+infoBoxOutput(width = 3, "infoYears")
+\end{BVerbatim}
+\end{exampleblock}{}
 
 \vspace{1em}
 
-In \verb|server.R|
+In the file \verb|server.R|:
+
 \begin{exampleblock}{}
 \begin{BVerbatim}
-withProgress(message = ... ,
-  detail = ‘ ... ‘, value = 0,
-  ... function code ...
-  incProgress(1/3)
-  ... function code ...
-  incProgress(1/3)
-  ... function code ...
-  incProgress(1/3)
-  ... function code ...
-})
+output$infoYears = renderInfoBox({
+  infoBox(title,
+    value = NULL,
+    icon = ... ,
+    color = ... ,
+    fill = ...
+  )
+)
 \end{BVerbatim}
 \end{exampleblock}{}
 
