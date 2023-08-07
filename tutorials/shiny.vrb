@@ -1,10 +1,13 @@
-\frametitle{Improving the UI - Adding info boxes}
+\frametitle{Interactive plots - Hover over plot}
 
 In the file \verb|ui.R|:
 
 \begin{exampleblock}{}
 \begin{BVerbatim}
-infoBoxOutput(width = 3, "infoYears")
+plotOutput("plot",
+           hover = hoverOpts(id = "plot_hover",
+                             delayType = "throttle")
+)
 \end{BVerbatim}
 \end{exampleblock}{}
 
@@ -14,14 +17,10 @@ In the file \verb|server.R|:
 
 \begin{exampleblock}{}
 \begin{BVerbatim}
-output$infoYears = renderInfoBox({
-  infoBox(title,
-    value = NULL,
-    icon = ... ,
-    color = ... ,
-    fill = ...
-  )
-)
+output$plot_hoverinfo <- renderPrint({
+  cat("Hover (throttled):\n")
+  str(input$plot_hover)
+})
 \end{BVerbatim}
 \end{exampleblock}{}
 
