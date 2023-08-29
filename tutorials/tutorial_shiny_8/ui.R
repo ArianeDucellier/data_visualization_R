@@ -7,8 +7,7 @@ fluidPage(
                                height=300,
                                click = "plot_click",  
                                hover = hoverOpts(id = "plot_hover",
-                                                 delayType = "throttle"),
-                               brush = brushOpts(id = "plot_brush")
+                                                 delayType = "throttle")
                     ),
                     downloadButton("downloadPlot",
                                    label = "Download plot"),
