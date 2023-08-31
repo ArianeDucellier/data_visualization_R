@@ -1,0 +1,74 @@
+---
+title: "Tidyverse tutorial - Command lines"
+author: "Ariane Ducellier"
+date: "8/31/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load R packages.
+
+```{r libraries}
+library(tidyverse)
+library(skimr)
+```
+
+# Read data
+
+Read csv files with basic R.
+
+```{r read_basic}
+df <- read.csv("../data/gapminder-data.csv")
+print(class(df))
+View(df)
+```
+
+Read csv files with tidyverse.
+
+```{r read_csv}
+df_t <- read_csv("../data/gapminder-data.csv")
+print(class(df_t))
+View(df_t)
+```
+
+```{r read_csv_sub}
+df_t_sub <- read_csv("../data/gapminder-data.csv",
+  col_select=c("Country", "Year", "gdp_per_capita"),
+  na=c("", "NA"))
+View(df_t_sub)
+```
+
+Basic information on data.
+
+```{r summary}
+head(df_t, 3)
+spec(df_t)
+glimpse(df_t)
+summary(df_t)
+skim(df_t)
+```
+
+The pipe operator.
+
+```{r iris}
+data(iris)
+df_iris <- iris %>%
+  group_by(Species) %>%
+  summarize_if(is.numeric, mean) %>%
+  ungroup() %>%
+  gather(measure, value, -Species) %>%
+  arrange(value)
+```
+
+```{r iris_alt}
+data(iris)
+df_iris_alt <- group_by(iris, Species)
+df_iris_alt <- summarize_if(df_iris_alt, is.numeric, mean)
+df_iris_alt <- ungroup(df_iris_alt)
+df_iris_alt <- gather(df_iris_alt, measure, value, -Species)
+df_iris_alt <- arrange(df_iris_alt, value)
+```
+
