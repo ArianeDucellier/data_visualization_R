@@ -1,0 +1,131 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Tidyverse tutorial]{Data Visualization with R \\ Tidyverse tutorial}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2023}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{What is tidy verse?}
+		
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Main concepts of data wrangling}
+
+		\begin{itemize}
+		\setlength{\itemsep}{1em}
+			\item Understand.
+			\item Format $\rightarrow$ Produce tidy data:
+			\begin{itemize}
+				\item Every column is a variable.
+				\item Every row is an observation.
+				\item Every cell is a single value.
+			\end{itemize}
+			\item Clean.
+			\item Enrich.
+			\item Validate.
+			\item Analysis / Model $\rightarrow$ In our case, we are going to produce visuals to communicate information on the dataset to the viewer.
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Tibbles versus Data frames}
+
+		\begin{itemize}
+		\setlength{\itemsep}{1em}
+			\item Tibbles do not change input variable types by default.
+			\item Tibbles can have lists as columns.
+			\item Tibbles can have non-standard variable names.
+			\item Tibbles return another Tibble when slicing (and not a vector).
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{The pipe operator}
+
+		The magrittr package provides the $\%<>\%$ operator as a shortcut for modifying an object in place:
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		df_iris <- iris %>%
+		  group_by(Species) %>%
+		  summarize_if(is.numeric, mean) %>%
+		  ungroup() %>%
+		  gather(measure, value, -Species) %>%
+		  arrange(value)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+		=
+
+		\begin{exampleblock}{}
+		\begin{center}
+		\begin{BVerbatim}
+		df_iris <- group_by(iris, Species)
+		df_iris <- summarize_if(df_iris, is.numeric, mean)
+		df_iris <- ungroup(df_iris)
+		df_iris <- gather(df_iris, measure, value, -Species)
+		df_iris <- arrange(df_iris, value)
+		\end{BVerbatim}
+		\end{center}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}
+tidyverse
+
+slicing
+filtering
+select
+distinct
+group_by summarize ungroup
+mutate replace
+
+arrange
+separate unite
+operations with mutate
+join
+
+	\end{frame}
+
+	\begin{frame}
+Part 2
+
+fill which.max replace_na
+drop_na
+
+Mice for dealing with missing values
+rvest web scrapping
+httr and json for API
+
+	\end{frame}
+
+\end{document}

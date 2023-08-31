@@ -1,0 +1,33 @@
+\frametitle{The pipe operator}
+
+The magrittr package provides the $\%<>\%$ operator as a shortcut for modifying an object in place:
+
+\vspace{1em}
+
+\begin{exampleblock}{}
+\begin{center}
+\begin{BVerbatim}
+df_iris <- iris %>%
+  group_by(Species) %>%
+  summarize_if(is.numeric, mean) %>%
+  ungroup() %>%
+  gather(measure, value, -Species) %>%
+  arrange(value)
+\end{BVerbatim}
+\end{center}
+\end{exampleblock}{}
+
+=
+
+\begin{exampleblock}{}
+\begin{center}
+\begin{BVerbatim}
+df_iris <- group_by(iris, Species)
+df_iris <- summarize_if(df_iris, is.numeric, mean)
+df_iris <- ungroup(df_iris)
+df_iris <- gather(df_iris, measure, value, -Species)
+df_iris <- arrange(df_iris, value)
+\end{BVerbatim}
+\end{center}
+\end{exampleblock}{}
+
