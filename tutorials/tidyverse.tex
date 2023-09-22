@@ -25,8 +25,28 @@
 		\titlepage
 	\end{frame}
 
-	\begin{frame}
-		\frametitle{What is tidy verse?}
+	\begin{frame}[fragile]
+		\frametitle{What is tidyverse?}
+
+		A collection of R packages designed for data science.
+
+		\vspace{1em}
+
+		Basic packages:
+		\begin{itemize}
+			\item \textbf{ggplot2:} graphics
+			\item \textbf{dplyr:} data manipulation
+			\item \textbf{tidyr:} getting to tidy data
+			\item \textbf{readr:} reading rectangular data (e.g. csv, tsv, fwf)
+			\item \textbf{purrr:} working with functions and vectors
+			\item \textbf{tibble:} a modern re-imagining of the data frame
+			\item \textbf{stringr:} working with strings
+			\item \textbf{forcats:} working with R factors to handle categorical variables
+		\end{itemize}
+
+		\vspace{1em}
+
+		Additional packages associated to \verb|tidyverse| need to be installed and loaded separately to import data, wrangle data, program and model.		
 		
 	\end{frame}
 
@@ -66,7 +86,7 @@
 	\begin{frame}[fragile]
 		\frametitle{The pipe operator}
 
-		The magrittr package provides the $\%<>\%$ operator as a shortcut for modifying an object in place:
+		The \verb|magrittr| package provides the $\%<>\%$ operator as a shortcut for modifying an object in place:
 
 		\vspace{1em}
 
@@ -100,31 +120,16 @@
 	\end{frame}
 
 	\begin{frame}
-tidyverse
-
-slicing
-filtering
-select
-distinct
-group_by summarize ungroup
-mutate replace
-
-arrange
-separate unite
-operations with mutate
-join
+%join
 
 	\end{frame}
 
 	\begin{frame}
-Part 2
-
-fill which.max replace_na
-drop_na
-
-Mice for dealing with missing values
-rvest web scrapping
-httr and json for API
+%Part 2
+%
+%Mice for dealing with missing values
+%rvest web scrapping
+%httr and json for API
 
 	\end{frame}
 

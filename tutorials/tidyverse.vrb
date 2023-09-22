@@ -1,6 +1,6 @@
 \frametitle{The pipe operator}
 
-The magrittr package provides the $\%<>\%$ operator as a shortcut for modifying an object in place:
+The \verb|magrittr| package provides the $\%<>\%$ operator as a shortcut for modifying an object in place:
 
 \vspace{1em}
 
