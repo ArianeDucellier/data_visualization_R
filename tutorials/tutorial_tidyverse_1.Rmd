@@ -1,0 +1,273 @@
+---
+title: "Tidyverse tutorial 1 - Basic operations"
+author: "Ariane Ducellier"
+date: "10/03/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load R packages.
+
+```{r libraries}
+library(tidyverse)
+library(skimr)
+```
+
+# 1. Read data (csv format)
+
+Read csv files with basic R.
+
+```{r read_basic}
+df <- read.csv("../data/gapminder-data.csv")
+print(class(df))
+```
+
+Read csv files with tidyverse.
+
+```{r read_csv}
+df_t <- read_csv("../data/gapminder-data.csv")
+print(class(df_t))
+```
+
+```{r read_csv_sub}
+df_t_sub <- read_csv("../data/gapminder-data.csv",
+  col_select=c("Country", "Year", "gdp_per_capita"),
+  na=c("", "NA"))
+```
+
+# 2. Get basic information on the data.
+
+Reads the first part of a data frame.
+
+```{r head}
+df_t <- read_csv("../data/gapminder-data.csv")
+head(df_t, 3)
+```
+
+Reads the last part of a data frame.
+
+```{r tail}
+tail(df_t, 3)
+```
+
+Gets column specifications of a tibble.
+
+```{r spec}
+spec(df_t)
+```
+
+Prints the data: number of rows and columns, type of columns, and first rows.
+
+```{r glimpse}
+glimpse(df_t)
+```
+
+Returns descriptive statistics on each column of a data frame.
+
+```{r summary}
+summary(df_t)
+```
+
+Provides a broad overview of a data frame, handles data of all types, dispatching a different set of summary functions based on the types of columns in the data frame.
+
+```{r skim}
+#skim(df_t)
+```
+
+# 3. The pipe operator
+
+```{r iris}
+data(iris)
+df_iris <- iris %>%
+  group_by(Species) %>%
+  summarize_if(is.numeric, mean) %>%
+  ungroup() %>%
+  gather(measure, value, -Species) %>%
+  arrange(value)
+```
+
+```{r iris_alt}
+data(iris)
+df_iris_alt <- group_by(iris, Species)
+df_iris_alt <- summarize_if(df_iris_alt, is.numeric, mean)
+df_iris_alt <- ungroup(df_iris_alt)
+df_iris_alt <- gather(df_iris_alt, measure, value, -Species)
+df_iris_alt <- arrange(df_iris_alt, value)
+```
+
+# 4. Transform the data
+
+```{r get_data}
+header <- c("age", "workclass", "fnlwgt", "education",
+  "education_num", "marital_status", "occupation",
+  "relationship", "race", "sex", "capital_gain",
+  "capital_loss", "hours_per_week", "native_country", "target")
+df <- read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data",
+  col_names=header, trim_ws=TRUE)
+```
+
+## 4.1 Slicing
+
+Cuts unwanted parts of the data set.
+
+```{r slice}
+df %>% slice_head(n=5)
+df %>% slice_tail(n=5)
+df %>% slice_min(age, prop=0.10)
+df %>% slice_max(age, prop=0.30)
+df %>% slice_sample(n=10, replace=TRUE)
+```
+
+## 4.2 Filtering
+
+Apply a condition to one of the variables to filter unwanted rows of the data.
+
+```{r filter}
+df %>% filter(age > 30)
+```
+
+## 4.3 Selecting
+
+Select specific columns.
+
+```{r select}
+df %>% select(marital_status, age)
+```
+
+## 4.4 Unique values
+
+Get unique entries for categorical variables.
+
+```{r distinct}
+df %>% distinct(sex)
+```
+
+## 4.5 Grouping
+
+Group by column and summarize.
+
+```{r group}
+df %>%
+  group_by(workclass) %>%
+  summarize(age_avg=mean(age))
+```
+
+## 4.6 Summarizing
+
+The summary may be:
+- counting observations
+- counting available observations (i.e. not NA)
+- getting first or last value
+- compute statistics on each group (mean, standard deviation, quantile)
+
+```{r summarize}
+df %>% group_by(workclass) %>% summarize(n())
+df %>% summarize(sum(!is.na(workclass)))
+df %>% group_by(workclass) %>% summarize(first(age))
+df %>% group_by(workclass) %>% summarize(sd(capital_gain))
+df %>% group_by(workclass) %>% summarize(quantile(age, 0.5))
+```
+
+We can also apply the summary over selected columns.
+
+```{r summarize_columns}
+df %>% select(1, 3, 5, 11, 12, 13) %>% summarize(across(everything(), mean))
+```
+
+## 4.7 Arranging
+
+To sort the data set.
+
+```{r arrange}
+df %>% arrange(native_country)
+```
+
+It is most useful to sort the data set after grouping and summarizing.
+
+```{r arrange_group}
+df %>%
+  group_by(education) %>%
+  summarize(count=n(),
+            avg_net_gain = mean(capital_gain - capital_loss)) %>%
+  arrange(desc(avg_net_gain))
+```
+
+## 4.8 Separating and uniting
+
+This is often useful to create new columns.
+
+```{r separate}
+df %>% separate(target, into=c("sign", "amount"), sep="\\b")
+```
+
+```{r unite}
+df %>% unite(sex, race, age, col="description", sep="_", remove=FALSE)
+```
+
+## 4.8 Mutate function
+
+Designed to create new variables.
+
+```{r mutate_add_new}
+df %>%
+  mutate(total_gain = capital_gain - capital_loss,
+              tax = ifelse(total_gain >= 15000,
+                           total_gain * 0.1,
+                           0)
+  ) %>%
+  arrange(desc(tax))
+```
+
+We can use the mutate function to replace values (e.g. "?" by NA).
+
+```{r look_question_marks}
+for (variable in colnames(df)) {
+  print (
+    paste (variable, dim(df[df[variable]=="?", variable])[1])
+  )
+}
+```
+
+```{r replace}
+df_replaced <- df %>%
+  mutate(workclass = replace(workclass, workclass=="?", NA),
+         occupation = replace(occupation, occupation=="?", NA),
+         native_country =replace(native_country, native_country=="?", NA)
+  )
+```
+
+```{r look_question_marks_new}
+for (variable in colnames(df_replaced)) {
+  print (
+    paste (variable, dim(df_replaced[df_replaced[variable]=="?", variable])[1])
+  )
+}
+```
+
+```{r na_if}
+df %>% mutate(workclass = na_if(workclass, "?"),
+              occupation = na_if(occupation, "?"),
+              native_country = na_if(native_country, "?"))
+```
+
+Additional examples:
+
+```{r mutate_ex1}
+df %>%
+  mutate(over_under = recode(target, "<=50K"="under",
+                                     ">50K"="over")) %>%
+  select(target, over_under)
+```
+
+```{r mutate_ex2}
+df %>%
+  mutate(age_avg = mean(age),
+         over_under_age_avg = cut(age,
+                                  c(0, mean(age), max(age)),
+                                  c("Lower than avg", "Above the avg"))
+  ) %>%
+  select(age, age_avg, over_under_age_avg)
+```
