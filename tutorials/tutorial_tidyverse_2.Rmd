@@ -12,6 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 Load R packages.
 
 ```{r libraries}
+library(httr)
+library(jsonlite)
+library(mice)
+library(rvest)
 library(tidyverse)
 ```
 
@@ -51,7 +55,97 @@ df_fill2 <- df %>%
 
 ## 1.3 Dropping rows with missing values
 
-```{r drop}
-df_no_na <- df %>%
-  drop_na()
+Dropping rows with at least one missing value.
+
+```{r omit}
+df_no_na <- df %>% na.omit()
 ```
+
+Dropping rows with missing values for specific columns.
+
+```{r drop}
+df_native <- df %>%
+  drop_na(native_country)
+```
+
+## 1.4 Imputing with mice
+
+```{r data}
+data("txhousing")
+txhousing$date <- date_decimal(txhousing$date, tz="GMT")
+txhousing$city <- as.factor(txhousing$city)
+```
+
+```{r drop_5nas}
+idx <- which(rowSums(is.na(txhousing)) == 5)
+txhousing <- txhousing[-idx,]
+```
+
+Impute median value for sales, volume and median.
+
+```{r impute_median}
+txhousing$sales[is.na(txhousing$sales)] <- median(txhousing$sales, na.rm=TRUE)
+txhousing$volume[is.na(txhousing$volume)] <- median(txhousing$volume, na.rm=TRUE)
+txhousing$median[is.na(txhousing$median)] <- median(txhousing$median, na.rm=TRUE)
+```
+
+Use mice to impute listings and inventory.
+
+```{r impute_mice}
+impute <- mice(data.frame(txhousing[,7:8]), seed=123)
+impute_data <- complete(impute, 1)
+txhousing_clean <- txhousing %>%
+  mutate(listings = impute_data[,1],
+         inventory = impute_data[,2])
+```
+
+# 2. Getting data from the web
+
+- Go to the [Wiki page](https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)).
+- Right-click and select Inspect.
+- Find the piece of code that highlights the table.
+- Right-click and select Copy > XPath.
+
+```{r read_page}
+page <- "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)"
+gdp <- rvest::read_html(page)
+```
+
+Get the first paragraph.
+
+```{r get_paragraph}
+p1 <- gdp %>%
+  html_elements("p") %>%
+  html_text()
+p1[3]
+```
+
+Get the table.
+
+```{r get_table}
+gdp_df <- gdp %>%
+  html_elements(xpath = '//*[@id="mw-content-text"]/div[1]/table[2]') %>%
+  html_table() %>%
+  .[[1]]
+```
+
+# 3. Getting data from an API
+
+The base URL is: https<nolink>://api.fiscaldata.treasury.gov/services/api/fiscal_service
+
+Th end point is: /v1/accounting/mts/mts_table_1
+
+Gathering both gives you [data](https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_1) in the JSON format.
+
+```{r url}
+url <- "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_1"
+treasury_api <- GET(url)
+```
+
+```{r json_to_df}
+result <- content(treasury_api, "text", encoding="UTF-8")
+df_json <- fromJSON(result, flatten=TRUE)
+df <- as.data.frame(df_json$data)
+```
+
+# 4. Miscellaneous functions

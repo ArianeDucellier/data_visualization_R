@@ -271,3 +271,97 @@ df %>%
   ) %>%
   select(age, age_avg, over_under_age_avg)
 ```
+
+## 4.9 Joining tibbles
+
+```{r data}
+sales <- data.frame(
+  date = c("2022-01-01", "2022-01-02", "2022-01-03", "2022-01-04", "2022-01-05"),
+  store_cd= c(1, 2, 3, 4, 5),
+  product_cd= c(1, 2, 3, 4, 5),
+  qty= c(10, 12, 9, 12, 8), 
+  sales= c(30, 60, 45, 24, 32)
+)
+
+stores <- data.frame(
+  store_cd= c(1, 2, 3, 4, 6),
+  address= c("1 main st", "20 side st", "19 square blvd", "101 first st", "1002 retail ave"),
+  city= c("Main", "East", "West", "North", "South"), 
+  open_hours= c("7-23", "7-23", "9-21", "9-21", "9-21")
+  )
+
+products <- data.frame(
+  product_cd= c(1, 2, 3, 4, 6),
+  description= c("Soft drink", "Frozen snack", "Fruit", "Water", "Fruit 2"),
+  unit_price= c(3.0, 5.0, 5.0, 2.0, 4.0), 
+  unit_measure= c("each", "each", "kg", "each", "kg")
+  )
+```
+
+### 4.9.1 Left join
+
+All the rows from sales and matched rows from products.
+
+```{r left_join}
+sales %>% left_join(products, by="product_cd")
+```
+
+### 4.9.2 Right join
+
+All the rows from stores and matched rows from sales.
+
+```{r right_join}
+sales %>% right_join(stores, by="store_cd")
+```
+
+### 4.9.3 Inner join
+
+All the rows common to sales and stores.
+
+```{r inner_join}
+sales %>% inner_join(stores, by="store_cd")
+```
+
+### 4.9.4 Full join
+
+All the rows from sales and stores.
+
+```{r full_join}
+sales %>% full_join(stores)
+```
+
+### 4.9.5 Anti-join
+
+Only rows that are in sales but not in products.
+
+```{r anti_join}
+sales %>% anti_join(products)
+```
+
+## 4.10 Reshaping tables
+
+```{r data2}
+df_wide <- data.frame(
+  project = c("project1", "project2", "project3"),
+  Jan= sample(1000:2000, 3),
+  Feb= sample(1000:2000, 3),
+  Mar= sample(1000:2000, 3)
+)
+```
+
+This is not a tidy data set (there is more than 1 observation per row).
+
+```{r wide_long}
+df_long <- df_wide %>% 
+  pivot_longer(cols= 2:4,
+               names_to = "months",
+               values_to = "expenses")
+```
+
+If we need a smaller table for visualization or for a presentation.
+
+```{r long_wide}
+df_wide_2 <- df_long %>%
+  pivot_wider(names_from = "months",
+              values_from = "expenses")
+```
