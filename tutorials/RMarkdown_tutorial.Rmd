@@ -56,3 +56,17 @@ _Italic text_
 Line 1 followed by two spaces  
 Line 2
 
+$x = \frac{y}{z}$
+
+## More RMarkdown
+
+```{r compute}
+result <- 2 + 4
+```
+
+Here is the result: `r result`.
+
+```{r ktable, results='asis'}
+library(knitr)
+kable(mtcars[1:5], caption="A knitr table")
+```
