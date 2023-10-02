@@ -74,7 +74,7 @@ summary(df_t)
 Provides a broad overview of a data frame, handles data of all types, dispatching a different set of summary functions based on the types of columns in the data frame.
 
 ```{r skim}
-#skim(df_t)
+skim(df_t)
 ```
 
 # 3. The pipe operator
@@ -226,7 +226,7 @@ We can use the mutate function to replace values (e.g. "?" by NA).
 ```{r look_question_marks}
 for (variable in colnames(df)) {
   print (
-    paste (variable, dim(df[df[variable]=="?", variable])[1])
+    paste (variable, dim(drop_na(df[df[variable]=="?", variable]))[1])
   )
 }
 ```
@@ -242,7 +242,7 @@ df_replaced <- df %>%
 ```{r look_question_marks_new}
 for (variable in colnames(df_replaced)) {
   print (
-    paste (variable, dim(df_replaced[df_replaced[variable]=="?", variable])[1])
+    paste (variable, dim(drop_na(df_replaced[df_replaced[variable]=="?", variable]))[1])
   )
 }
 ```

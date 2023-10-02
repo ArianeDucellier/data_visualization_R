@@ -1,9 +1,11 @@
 % !TEX encoding = UTF-8 Unicode
 \documentclass{beamer}
 
+\usepackage{amsmath}
 \usepackage{color}
 \usepackage{fancyvrb}
 \usepackage{gensymb}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{textcomp}
 \usepackage{tikz}
@@ -14,6 +16,8 @@
 \definecolor{mygreen}{rgb}{0.88,0.95,0.88}
 
 \usetheme{Warsaw}
+
+\newcommand{\btVFill}{\vskip0pt plus 1filll}
 
 \title[Data Visualization with R - Tidyverse tutorial]{Data Visualization with R \\ Tidyverse tutorial}
 \author{Ariane Ducellier}
@@ -71,6 +75,112 @@
 	\end{frame}
 
 	\begin{frame}
+		\frametitle{Benefits of data wrangling}
+
+		\begin{itemize}
+			\item Organized and easily understandable data.
+			\item Faster results.
+			\item Better data flow for modeling or data visualization.
+			\item Easier aggregation for insight extraction.
+			\item Data quality.
+			\item Data enriching.
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Frameworks in Data Science: KDD}
+
+		Knowledge Discovery in Databases
+
+		\includegraphics[width=11cm]{figures/Santos_1_6.png}
+
+		\btVFill
+		\tiny{Figure from G.R. Santos, Data Wrangling with R.}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Frameworks in Data Science: KDD}
+
+		Knowledge Discovery in Databases
+
+		\vspace{2em}
+
+		\begin{itemize}
+			\item Getting the data.
+			\item Selecting a subset of samples / variables of interest.
+			\item Preprocessing (remove outliers, handle missing or noisy data).
+			\item Transformation and formatting.
+			\item Data mining (e.g. classification, clustering).
+			\item Interpretation and evaluation.
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Frameworks in Data Science: SEMMA}
+
+		Sample, Explore, Modify, Model, and Assess
+
+		\includegraphics[width=11cm]{figures/Santos_1_7.png}
+
+		\btVFill
+		\tiny{Figure from G.R. Santos, Data Wrangling with R.}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Frameworks in Data Science: SEMMA}
+
+		Sample, Explore, Modify, Model, and Assess
+
+		\vspace{2em}
+
+		Cyclic process:
+		\begin{itemize}
+			\item Sample (representative sample, but easy to work with).
+			\item Explore (understand, visualize, describe, patterns and anomalies).
+			\item Modify (data wrangling).
+			\item Model (algorithms for predictions or insights on the data).
+			\item Access (evaluate the results).
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Frameworks in Data Science: CRISP-DM}
+
+		Cross-Industry Standard Process for Data Mining
+
+		\begin{center}
+		\includegraphics[width=7cm]{figures/Santos_1_8.png}
+		\end{center}
+
+		\btVFill
+		\tiny{Figure from G.R. Santos, Data Wrangling with R.}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Frameworks in Data Science: CRISP-DM}
+
+		Cross-Industry Standard Process for Data Mining
+
+		\vspace{2em}
+
+		\begin{itemize}
+			\item Business understanding: Understand the problem and the business rules and specificities.
+			\item Data understanding: Explore the data, find errors and missing data to assess quality.
+			\item Data preparation: Data wrangling.
+			\item Modeling: Analysis of the processed data.
+			\item Evaluation: Assess whether the solution is aligned with the business requirements.
+			\item Deployment: The model reaches its purpose.
+		\end{itemize}
+
+	\end{frame}
+		
+	\begin{frame}
 		\frametitle{Tibbles versus Data frames}
 
 		\begin{itemize}
@@ -91,45 +201,27 @@
 		\vspace{1em}
 
 		\begin{exampleblock}{}
-		\begin{center}
 		\begin{BVerbatim}
-		df_iris <- iris %>%
-		  group_by(Species) %>%
-		  summarize_if(is.numeric, mean) %>%
-		  ungroup() %>%
-		  gather(measure, value, -Species) %>%
-		  arrange(value)
+df_iris <- iris %>%
+  group_by(Species) %>%
+  summarize_if(is.numeric, mean) %>%
+  ungroup() %>%
+  gather(measure, value, -Species) %>%
+  arrange(value)
 		\end{BVerbatim}
-		\end{center}
 		\end{exampleblock}{}
 
 		=
 
 		\begin{exampleblock}{}
-		\begin{center}
 		\begin{BVerbatim}
-		df_iris <- group_by(iris, Species)
-		df_iris <- summarize_if(df_iris, is.numeric, mean)
-		df_iris <- ungroup(df_iris)
-		df_iris <- gather(df_iris, measure, value, -Species)
-		df_iris <- arrange(df_iris, value)
+df_iris <- group_by(iris, Species)
+  df_iris <- summarize_if(df_iris, is.numeric, mean)
+  df_iris <- ungroup(df_iris)
+  df_iris <- gather(df_iris, measure, value, -Species)
+  df_iris <- arrange(df_iris, value)
 		\end{BVerbatim}
-		\end{center}
 		\end{exampleblock}{}
-
-	\end{frame}
-
-	\begin{frame}
-%join
-
-	\end{frame}
-
-	\begin{frame}
-%Part 2
-%
-%Mice for dealing with missing values
-%rvest web scrapping
-%httr and json for API
 
 	\end{frame}
 
