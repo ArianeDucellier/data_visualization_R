@@ -1,7 +1,7 @@
 ---
 title: "Tidyverse lab"
 author: "Ariane Ducellier"
-date: "9/1/2023"
+date: "10/3/2023"
 output: pdf_document
 ---
 
@@ -9,24 +9,89 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This lab will make use of tidyverse functions for data transformation to extract and manipulate metadata of seismic stations in the Northern California Seismic Network.
-
-We want to download seismic waveforms from a seismic data archive of specific earthquakes. We are not sure what seismic sensors (stations) are operating at that time. The list of stations available in the seismic networks has more than 6000, that's way too many! So we want to filter only the seismic stations that are relevant for the research.
-
 ## Libraries
 
 Load the necessary libraries.
 
 ```{r libraries}
+library(nycflights13)
 library(tidyverse)
 ```
 
-## Read the data
+The first three exercices are done with the flights dataset from the nycflights13 package.
+
+```{r summary_data}
+summary(flights)
+```
+
+## Exercise 1
+
+### Question 1
+
+In a single pipeline for each condition, find all flights that meet the condition:
+- Had an arrival delay of two or more hours.
+- Flew to Houston (IAH or HOU).
+- Were operated by United, American, or Delta.
+- Departed in summer (July, August, and September).
+- Arrived more than two hours late, but didn’t leave late.
+- Were delayed by at least an hour, but made up more than 30 minutes in flight.
+  
+### Question 2
+
+Sort flights to find the flights with the longest departure delays. Find the flights that left earliest in the morning.
+
+### Question 3
+
+Sort flights to find the fastest flights.
+
+### Question 4
+
+Was there a flight on every day of 2013?
+
+### Question 5
+
+Which flights traveled the farthest distance? Which traveled the least distance?
+
+### Question 6
+
+Does it matter what order you used filter() and arrange() if you’re using both? Why/why not? Think about the results and how much work the functions would have to do.
+
+## Exercise 2
+
+### Question 1
+
+Compare dep_time, sched_dep_time, and dep_delay. How would you expect those three numbers to be related?
+
+### Question 2
+
+Rename air_time to air_time_min to indicate units of measurement and move it to the beginning of the data frame.
+
+## Exercise 3
+
+### Question 1
+
+Which carrier has the worst average delays? Challenge: Can you disentangle the effects of bad airports versus bad carriers? Why/why not?
+
+### Question 2
+
+Find the flights that are most delayed upon departure from each destination.
+
+## Question 3
+
+How do delays vary over the course of the day? Illustrate your answer with a plot.
+
+## Exercise 4
+
+This exercise will make use of tidyverse functions for data transformation to extract and manipulate metadata of seismic stations in the Northern California Seismic Network.
+
+We want to download seismic waveforms from a seismic data archive of specific earthquakes. We are not sure what seismic sensors (stations) are operating at that time. The list of stations available in the seismic networks has more than 6000, that's way too many! So we want to filter only the seismic stations that are relevant for the research.
 
 This is the address of the website to download the data:
 [NCEDC metadata](http://ncedc.org/ftp/pub/doc/NC.info/NC.channel.summary.day)
 
-**Task 1** First, you need to load the data into a tibble. You may use the following header:
+### Question 1
+
+First, you need to load the data into a tibble. You may use the following header:
 
 ```{r header}
 header = c("Station", "Network", "Channel", "Location", "Rate",
@@ -34,11 +99,9 @@ header = c("Station", "Network", "Channel", "Location", "Rate",
            "Elevation", "Depth", "Dip", "Azimuth", "Instrument")
 ```
 
-```{r read}
+### Question 2
 
-```
-
-**Task 2** Now, we need to convert Start_time and End_time into a datetime format.
+Now, we need to convert Start_time and End_time into a datetime format.
 
 It turns out than only the following channels are relevant for the work we want to do:
 
@@ -49,17 +112,23 @@ It turns out than only the following channels are relevant for the work we want 
 
 That is, we want the channels that start with B, E, H or S and which second letter with an H.
             
-**Task 3** Filter the dataset to keep only the rows with the channels as defined above.
+### Question 3
+
+Filter the dataset to keep only the rows with the channels as defined above.
 
 The seismic data archive that we are working on starts on 2007/07/01 and ends on 2009/07/01. We are only interested in stations that started recording before 2009/07/01 and ended recording after 2007/07/01.
 
-**Task 4** Filter the dataset to keep only stations that started recording before 2009/07/01 and ended recording after 2007/07/01.
+### Question 4
+
+Filter the dataset to keep only stations that started recording before 2009/07/01 and ended recording after 2007/07/01.
 
 The earthquakes we are interested in are located at latitude = 40.09N and longitude = -122.87E. 
 
 We want to keep the stations that are located less than 100 km from the earthquakes.
 
-**Task 5** Filter the dataset to keep only stations that are within 100 km from the earthquakes.
+### Question 5
+
+Filter the dataset to keep only stations that are within 100 km from the earthquakes.
 
 You may use this function to compute the distance from the station to the earthquakes using the latitude and the longitude:
 
@@ -82,10 +151,10 @@ get_dists <- function(df){
 
 For the final step, we only want to keep the columns: Station, Network, Channel, Location, Latitude, Longitude, Elevation, Depth, Start_time, End_time. We want to group the stations:
 
-- **Task 6** First, group the stations by Station, Network, Channel, Location, Latitude, Longitude, Elevation, Depth, and compute the minimum start time and the maximum end time.
-- **Task 7** Second, group the stations by Station, Network, Location, Latitude, Longitude, Elevation, Depth, and concatenate all the channels for a given station in a single string, separated by a comma.
+### Question 6
 
+First, group the stations by Station, Network, Channel, Location, Latitude, Longitude, Elevation, Depth, and compute the minimum start time and the maximum end time.
 
-```{r filter}
+### Question 7
 
-```
+Second, group the stations by Station, Network, Location, Latitude, Longitude, Elevation, Depth, and concatenate all the channels for a given station in a single string, separated by a comma.
