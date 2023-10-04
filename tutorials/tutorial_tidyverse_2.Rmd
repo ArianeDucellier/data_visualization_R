@@ -19,7 +19,7 @@ library(rvest)
 library(tidyverse)
 ```
 
-# 1. Dealing with missing data
+## 1. Dealing with missing data
 
 ```{r get_data}
 header <- c("age", "workclass", "fnlwgt", "education",
@@ -34,14 +34,14 @@ df <-df %>%
          native_country = na_if(native_country, "?"))
 ```
 
-## 1.1 Filling values with previous value
+### 1.1 Filling values with previous value
 
 ```{r fill_previous}
 df_fill1 <- df %>%
   fill(workclass, occupation, native_country, .direction="down")
 ```
 
-## 1.2 Filling values with most frequent value
+### 1.2 Filling values with most frequent value
 
 For categorical variables.
 
@@ -53,7 +53,7 @@ df_fill2 <- df %>%
                   occupation = m_freq_occup))
 ```
 
-## 1.3 Dropping rows with missing values
+### 1.3 Dropping rows with missing values
 
 Dropping rows with at least one missing value.
 
@@ -68,7 +68,7 @@ df_native <- df %>%
   drop_na(native_country)
 ```
 
-## 1.4 Imputing with mice
+### 1.4 Imputing with mice
 
 ```{r data}
 data("txhousing")
@@ -99,7 +99,35 @@ txhousing_clean <- txhousing %>%
          inventory = impute_data[,2])
 ```
 
-# 2. Getting data from the web
+### 1.5 Implicit missing values
+
+The price for the 1st quarter of 2021 is missing, but you won't see it but just looking for the rows with NA.
+
+```{r data_missing}
+stocks <- tibble(
+  year  = c(2020, 2020, 2020, 2020, 2021, 2021, 2021),
+  qtr   = c(   1,    2,    3,    4,    2,    3,    4),
+  price = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+```
+
+It becomes obvious when you pivot to a wider table, but then you no longer have tidy data.
+
+```{r wider}
+stocks %>%
+  pivot_wider(
+    names_from = qtr, 
+    values_from = price
+  )
+```
+
+the complete function will fill your tidy dataset with the missing rows and NA for the missing value:
+
+```{r complete}
+stocks %>% complete(year, qtr)
+```
+
+## 2. Getting data from the web
 
 - Go to the [Wiki page](https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)).
 - Right-click and select Inspect.
@@ -129,11 +157,11 @@ gdp_df <- gdp %>%
   .[[1]]
 ```
 
-# 3. Getting data from an API
+## 3. Getting data from an API
 
 The base URL is: https<nolink>://api.fiscaldata.treasury.gov/services/api/fiscal_service
 
-Th end point is: /v1/accounting/mts/mts_table_1
+The end point is: /v1/accounting/mts/mts_table_1
 
 Gathering both gives you [data](https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_1) in the JSON format.
 
@@ -148,4 +176,37 @@ df_json <- fromJSON(result, flatten=TRUE)
 df <- as.data.frame(df_json$data)
 ```
 
-# 4. Miscellaneous functions
+## 4. Miscellaneous functions
+
+To apply the same function to all the columns in the data set:
+
+```{r map}
+mtcars %>% 
+  select(hp, wt) %>%  map(mean)
+```
+
+To combine data sets by rows:
+
+```{r bind_rows}
+A <- mtcars[1:3, ]
+B <- mtcars[4:6, ]
+AB <- A %>% bind_rows(B)
+```
+
+To combine data sets by columns:
+
+```{r bind_cols}
+A <- mtcars[1:5, 1:3]
+B <- mtcars[1:5, 4:6]
+ AB <- A %>% bind_cols(B)
+```
+
+Another way or creating a new column with a condition. It allows handling multiple cases of logical tests.
+
+```{r case_when}
+mtcars %>% 
+  mutate(transmission_type = 
+            case_when(
+              am == 0 ~ "automatic",
+              am == 1 ~ "manual"))
+```

@@ -30,27 +30,81 @@ summary(flights)
 
 In a single pipeline for each condition, find all flights that meet the condition:
 - Had an arrival delay of two or more hours.
+
+```{r filter}
+flights %>% filter(arr_delay >= 120)
+```
+
 - Flew to Houston (IAH or HOU).
+
+```{r filter2}
+flights %>% filter(dest %in% c("IAH", "HOU"))
+```
+
 - Were operated by United, American, or Delta.
+
+```{r filter3}
+flights %>% filter(carrier %in% c("UA", "AA", "DL"))
+```
+
 - Departed in summer (July, August, and September).
+
+```{r filter4}
+flights %>% filter(month %in% c(7, 8, 9))
+```
+
 - Arrived more than two hours late, but didn’t leave late.
+
+```{r filter5}
+flights %>% filter(arr_delay >= 120 & dep_delay <= 0)
+```
+
 - Were delayed by at least an hour, but made up more than 30 minutes in flight.
-  
+
+```{r filter6}
+flights %>%
+  mutate(delay_gained=dep_delay - arr_delay) %>%
+  filter(dep_delay >= 60 & delay_gained >= 30)
+```
+
 ### Question 2
 
 Sort flights to find the flights with the longest departure delays. Find the flights that left earliest in the morning.
+
+```{r arrange}
+flights %>% arrange(desc(dep_delay))
+```
+
+```{r arrange2}
+flights %>% arrange(sched_dep_time)
+```
 
 ### Question 3
 
 Sort flights to find the fastest flights.
 
+```{r fastest}
+flights %>%
+  mutate(speed=distance / air_time) %>%
+  arrange(desc(speed))
+```
+
 ### Question 4
 
 Was there a flight on every day of 2013?
 
+```{r distinct}
+flights %>% distinct(month, day) %>% dim()
+```
+
 ### Question 5
 
 Which flights traveled the farthest distance? Which traveled the least distance?
+
+```{r farther}
+flights %>% filter(distance == max(distance))
+```
+
 
 ### Question 6
 
@@ -61,6 +115,20 @@ Does it matter what order you used filter() and arrange() if you’re using both
 ### Question 1
 
 Compare dep_time, sched_dep_time, and dep_delay. How would you expect those three numbers to be related?
+
+```{r delay}
+flights %>% select(dep_time, sched_dep_time, dep_delay) %>%
+  mutate(dep_hour=as.integer(floor(dep_time / 100)),
+         dep_min=dep_time - dep_hour * 100,
+         sched_dep_hour=as.integer(floor(sched_dep_time / 100)),
+         sched_dep_min=sched_dep_time - sched_dep_hour * 100,
+         next_day=(dep_time < sched_dep_time) & (dep_delay > 0)) %>%
+  mutate(comp_dep_delay=ifelse(next_day,
+    dep_hour * 60 + dep_min - sched_dep_hour * 60 - sched_dep_min + 1440,
+    dep_hour * 60 + dep_min - sched_dep_hour * 60 - sched_dep_min)) %>%
+filter(dep_delay != comp_dep_delay)
+```
+
 
 ### Question 2
 
