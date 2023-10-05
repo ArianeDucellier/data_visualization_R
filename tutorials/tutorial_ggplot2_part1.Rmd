@@ -1,0 +1,100 @@
+---
+title: "Ggplot2 tutorial - Command lines Part 1"
+author: "Ariane Ducellier"
+date: "10/10/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load R packages
+
+```{r libraries}
+library(ggplot2)
+library(Lock5Data)
+```
+
+# Part 1 - Basic Plotting in ggplot2
+
+## Histograms
+
+```{r block1}
+hist(airquality$Temp)
+```
+
+```{r block2}
+qplot(airquality$Temp)
+```
+
+```{r block3}
+ggplot(airquality, aes(x=Temp)) + geom_histogram()
+```
+
+## Bar plots
+
+```{r block4}
+df_desc <- read.csv("../data/historical-hourly-weather-data/weather_description.csv")
+ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
+```
+
+```{r block5}
+df <- na.omit(RetailSales)
+months_of_the_year <- c("Jan", "Feb", "Mar", "Apr", "May", "June",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec")
+ggplot(df) +
+geom_bar(aes(x=factor(Month, months_of_the_year), y=Sales), stat="identity") +
+xlab("Month")
+```
+
+## Box plots
+
+```{r block6}
+df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
+df_hum$datetime <- as.character(df_hum$datetime)
+df_hum$Month <- substr(df_hum$datetime, 6, 7)
+ggplot(df_hum, aes(x=Month, y=Vancouver)) +
+geom_boxplot()
+```
+
+## Scatter plots and line plots
+
+```{r block7}
+a = 3.4
+v0 = 27
+time <- runif(50, min=0, max=200)
+distance <- sapply(time, function(x) v0 * x + 0.5 * a * x^2)
+df <- data.frame(time,distance)
+ggplot(df, aes(x=time, y=distance)) + geom_point()
+ggplot(df, aes(x=time, y=distance)) + geom_line()
+```
+
+## Changing histogram defaults and adding aesthetics
+
+```{r block8}
+df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
+ggplot(df_hum, aes(x=Vancouver)) + geom_histogram()
+ggplot(df_hum, aes(x=Vancouver)) + geom_histogram(bins=15)
+ggplot(df_hum, aes(x=Vancouver)) + geom_histogram(bins=15, fill="white", color=1)
+ggplot(df_hum, aes(x=Vancouver)) +
+geom_histogram(bins=15, fill="white", color=1) +
+ggtitle("Humidity for Vancouver city") +
+xlab("Humidity") +
+theme(axis.text.x=element_text(size=12), axis.text.y=element_text(size=12))
+```
+
+## Changing boxplot defaults and adding aesthetics
+
+```{r block9}
+df_hum <- read.csv("../data/historical-hourly-weather-data/humidity.csv")
+df_hum$datetime <- as.character(df_hum$datetime)
+df_hum$Month <- substr(df_hum$datetime, 6, 7)
+ggplot(df_hum, aes(x=Month, y=Vancouver)) + 
+geom_boxplot(color="gray20", fill="cadetblue2") + 
+ylab("Humidity") + 
+theme(axis.text.x=element_text(size=15),
+axis.text.y=element_text(size=15),
+axis.title.x=element_text(size=15, color="gray20"),
+axis.title.y=element_text(size=15, color="gray20"))
+```

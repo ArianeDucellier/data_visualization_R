@@ -1,0 +1,18 @@
+\frametitle{Adding aesthetics to the boxplot}
+
+		Add labels to the box plot:
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+ggplot(df_hum, aes(x=month, y=Vancouver)) +
+geom_boxplot(color=1, fill=3) +
+ylab("Humidity") +
+theme(axis.text.x=element_text(size=15),
+axis.text.y=element_text(size=15),
+axis.title.x=element_text(size=15, color=2),
+axis.title.y=element_text(size=15, color=2))
+		\end{BVerbatim}
+		\end{exampleblock}{}
+		
