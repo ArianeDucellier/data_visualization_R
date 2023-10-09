@@ -1,7 +1,7 @@
 ---
 title: "Lab 3 - Improving the Default Visualization"
 author: "Ariane Ducellier"
-date: "7/19/2023"
+date: "10/10/2023"
 output: pdf_document
 ---
 
@@ -16,7 +16,7 @@ In this lab, we are going to improve some of the plots from Lab 2 by adding aest
 Load the necessary libraries.
 
 ```{r libraries}
-library(ggplot2)
+library(tidyverse)
 ```
 
 ## Data
@@ -24,12 +24,12 @@ library(ggplot2)
 Load the data.
 
 ```{r data}
-df_edu <- read.csv("../data/xAPI-Edu-Data.csv")
+df_edu <- read_csv("../data/xAPI-Edu-Data.csv")
 ```
 
 ## Plot 1
 
-Complete the cell with the code to improve the plot.
+Complete the cell with the code to improve the plot. You may add labels and title, change the size of the labels, fill the bars with color...
 
 ```{r plot1}
 ggplot(df_edu, aes(x=Topic)) + geom_bar()
@@ -37,7 +37,7 @@ ggplot(df_edu, aes(x=Topic)) + geom_bar()
 
 ## Plot 2
 
-Complete the cell with the code to improve the plot.
+Complete the cell with the code to improve the plot. You may add labels and title, change the size of the labels, change the number of bins...
 
 ```{r plot2}
 ggplot(df_edu, aes(x=VisitedResources)) + geom_histogram()
