@@ -13,6 +13,7 @@ Load R packages
 
 ```{r libraries}
 library(tidyverse)
+library(ggpubr)
 library(gridExtra)
 library(Lock5Data)
 ```
@@ -68,39 +69,57 @@ theme(axis.title.x=element_blank(),
 
 ## Facets
 
-```{r block15, fig.height = 12, fig.width = 4, fig.align="center"}
+```{r block15}
 df <- read_csv("../data/gapminder-data.csv")
 p <- ggplot(df, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) + geom_point()
+p
+```
+
+```{r block16, fig.height = 8, fig.width = 4, fig.align="center"}
 p + facet_grid(factor(Country, stringr::str_sort(unique(Country))) ~ .) +
 xlab("GDP per capita") +
 ylab("Electricity consumption per capita")
 ```
 
-```{r block}
-p + facet_grid(. ~ Country)
-p + facet_wrap(~Country)
+```{r block17, fig.height = 3, fig.width = 8, fig.align="center"}
+p + facet_grid(. ~ factor(Country, stringr::str_sort(unique(Country)))) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita") +
+theme(axis.text.x=element_text(angle=90))
+```
+
+```{r block18}
+p + facet_wrap(~Country) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita")
 ```
 
 ## Shapes and colors
 
-```{r block16}
+```{r block19}
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States"))
 var1 <- "Electricity_consumption_per_capita"
 var2 <- "gdp_per_capita"
 name1 <- "Electricity/capita"
 name2 <- "GDP/capita"
-p1 <- ggplot(df, aes_string(x=var1, y=var2)) +
+ggplot(df, aes_string(x=var1, y=var2)) +
 geom_point(color=2, shape=2) + 
-xlim(0, 10000) + xlab(name1) + ylab(name2)
-p2 <- ggplot(dfs, aes_string(x=var1, y=var2)) +
+xlim(0, 10000) +
+xlab(name1) +
+ylab(name2)
+```
+
+```{r block20}
+ggplot(dfs, aes_string(x=var1, y=var2)) +
 geom_point(aes(color=Country, shape=Country)) +
-xlim(0, 10000) + xlab(name1) + ylab(name2)
-grid.arrange(p1, p2, nrow = 2)
+xlim(0, 10000) +
+xlab(name1) +
+ylab(name2)
 ```
 
 ## Themes
 
-```{r block17}
+```{r block21}
 dfn <- subset(HollywoodMovies,
               Genre %in% c("Action", "Adventure", "Comedy", "Drama",
               "Romantic Comedy") &
@@ -108,6 +127,10 @@ dfn <- subset(HollywoodMovies,
               "Twentieth Century Fox ", "Universal Pictures ", "Warner Bros. "))
 p1 <- ggplot(dfn, aes(x=Genre, y=WorldGross)) 
 p2 <- p1 + geom_bar(aes(fill=LeadStudio), stat="Identity", position="dodge")
+p2
+```
+
+```{r block22}
 p3 <- p2 + theme(axis.title.x=element_text(size=15),
                  axis.title.y=element_text(size=15),
                  plot.background=element_rect(fill="gray87"),
@@ -116,27 +139,51 @@ p3 <- p2 + theme(axis.title.x=element_text(size=15),
 p3
 ```
 
-```{r block18}
-p4 <- p2 + theme_bw() + ggtitle("theme_bw()")
-p5 <- p2 + theme_classic() + ggtitle("theme_classic()")
-p6 <- p2 + theme_classic() + ggtitle("theme_gray()")
-p7 <- p2 + theme_minimal() + ggtitle("theme_minimal()")
-grid.arrange(p4, p5, p6, p7, nrow=2, ncol=2)
+```{r block23, fig.height = 8, fig.width = 8, fig.align="center"}
+p4 <- p2 +
+  theme_bw() +
+  ggtitle("theme_bw()") +
+  theme(axis.text.x=element_text(angle=90))
+p5 <- p2 +
+  theme_classic() +
+  ggtitle("theme_classic()") +
+  theme(axis.text.x=element_text(angle=90))
+p6 <- p2 +
+  theme_classic() +
+  ggtitle("theme_gray()") +
+  theme(axis.text.x=element_text(angle=90))
+p7 <- p2 +
+  theme_minimal() +
+  ggtitle("theme_minimal()") +
+  theme(axis.text.x=element_text(angle=90))
+ggarrange(p4, p5, p6, p7, ncol=2, nrow=2, common.legend = TRUE, legend="right")
 ```
 
-```{r block19}
+```{r block24}
 mytheme <- theme(legend.title=element_blank(),
 legend.position="bottom",
 text = element_text(color="Blue"),
 axis.text=element_text(size=12, color="Red"),
 axis.title=element_text(size=rel(1.5)))
-p2 <- p2 + ggtitle("Original Plot")
-p8 <- p2 + mytheme + ggtitle("Changed Plot with my theme")
+```
+
+```{r block25, fig.height = 4, fig.width = 12, fig.align="center"}
+p2 <- p2 +
+  ggtitle("Original Plot")
+p8 <- p2 +
+  mytheme +
+  ggtitle("Changed Plot with my theme")
 grid.arrange(p2, p8, ncol=2)
 ```
 
-```{r block20}
+```{r block26}
 p4 + scale_fill_brewer(palette="Spectral")
+```
+
+```{r block27}
 p4 + scale_fill_brewer(palette="Pastel1")
+```
+
+```{r block28}
 p4 + scale_fill_brewer(palette="Oranges")
 ```
