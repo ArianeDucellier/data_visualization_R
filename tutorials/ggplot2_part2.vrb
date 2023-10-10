@@ -1,0 +1,17 @@
+\frametitle{Themes}
+
+		You can change the color palette.
+
+		\vspace{2em}
+
+		Type \verb|?scale_fill_brewer| to see all the color palettes available.
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+p4 <- p2 + theme_bw() + ggtitle("theme_bw()")
+p4 + scale_fill_brewer(palette="Spectral")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
