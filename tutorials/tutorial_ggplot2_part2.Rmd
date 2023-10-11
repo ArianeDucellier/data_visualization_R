@@ -76,13 +76,13 @@ p
 ```
 
 ```{r block16, fig.height = 8, fig.width = 4, fig.align="center"}
-p + facet_grid(factor(Country, stringr::str_sort(unique(Country))) ~ .) +
+p + facet_grid(Country ~ .) +
 xlab("GDP per capita") +
 ylab("Electricity consumption per capita")
 ```
 
 ```{r block17, fig.height = 3, fig.width = 8, fig.align="center"}
-p + facet_grid(. ~ factor(Country, stringr::str_sort(unique(Country)))) +
+p + facet_grid(. ~ Country) +
 xlab("GDP per capita") +
 ylab("Electricity consumption per capita") +
 theme(axis.text.x=element_text(angle=90))
@@ -94,9 +94,29 @@ xlab("GDP per capita") +
 ylab("Electricity consumption per capita")
 ```
 
+```{r block19}
+ordered_countries <- df %>%
+  group_by(Country) %>%
+  summarize(mean = round(mean(gdp_per_capita))) %>%
+  arrange(desc(mean)) %>%
+  mutate(labels = str_c(Country, ": $", mean))
+country.labs <- ordered_countries$labels
+names(country.labs) <- ordered_countries$Country
+
+df_ordered <- df %>%
+  mutate(Country = factor(Country, levels=ordered_countries$Country))
+
+ggplot(df_ordered, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) +
+  geom_point() +
+  facet_wrap(~Country,
+             labeller=labeller(Country = country.labs)) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita")
+```
+
 ## Shapes and colors
 
-```{r block19}
+```{r block20}
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States"))
 var1 <- "Electricity_consumption_per_capita"
 var2 <- "gdp_per_capita"
@@ -109,7 +129,7 @@ xlab(name1) +
 ylab(name2)
 ```
 
-```{r block20}
+```{r block21}
 ggplot(dfs, aes_string(x=var1, y=var2)) +
 geom_point(aes(color=Country, shape=Country)) +
 xlim(0, 10000) +
@@ -119,7 +139,7 @@ ylab(name2)
 
 ## Themes
 
-```{r block21}
+```{r block22}
 dfn <- subset(HollywoodMovies,
               Genre %in% c("Action", "Adventure", "Comedy", "Drama",
               "Romantic Comedy") &
@@ -130,7 +150,7 @@ p2 <- p1 + geom_bar(aes(fill=LeadStudio), stat="Identity", position="dodge")
 p2
 ```
 
-```{r block22}
+```{r block23}
 p3 <- p2 + theme(axis.title.x=element_text(size=15),
                  axis.title.y=element_text(size=15),
                  plot.background=element_rect(fill="gray87"),
@@ -139,7 +159,7 @@ p3 <- p2 + theme(axis.title.x=element_text(size=15),
 p3
 ```
 
-```{r block23, fig.height = 8, fig.width = 8, fig.align="center"}
+```{r block24, fig.height = 8, fig.width = 8, fig.align="center"}
 p4 <- p2 +
   theme_bw() +
   ggtitle("theme_bw()") +
@@ -159,7 +179,7 @@ p7 <- p2 +
 ggarrange(p4, p5, p6, p7, ncol=2, nrow=2, common.legend = TRUE, legend="right")
 ```
 
-```{r block24}
+```{r block25}
 mytheme <- theme(legend.title=element_blank(),
 legend.position="bottom",
 text = element_text(color="Blue"),
@@ -167,7 +187,7 @@ axis.text=element_text(size=12, color="Red"),
 axis.title=element_text(size=rel(1.5)))
 ```
 
-```{r block25, fig.height = 4, fig.width = 12, fig.align="center"}
+```{r block26, fig.height = 4, fig.width = 12, fig.align="center"}
 p2 <- p2 +
   ggtitle("Original Plot")
 p8 <- p2 +
@@ -176,14 +196,14 @@ p8 <- p2 +
 grid.arrange(p2, p8, ncol=2)
 ```
 
-```{r block26}
+```{r block27}
 p4 + scale_fill_brewer(palette="Spectral")
 ```
 
-```{r block27}
+```{r block28}
 p4 + scale_fill_brewer(palette="Pastel1")
 ```
 
-```{r block28}
+```{r block29}
 p4 + scale_fill_brewer(palette="Oranges")
 ```
