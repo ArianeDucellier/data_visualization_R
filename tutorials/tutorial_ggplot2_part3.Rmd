@@ -21,7 +21,7 @@ library(gridExtra)
 
 ## Bubble charts
 
-```{r block_30}
+```{r block30}
 df <- read_csv("../data/gapminder-data.csv")
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
 
@@ -35,15 +35,18 @@ ggplot(dfs, aes(x=Year, y=Electricity_consumption_per_capita)) +
 
 ## Density plots
 
-```{r block22}
+```{r block31}
 df <- read_csv("../data/LoanStats.csv")
+df <- df %>% drop_na(grade)
 ggplot(df, aes(x=loan_amnt)) +
   geom_density() +
-  facet_wrap(~grade)
+  facet_wrap(~grade) +
+  xlab("Loan amount")
 ```
 
-```{r block23}
+```{r block32}
 df <- read_csv("../data/LoanStats.csv")
+df <- df %>% drop_na(grade)
 ggplot(df, aes(x=loan_amnt)) +
   geom_density(aes(fill=grade), alpha=1/2) +
   scale_fill_brewer(palette="Dark2") +
@@ -53,7 +56,7 @@ ggplot(df, aes(x=loan_amnt)) +
 
 ## Time series
 
-```{r block24}
+```{r block33}
 df_fb <- read_csv("../data/FB.csv")
 df_fb$Date <- as.Date(df_fb$Date)
 ggplot(df_fb, aes(x=Date, y=Close, group=1)) + 
@@ -66,7 +69,7 @@ theme_bw()
 
 ## Statistical summaries
 
-```{r block_25}
+```{r block34}
 df_fb <- read_csv("../data/FB.csv")
 df_fb$Date <- as.Date(df_fb$Date)
 df_fb$Month <- strftime(df_fb$Date,"%m")
@@ -84,27 +87,31 @@ theme_classic()
 
 ## Linear regression
 
-```{r block_26}
+```{r block35}
 df <- read_csv("../data/gapminder-data.csv")
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
 ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita)) + geom_point(aes(color=Country)) +
 xlim(0, 30000) +
-stat_smooth(method=lm)
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita") +
+geom_smooth(method=lm, level=0.99)
 ```
 
-```{r block_27}
+```{r block36}
 df <- read_csv("../data/gapminder-data.csv")
 dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
 ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita, color=Country)) +
 geom_point() +
-stat_smooth(method=lm)
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita") +
+geom_smooth(method=lm)
 ```
 
 ## Setting the horizontal scale
 
 Difference between coord_cartesian and scale_x_continuous
 
-```{r block_31}
+```{r block37}
 p <- ggplot(mtcars, aes(disp, wt)) +
   geom_point() +
   geom_smooth()
@@ -118,35 +125,55 @@ grid.arrange(p, p1, p2, ncol=2)
 
 ## Correlations
 
-```{r block_28}
+```{r block38}
 df <- read_csv("../data/gapminder-data.csv")
 df <- df[, colnames(df)[4:9]]
 df <- na.omit(df)
 colnames(df) <- c("gdp", "electricity", "mort", "pov", "bmi_m", "bmi_f")
 M <- cor(df)
 corrplot(M, method="number")
+```
+
+```{r block39}
 corrplot(M, method="pie")
+```
+
+```{r block40}
 corrplot(M, method="ellipse")
 ```
 
 ## Maps
 
-```{r block29}
+```{r block41}
 states_map <- map_data("state")
 ggplot(states_map, aes(x=long, y=lat, group=group)) +
   geom_polygon(fill="white", colour="black")
 ```
 
-```{r block30}
+```{r block42}
 ggplot(states_map, aes(x=long, y=lat, group=group)) +    
 geom_path() +
   coord_map("mercator")
 ```
 
-```{r block31}
+```{r block43}
 europe <- map_data("world",
     region=c("Germany", "Spain", "Italy", "France", "UK", "Ireland")) 
 ggplot(europe, aes(x=long, y=lat, group=group, fill=region)) +
   geom_polygon(color="black") +
 scale_fill_brewer(palette="Set3")
+```
+
+Adding data to the map.
+
+```{r block44}
+arrests <- as_tibble(USArrests, rownames=NA) %>%
+  rownames_to_column("region") %>%
+  mutate(region = tolower(region))
+states_arrests <- states_map %>% left_join(arrests)
+ggplot(states_arrests, aes(x=long, y=lat, group=group)) +
+  geom_polygon(aes(fill=Murder), color="black") +
+  scale_fill_gradient2(low="cornflowerblue", 
+                       high="firebrick1", 
+                       midpoint = 10)
 ```
