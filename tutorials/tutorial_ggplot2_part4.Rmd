@@ -16,6 +16,7 @@ Load R packages
 
 ```{r libraries}
 library(tidyverse)
+library(cowplot)
 library(Ecdat)
 ```
 
@@ -92,7 +93,9 @@ lat_lim <- merged_data$lat[merged_data$region %in% tristate]
 outer <- merged_data[!merged_data$region %in% tristate,]
 
 choropleth +
-  geom_polygon(data=outer, aes(x=long, y=lat, group=group), fill="gray", color="black") +      coord_fixed(xlim=c(min(long_lim), max(long_lim)),
+  geom_polygon(data=outer, aes(x=long, y=lat, group=group),
+               fill="gray", color="black") +
+  coord_fixed(xlim=c(min(long_lim), max(long_lim)),
               ylim=c(min(lat_lim),max(lat_lim)),
               ratio=1.3)
 ```
@@ -100,13 +103,33 @@ choropleth +
 ## Changing the map projection
 
 ```{r block_50}
-choropleth + coord_map() +                                                  # choosing mercator projection
-  ggtitle('US Map - mercator projection')                                   # adding an informative title
-## STEP 3: ADOPTING THE GILBERT PROJECTION
-choropleth + coord_map(projection = 'gilbert') +                            # choosing gilbert projection
-  ggtitle('US Map - gilbert projection')                                    # adding an informative title   
-## STEP 4: ADOPTING THE CONIC PROJECTION
-choropleth + coord_map(projection = 'conic', lat0 = 50) +                   # adopting conic projection with latitude zero = 50 
-  labs(title = 'US Map - conic projection',                                 # adding an informative title ...
-       subtitle = 'latitute zero = 50')
+choropleth +
+  coord_map() +
+  ggtitle("US Map - mercator projection")
+```
+
+```{r block_51}
+choropleth +
+  coord_map(projection = "gilbert") +
+  ggtitle("US Map - gilbert projection")
+```
+
+```{r block_52}
+choropleth +
+  coord_map(projection = "conic", lat0 = 50) +
+  labs(title = "US Map - conic projection",
+       subtitle = "latitute zero = 50")
+```
+
+## Contour plots
+
+```{r contour, fig.width=8, fig.height=12}
+p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
+p1 <- p + geom_contour()
+p2 <- p + geom_contour_filled()
+p3 <- p + geom_raster(aes(fill = density)) +
+  geom_contour(color="white")
+plot_grid(p1, p2, p3, align = "v", nrow = 3, rel_heights = c(1/3, 1/3, 1/3))
+```
+
 ```
