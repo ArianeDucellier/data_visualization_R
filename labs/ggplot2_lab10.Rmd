@@ -1,7 +1,7 @@
 ---
 title: "Lab 10 - Studying Correlated Variables"
 author: "Ariane Ducellier"
-date: "7/22/2023"
+date: "10/24/2023"
 output: pdf_document
 ---
 
@@ -9,14 +9,14 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this lab, we are going to visualize two highly correlated variables from the loan dataset.
+In this lab, we are going to visualize two highly correlated variables from the loan data set.
 
 ## Libraries
 
 Load the necessary libraries.
 
 ```{r libraries}
-library(ggplot2)
+library(tidyverse)
 ```
 
 ## Data
@@ -30,7 +30,9 @@ df <- subset(df, grade=="A")
 
 ## Plot
 
-Complete the cell with the code to make the plot.
+Complete the cell with the code to make the plot. We need to use highly correlated variables, try:
+- total_rec_prncp and total_pymnt_int
+- funded_amnt, total_pymnt_inv
 
 ```{r plot}
 ```

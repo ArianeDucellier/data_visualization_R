@@ -1,7 +1,7 @@
 ---
 title: "Lab 11 - Creating a Variable-Encoded Regional Map"
 author: "Ariane Ducellier"
-date: "7/22/2023"
+date: "10/24/2023"
 output: pdf_document
 ---
 
@@ -9,26 +9,26 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this lab, we are going to create a map showing the percentage of voters that voted for Clinton.
+In this lab, we are going to create a map showing the percentage of voters who voted for Clinton.
 
 ## Libraries
 
 Load the necessary libraries.
 
 ```{r libraries}
-library(ggplot2)
+library(tidyverse)
 library(Lock5Data)
-library(maps)
+library(scales)
 ```
 
 ## Data
 
-Load the data. Merge states with the election dataset.
+Load the data. Merge states with the election data set.
 
 ```{r data}
 states_map <- map_data("state")
-USStates$Statelower <- as.character(tolower(USStates$State))
-us_data <- merge(USStates, states_map, by.x="Statelower", by.y="region")
+USStates$region <- as.character(tolower(USStates$State))
+us_data <- right_join(USStates, states_map)
 ```
 
 ## Plot
