@@ -1,0 +1,177 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Shiny tutorial]{Data Visualization with R \\ Shiny tutorial}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2023}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Panels}
+
+		We can show multiple frames in screen and let the user select one. The processing of the data is only carried out for the currently selected tab.
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+tabsetPanel(
+  tabPanel("title_text", textOutput("name_text")),
+  tabPanel("title_plot", plotoutput("name_plot")),
+  tabPanel("title_map", leafletOutput("name_map"))
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		The \verb|leaflet| package allows us to produce maps shown with \verb|leafletOutput| in the \verb|ui.R| and created with \verb|renderLeaflet| in the \verb|server.R| file.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Reactive objects}
+
+		In the \verb|server.r| file, we filter the data using a reactive object:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{lstlisting}
+theData = reactive({
+  mapData %>%
+    filter(year >= input$year
+})
+		\end{lstlisting}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{itemize}
+			\item A reactive object changes when its input changes.
+			\item When it runs, the output is cached.
+			\item If it is called several times in an application, it will not run again if the inputs are unchanged.
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{HTML}
+		Add a slide about simple html code here.
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Simple layouts}
+		
+		Left-to-right and top-to-bottom. The elements reorder themselves when resizing the window.
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+flowLayout( ... )
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Top-to-bottom
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+verticalLayout( ... )
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Left-to-right with manually set widths
+		\begin{exampleblock}{}
+		\begin{lstlisting}
+splitLayout(cellWidths = c("25%", "75%"),
+            ... ),
+		\end{lstlisting}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Complete layouts}
+		
+		Side bar and main panel
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+fluidpage(
+  sidebarLayout(sidebarPanel, mainPanel, position))
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Top level navigation bar and several tabs
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+navbarPage(title, tabPanel)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Left navigation bar and several tabs
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+fluidpage(
+  navlistPanel(title, tabPanel)
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Complete layouts}
+		
+		Rows and columns. The sum of the widths of the columns must be equal to 12.
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+fluidpage(
+  fluidrow(
+    column(width=4, ...),
+    column(width=4, ...), ... ))
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		Combination of layouts
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+fluidPage(
+  fluidRow(
+    column(width=4, ...), column(width=8, ...)),
+  splitLayout( ... ),
+  verticalLayout( ... )
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+\end{document}
