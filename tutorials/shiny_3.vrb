@@ -1,0 +1,22 @@
+\frametitle{Progress bar}
+
+		If some computation in \verb|server.R| can take a long time, it is useful to wrap the corresponding code inside the Shiny \verb|withProgress()| function.
+
+		\vspace{1em}
+
+		In \verb|server.R|
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+withProgress(message = ... ,
+  detail = ‘ ... ‘, value = 0,
+  ... function code ...
+  incProgress(1/3)
+  ... function code ...
+  incProgress(1/3)
+  ... function code ...
+  incProgress(1/3)
+  ... function code ...
+})
+		\end{BVerbatim}
+		\end{exampleblock}{}
+

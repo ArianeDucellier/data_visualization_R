@@ -76,8 +76,22 @@ theData = reactive({
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{HTML}
-		Add a slide about simple html code here.
+		\frametitle{Functions in ui.R and server.R}
+		\begin{center}
+		\begin{tabular}{ c c c }
+		\verb|ui.R| & & \verb|server.R| \\
+		\hline
+		\\
+		\verb|textOutput| & $\leftrightarrow$ & \verb|renderText| \\
+		\\
+		\verb|plotOutput| & $\leftrightarrow$ & \verb|renderPlot| \\
+		\\
+		\verb|tableOutput| & $\leftrightarrow$ & \verb|renderTable| \\
+		\\
+		\verb|leafletOutput| & $\leftrightarrow$ & \verb|renderLeaflet| \\ 
+		\end{tabular}
+		\end{center}
+
 	\end{frame}
 
 	\begin{frame}[fragile]

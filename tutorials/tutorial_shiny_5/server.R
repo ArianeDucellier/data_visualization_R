@@ -86,7 +86,7 @@ function(input, output) {
     
   output$yearSelectorUI = renderUI({
     
-    selectedYears = unique(mapData$year)
+    selectedYears = unique(theData()$year)
     
     selectInput("yearSelector", "Select year", 
                 selectedYears)
