@@ -16,6 +16,8 @@ fluidPage(
                   sep="",
                   step=5
       ),
+      
+      uiOutput("yearSelectorUI"),
 
       conditionalPanel(
         condition = "input.theTabs == 'trend'",

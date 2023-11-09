@@ -42,8 +42,20 @@ function(input, output){
 
   output$map = renderLeaflet({
 
+    withProgress(message="Please wait",
+                 value=0,
+    {
+      incProgress(1/3, detail="Loading data")
+      Sys.sleep(0.5)
+      
+      incProgress(1/3, detail="Drawing map")
+      Sys.sleep(0.5)
+      
+      incProgress(1/3, detail="Finishing up")
+      Sys.sleep(0.5)
+
     mapData %>%
-      filter(year == input$year[2]) %>%
+      filter(year == input$yearSelector) %>%
       leaflet() %>%
       addTiles() %>%
       setView(lng=0, lat=0, zoom=2) %>%
@@ -52,6 +64,8 @@ function(input, output){
                  weight=1,
                  radius = ~ lifeExp * 5000,
                  popup = ~ paste(country, lifeExp))
+    
+    })
     
   })
 
@@ -68,6 +82,15 @@ function(input, output){
         lengthMenu = c(10, 20, 50))
     )
     
+  })
+  
+  output$yearSelectorUI = renderUI({
+    
+    selectedYears = unique(theData()$year)
+
+    selectInput("yearSelector",
+                "Select year to plot the map",
+                selectedYears)
   })
 
 }
