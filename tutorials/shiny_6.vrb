@@ -1,0 +1,16 @@
+\frametitle{Sharing with GitHub}
+
+		On GitHub, create a repository with your dataset, and the \verb|ui.R| and \verb|server.R| files.
+
+		\vspace{1em}
+
+		In rStudio, run:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shiny)
+runGitHub("repository_name", "user_name")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+ 	

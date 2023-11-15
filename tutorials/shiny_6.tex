@@ -1,0 +1,79 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Shiny tutorial]{Data Visualization with R \\ Shiny tutorial}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2023}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Sharing with Gist}
+
+		Go to \href{https://gist.github.com/}{https://gist.github.com/}.
+
+		\vspace{1em}
+
+		If you have a GitHub account, you should have on account on Gist too.
+
+		\vspace{1em}
+
+		Create a project with a description, an \verb|ui.R| and a \verb|server.R| files.
+
+		\vspace{1em}
+
+		Get the URL of your project.
+
+		\vspace{1em}
+
+		In RStudio, run:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shiny)
+runGist("https://gist.github.com/MyName/identifier")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Sharing with GitHub}
+
+		On GitHub, create a repository with your dataset, and the \verb|ui.R| and \verb|server.R| files.
+
+		\vspace{1em}
+
+		In rStudio, run:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shiny)
+runGitHub("repository_name", "user_name")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+ 	
+	\end{frame}
+
+
+\end{document}
