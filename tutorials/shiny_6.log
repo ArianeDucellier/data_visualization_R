@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  15 NOV 2023 12:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  15 NOV 2023 22:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1096,6 +1096,12 @@ Package gensymb Info: Using \textmu for \micro on input line 23.
  (./shiny_6.vrb) [3
 
 ]
+\openout4 = `shiny_6.vrb'.
+
+
+(./shiny_6.vrb) [4
+
+]
 \tf@nav=\write7
 \openout7 = `shiny_6.nav'.
 
@@ -1105,16 +1111,15 @@ Package gensymb Info: Using \textmu for \micro on input line 23.
 \tf@snm=\write9
 \openout9 = `shiny_6.snm'.
 
-
-(./shiny_6.aux)
+ (./shiny_6.aux)
 Package rerunfilecheck Info: File `shiny_6.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29069 strings out of 476025
- 600953 string characters out of 5790017
- 1861388 words of memory out of 5000000
- 48960 multiletter control sequences out of 15000+600000
+ 29081 strings out of 476025
+ 601275 string characters out of 5790017
+ 1863388 words of memory out of 5000000
+ 48968 multiletter control sequences out of 15000+600000
  514267 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,382b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1122,10 +1127,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
 usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on shiny_6.pdf (3 pages, 61266 bytes).
+Output written on shiny_6.pdf (4 pages, 68001 bytes).
 PDF statistics:
- 162 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
- 7 named destinations out of 1000 (max. 500000)
- 169 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 211 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
+ 9 named destinations out of 1000 (max. 500000)
+ 235 words of extra memory for PDF output out of 10000 (max. 10000000)
 

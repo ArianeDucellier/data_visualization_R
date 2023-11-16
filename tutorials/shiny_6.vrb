@@ -1,16 +1,32 @@
-\frametitle{Sharing with GitHub}
+\frametitle{Sharing through Shinyapps.io}
 
-		On GitHub, create a repository with your dataset, and the \verb|ui.R| and \verb|server.R| files.
+		Create a free account on \href{https://www.shinyapps.io/}{https://www.shinyapps.io/}.
 
 		\vspace{1em}
 
-		In rStudio, run:
+		In RStudio, install the package \verb|rsconnect|.
+
+		\vspace{1em}
+
+		When creating your account, \verb|Shinyapps.io| will ask you to set your \verb|Shinyapps.io| account information on RStudio by running:
 		
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-library(shiny)
-runGitHub("repository_name", "user_name")
+rsconnect::setAccountInfo(name='yourname',
+token='some_token', secret='some_secret')
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
- 	
+		To deploy your application on \verb|Shinyapps.io|, run on RStudio:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(rsconnect)
+rsconnect::deployApp("/path/your_path_to_your_app")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		Check on \verb|Shinyapps.io| the URL of your application:
+
+		\href{https://arianeducellier.shinyapps.io/magnitudes/}{https://arianeducellier.shinyapps.io/magnitudes/}
+
