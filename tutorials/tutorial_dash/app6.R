@@ -47,7 +47,7 @@ app %>% set_layout(
       marks = c("", "Label 1", 2:5),
       value = 5
     ),
-    style = list('columnCount' = 2)
+    style = list('columnCount' = 1)
   )
 )
 

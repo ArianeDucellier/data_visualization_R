@@ -1,0 +1,28 @@
+\frametitle{About Dash syntax}
+
+		The three bits of codes are equivalent:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+app <- dash_app()
+app %>% set_layout(
+app %>% run_app()
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}		
+dash_app() %>%
+  set_layout(...) %>%
+  run_app()
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+app <- dash_app()
+set_layout(app, ...)
+run_app(app)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
