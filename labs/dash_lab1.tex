@@ -1,0 +1,46 @@
+\documentclass[letterpaper, 12pt]{article}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large{Dash - Lab 1}}
+\end{center}
+
+\vspace{2em}
+
+Create a new Dash application.
+
+\vspace{1em}
+
+Read the data using code:
+
+\begin{verbatim}
+df <- read.csv(  file = 'https://gist.githubusercontent.com/chriddyp/
+cb5392c35661370d95f300086accea51/raw/
+8e0768211f6b747c0db42a9ce9a0937dafcbd8b2/indicators.csv',  stringsAsFactor = FALSE)
+\end{verbatim}
+
+Write code to include widgets:
+\begin{itemize}
+	\item A dropdown selector to choose the indicator for the x axis (among all values taken by \verb|Indicator.Name|),
+	\item A dropdown selector to choose the indicator for the y axis (among all values taken by \verb|Indicator.Name|),
+	\item Radio buttons to choose linear or log scale for the x axis,
+	\item Radio buttons to choose linear or log scale for the y axis,
+	\item A slider to choose the year.
+\end{itemize}
+
+\vspace{1em}
+
+Filter the data to keep only the values for the year and the indicators selected. You may use the following code:
+
+\begin{verbatim}
+data_by_indicator <- df %>%    dplyr::filter(Year==years[year_value + 1],                  Indicator.Name %in% c(xaxis_column_name,                                        yaxis_column_name))  %>%    droplevels() %>%    split(., .$Indicator.Name)    filtered_df <- merge(data_by_indicator[[1]],
+                     data_by_indicator[[2]],
+                     by = "Country.Name") %>%  dplyr::transmute(x=Value.x, y=Value.y, text=Country.Name) %>%  na.omit() %>%  as.list()
+\end{verbatim}
+
+\vspace{1em}
+
+Add code to plot the filtered data using the scales selected.
+ 
+\end{document}
