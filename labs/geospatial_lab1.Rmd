@@ -1,0 +1,55 @@
+---
+title: "Geospatial data - Lab 1"
+author: "Ariane Ducellier"
+date: "11/30/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r libraries}
+library(ggplot2)
+library(sf)
+library(stars)
+```
+
+## Questions
+
+Read the shape file BGD_adm3_data_re.
+
+```{r read_vector}
+```
+
+Read the csv file r_val and transform it into vector data.
+
+```{r read_csv}
+```
+
+Plot the two data sets together.
+
+```{r plot_data}
+```
+
+Read the raster file SR_LR.
+
+```{r read_raster}
+```
+
+Crop the raster file to a box (x=87-93, y=20-27).
+
+```{r crop_raster}
+```
+
+Mask the cropped raster to the vector data.
+
+```{r mask_raster}
+```
+
+Plot raster and vector data together.
+
+```{r plot_all}
+```
