@@ -70,7 +70,7 @@ net <- graph_from_data_frame(d=edges, vertices=nodes, directed=TRUE)
 ```
 
 ```{r}
-par(mar=c(0, 0, 0, 0))
+par(mar=c(0, 0, 1, 0))
 
 V(net)$size <- log(strength(net)) + 4
 E(net)$width <- log(edges$weight / 350)

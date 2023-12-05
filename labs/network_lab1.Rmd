@@ -1,0 +1,40 @@
+---
+title: "Lab - Network data"
+author: "Ariane Ducellier"
+output: pdf_document
+date: "2023-12-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load R packages
+
+```{r}
+library(igraph)
+library(tidyverse)
+```
+
+## Load the data
+
+Biggest US airports
+
+```{r airports}
+airports <- c("ATL", "DFW", "DEN", "ORD", "LAX", "JFK", "LAS", "MCO", "MIA",
+              "CLT", "SEA", "PHX", "EWR", "SFO", "IAH", "BOS", "FLL", "MSP",
+              "LGA", "DTW")
+```
+
+Flights data set
+
+```{r flights}
+flights <- read_csv("../data/routes.csv")
+flights <- flights %>%
+  filter(`source airport` %in% airports, `destination apirport` %in% airports) %>%
+  group_by(`source airport`, `destination apirport`) %>% summarise(count=n())
+```
+
+Create a network using the airports and the number of flights from and to each airport as edges and vertices.
+
+Make a plot of the network.

@@ -1,0 +1,25 @@
+---
+title: "Lab - Text data"
+author: "Ariane Ducellier"
+output: pdf_document
+date: "2023-12-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load R packages
+
+```{r}
+library(tm)
+library(wordcloud)
+```
+
+## Load the data
+
+```{r}
+data(SOTU)
+```
+
+Plot a comparison cloud of the two speeches.
