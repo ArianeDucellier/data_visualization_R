@@ -31,7 +31,7 @@ clust = hclust(d, "ave")
 par(mfrow=c(1, 2))
 plot(mtx$x, mtx$y, type="n", xlab="x", ylab="y")
 text(mtx$x, mtx$y, labels=z)
-plot(clust, main="Dendogram")
+plot(clust, main="Dendrogram")
 ```
 
 More complex dendrogram.

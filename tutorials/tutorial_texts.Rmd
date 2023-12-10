@@ -59,7 +59,7 @@ data = tm_map(data, removeWords, c(stopwords("english"), "biden", "trump"))
 data = TermDocumentMatrix(data)
 data = as.matrix(data)
 colnames(data) = c("biden", "trump")
-comparison.cloud(data, max.words=100, title.size=2, colors=c("blue", "red"))#brewer.pal(3, "Set1"))
+comparison.cloud(data, max.words=100, title.size=2, colors=c("blue", "red"))
 ```
 
 ## Plot correlations between texts
