@@ -1,0 +1,32 @@
+\frametitle{Solving the conflict}
+		
+		Solve the conflict by merging the two versions of the file.
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git status
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{tiny}
+		\begin{BVerbatim}
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+		\end{BVerbatim}
+		\end{tiny}
+		\end{exampleblock}{}		
+
+		Now we can get back to git add/commit/push.

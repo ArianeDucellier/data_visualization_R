@@ -1,0 +1,217 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Git tutorial]{Data Visualization with R \\ Git tutorial}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2024}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Creating a new repository}
+
+		Create a new repository on GitHub.
+
+		\vspace{1em}
+		
+		Go to Settings $>$ Collaborators to add new people to the repository.
+
+		\vspace{1em}
+
+		Accept the invitation that you have received by email.
+
+		\vspace{1em}
+
+		On your terminal, clone the repository.
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git clone "https://github.com/MyName/example.git"
+		\end{BVerbatim}
+		\end{exampleblock}{}
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Modifying the content of the repository}
+
+		Check the changes in the repository.
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git status
+		\end{BVerbatim}
+		\end{exampleblock}{}
+	
+		Track a new or a modified file.
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git add README.md
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		Create a new commit with all the tracked changes.
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git commit -m "My new commit"
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		Push the changes  to the remote repository.
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git push
+		\end{BVerbatim}
+		\end{exampleblock}{}
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Creating a conflict}
+
+		What happens if you try to push your local changes on the remote while the remote contains modifications that you do not have locally?
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git push
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{tiny}
+		\begin{BVerbatim}
+To https://github.com/ArianeDucellier/example.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/ArianeDucellier/example.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+		\end{BVerbatim}
+		\end{tiny}
+		\end{exampleblock}{}
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Solving the conflict}
+		
+		Fetch the latest changes from the remote
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git pull
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{tiny}
+		\begin{BVerbatim}
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (3/3), 985 bytes | 89.00 KiB/s, done.
+From https://github.com/ArianeDucellier/example
+   201c2aa..e307922  main       -> origin/main
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+		\end{BVerbatim}
+		\end{tiny}
+		\end{exampleblock}{}		
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Solving the conflict}
+		
+		Fetch the latest changes from the remote
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git config pull.rebase false
+git pull
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{tiny}
+		\begin{BVerbatim}
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+		\end{BVerbatim}
+		\end{tiny}
+		\end{exampleblock}{}
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Solving the conflict}
+		
+		Solve the conflict by merging the two versions of the file.
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+git status
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{tiny}
+		\begin{BVerbatim}
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+		\end{BVerbatim}
+		\end{tiny}
+		\end{exampleblock}{}		
+
+		Now we can get back to git add/commit/push.
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Additional resources on Git}
+
+		Software carpentry tutorial: \href{https://swcarpentry.github.io/git-novice/}{https://swcarpentry.github.io/git-novice/l}
+	\end{frame}
+\end{document}
