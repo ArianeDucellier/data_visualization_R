@@ -17,7 +17,7 @@
 
 \title[Data Visualization with R - R Markdown tutorial]{Data Visualization with R \\ R Markdown tutorial}
 \author{Ariane Ducellier}
-\date{University of Washington - Fall 2023}
+\date{University of Washington - Fall 2024}
 
 \begin{document}
 
@@ -36,7 +36,7 @@
 
 		\vspace{2em}
 
-		Open RStudio and Go to File $>$ New File $>$ R Markdown
+		Open RStudio and go to File $>$ New File $>$ R Markdown
 		
 	\end{frame}
 
@@ -55,12 +55,12 @@
 
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		---
-		title: "R Markdown tutorial"
-		author: "Ariane Ducellier"
-		date: "8/29/2023"
-		output: pdf_document
-		---
+---
+title: "R Markdown tutorial"
+author: "Ariane Ducellier"
+date: "8/29/2023"
+output: pdf_document
+---
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -68,9 +68,9 @@
 		
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		```{r cars}
-		summary(cars)
-		```
+```{r cars}
+summary(cars)
+```
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -78,9 +78,9 @@
 
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		## R Markdown
+## R Markdown
 
-		This is an R Markdown document.
+This is an R Markdown document.
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -114,20 +114,20 @@
 
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		_Italic text_
-		**Bold text**
-		# Header one
-		## Header two
-		### Header three
-		[R Markdown](https://rmarkdown.rstudio.com)
-		![RStudio interface](RMarkdown.png)
-		> "A quote"
-		* List item 1
-		* List item 2
-		1. Ordered list item 1
-		2. Ordered list item 2
-		Line 1 followed by two spaces  
-		Line 2 
+_Italic text_
+**Bold text**
+# Header one
+## Header two
+### Header three
+[R Markdown](https://rmarkdown.rstudio.com)
+![RStudio interface](RMarkdown.png)
+> "A quote"
+* List item 1
+* List item 2
+1. Ordered list item 1
+2. Ordered list item 2
+Line 1 followed by two spaces  
+Line 2 
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -139,7 +139,7 @@
 		Inline code:
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		Here is the result: `r result`.
+Here is the result: `r result`.
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -148,10 +148,10 @@
 		Printing tables:
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		```{r ktable, results=‘asis’}
-		library(knitr)
-		kable(mtcars[1:5], caption="A knitr table"
-		```
+```{r ktable, results=‘asis’}
+library(knitr)
+kable(mtcars[1:5], caption="A knitr table"
+```
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -163,9 +163,9 @@
 		Table of contents:
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		output:
-		  pdf_document
-		    toc: true
+output:
+  pdf_document
+    toc: true
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -174,9 +174,9 @@
 		Dashboards:
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-		output:
-		  flexdashboard::flex_dashboard:
-		    orientation: columns
+output:
+  flexdashboard::flex_dashboard:
+    orientation: columns
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
@@ -200,7 +200,7 @@
 		In RStudio, go to:
 		\begin{itemize}
 			\item Help $>$ Markdown Quick Reference
-			\item Help $>$ Cheatsheets
+			\item Help $>$ Cheatsheets $>$ R Markdown Cheat Sheet
 		\end{itemize}
 
 	\end{frame}
