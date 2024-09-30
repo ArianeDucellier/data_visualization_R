@@ -1,7 +1,7 @@
 ---
 title: "Tidyverse tutorial 1 - Basic operations"
 author: "Ariane Ducellier"
-date: "10/03/2023"
+date: "10/01/2024"
 output: pdf_document
 ---
 
@@ -21,19 +21,19 @@ library(skimr)
 Read csv files with basic R.
 
 ```{r read_basic}
-df <- read.csv("../data/gapminder-data.csv")
+df <- read.csv("../../data/gapminder-data.csv")
 print(class(df))
 ```
 
 Read csv files with tidyverse.
 
 ```{r read_csv}
-df_t <- read_csv("../data/gapminder-data.csv")
+df_t <- read_csv("../../data/gapminder-data.csv")
 print(class(df_t))
 ```
 
 ```{r read_csv_sub}
-df_t_sub <- read_csv("../data/gapminder-data.csv",
+df_t_sub <- read_csv("../../data/gapminder-data.csv",
   col_select=c("Country", "Year", "gdp_per_capita"),
   na=c("", "NA"))
 ```
@@ -43,7 +43,7 @@ df_t_sub <- read_csv("../data/gapminder-data.csv",
 Reads the first part of a data frame.
 
 ```{r head}
-df_t <- read_csv("../data/gapminder-data.csv")
+df_t <- read_csv("../../data/gapminder-data.csv")
 head(df_t, 3)
 ```
 
@@ -74,7 +74,8 @@ summary(df_t)
 Provides a broad overview of a data frame, handles data of all types, dispatching a different set of summary functions based on the types of columns in the data frame.
 
 ```{r skim}
-skim(df_t)
+# Comment this line for knitting with pdf
+#skim(df_t)
 ```
 
 # 3. The pipe operator

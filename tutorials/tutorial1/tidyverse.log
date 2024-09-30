@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.29)  2 OCT 2023 12:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  30 SEP 2024 09:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1093,10 +1093,10 @@ File: ts1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 ] [4
 
 ]
-<figures/Santos_1_6.png, id=152, 648.4225pt x 351.3125pt>
-File: figures/Santos_1_6.png Graphic file (type png)
-<use figures/Santos_1_6.png>
-Package pdftex.def Info: figures/Santos_1_6.png  used on input line 101.
+<Santos_1_6.png, id=152, 648.4225pt x 351.3125pt>
+File: Santos_1_6.png Graphic file (type png)
+<use Santos_1_6.png>
+Package pdftex.def Info: Santos_1_6.png  used on input line 101.
 (pdftex.def)             Requested size: 312.9803pt x 169.57153pt.
 
 Overfull \hbox (5.69043pt too wide) in paragraph at lines 101--101
@@ -1105,13 +1105,13 @@ Overfull \hbox (5.69043pt too wide) in paragraph at lines 101--101
 
 [5
 
- <./figures/Santos_1_6.png>] [6
+ <./Santos_1_6.png>] [6
 
 ]
-<figures/Santos_1_7.png, id=207, 645.41125pt x 419.5675pt>
-File: figures/Santos_1_7.png Graphic file (type png)
-<use figures/Santos_1_7.png>
-Package pdftex.def Info: figures/Santos_1_7.png  used on input line 131.
+<Santos_1_7.png, id=207, 645.41125pt x 419.5675pt>
+File: Santos_1_7.png Graphic file (type png)
+<use Santos_1_7.png>
+Package pdftex.def Info: Santos_1_7.png  used on input line 131.
 (pdftex.def)             Requested size: 312.9803pt x 203.45798pt.
 
 Overfull \hbox (5.69043pt too wide) in paragraph at lines 131--131
@@ -1120,25 +1120,24 @@ Overfull \hbox (5.69043pt too wide) in paragraph at lines 131--131
 
 [7
 
- <./figures/Santos_1_7.png>] [8
+ <./Santos_1_7.png>] [8
 
 ]
-<figures/Santos_1_8.png, id=263, 582.175pt x 564.1075pt>
-File: figures/Santos_1_8.png Graphic file (type png)
-<use figures/Santos_1_8.png>
-Package pdftex.def Info: figures/Santos_1_8.png  used on input line 163.
+<Santos_1_8.png, id=263, 582.175pt x 564.1075pt>
+File: Santos_1_8.png Graphic file (type png)
+<use Santos_1_8.png>
+Package pdftex.def Info: Santos_1_8.png  used on input line 163.
 (pdftex.def)             Requested size: 199.16928pt x 192.98184pt.
  [9
 
- <./figures/Santos_1_8.png>] [10
+ <./Santos_1_8.png>] [10
 
 ] [11
 
 ]
 \openout4 = `tidyverse.vrb'.
 
-
-(./tidyverse.vrb
+ (./tidyverse.vrb
 Overfull \hbox (3.13927pt too wide) in paragraph at lines 21--28
 [][]  
  []
@@ -1160,8 +1159,8 @@ Package rerunfilecheck Info: File `tidyverse.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27961 strings out of 476025
- 587302 string characters out of 5790017
+ 27960 strings out of 476025
+ 587150 string characters out of 5790017
  1862388 words of memory out of 5000000
  47813 multiletter control sequences out of 15000+600000
  520833 words of font info for 62 fonts, out of 8000000 for 9000
@@ -1174,7 +1173,7 @@ Here is how much of TeX's memory you used:
 sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></
 usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
 sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on tidyverse.pdf (12 pages, 827538 bytes).
+Output written on tidyverse.pdf (12 pages, 827492 bytes).
 PDF statistics:
  431 PDF objects out of 1000 (max. 8388607)
  362 compressed objects within 4 object streams
