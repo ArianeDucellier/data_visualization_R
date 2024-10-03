@@ -1,7 +1,7 @@
 ---
 title: "Ggplot2 tutorial - Command lines Part 1"
 author: "Ariane Ducellier"
-date: "10/10/2023"
+date: "10/08/2024"
 output: pdf_document
 ---
 
@@ -35,7 +35,7 @@ ggplot(airquality, aes(x=Temp)) + geom_histogram()
 ## Bar plots
 
 ```{r block4}
-df_desc <- read_csv("../data/historical-hourly-weather-data/weather_description.csv")
+df_desc <- read_csv("../../data/historical-hourly-weather-data/weather_description.csv")
 ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
 ```
 
@@ -51,7 +51,7 @@ xlab("Month")
 ## Box plots
 
 ```{r block6}
-df_hum <- read_csv("../data/historical-hourly-weather-data/humidity.csv")
+df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
 df_hum$datetime <- as.character(df_hum$datetime)
 df_hum$Month <- substr(df_hum$datetime, 6, 7)
 ggplot(df_hum, aes(x=Month, y=Vancouver)) +
@@ -73,7 +73,7 @@ ggplot(df, aes(x=time, y=distance)) + geom_line()
 ## Changing histogram defaults and adding aesthetics
 
 ```{r block8}
-df_hum <- read_csv("../data/historical-hourly-weather-data/humidity.csv")
+df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
 ggplot(df_hum, aes(x=Vancouver)) + geom_histogram()
 ggplot(df_hum, aes(x=Vancouver)) + geom_histogram(bins=15)
 ggplot(df_hum, aes(x=Vancouver)) + geom_histogram(bins=15, fill="white", color=1)
@@ -87,7 +87,7 @@ theme(axis.text.x=element_text(size=12), axis.text.y=element_text(size=12))
 ## Changing boxplot defaults and adding aesthetics
 
 ```{r block9}
-df_hum <- read_csv("../data/historical-hourly-weather-data/humidity.csv")
+df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
 df_hum$datetime <- as.character(df_hum$datetime)
 df_hum$Month <- substr(df_hum$datetime, 6, 7)
 ggplot(df_hum, aes(x=Month, y=Vancouver)) + 

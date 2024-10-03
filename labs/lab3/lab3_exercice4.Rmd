@@ -1,7 +1,7 @@
 ---
-title: "Lab 7 - Using Theemes and Color Differentiation in a Plot"
+title: "Lab 3 - Exercise 4 - Using Themes and Color Differentiation in a Plot"
 author: "Ariane Ducellier"
-date: "10/17/2023"
+date: "10/10/2024"
 output: pdf_document
 ---
 
@@ -24,7 +24,7 @@ library(tidyverse)
 Load the data.
 
 ```{r data}
-df <- read_csv("../data/gapminder-data.csv")
+df <- read_csv("../../data/gapminder-data.csv")
 ```
 
 ## Plot

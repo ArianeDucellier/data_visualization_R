@@ -1,7 +1,7 @@
 ---
-title: "Lab 3 - Improving the Default Visualization"
+title: "Lab 2 - Exercise 3 - Improving the Default Visualization"
 author: "Ariane Ducellier"
-date: "10/10/2023"
+date: "10/08/2024"
 output: pdf_document
 ---
 
@@ -24,7 +24,7 @@ library(tidyverse)
 Load the data.
 
 ```{r data}
-df_edu <- read_csv("../data/xAPI-Edu-Data.csv")
+df_edu <- read_csv("../../data/xAPI-Edu-Data.csv")
 ```
 
 ## Plot 1

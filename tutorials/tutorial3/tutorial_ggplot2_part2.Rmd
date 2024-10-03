@@ -1,7 +1,7 @@
 ---
 title: "Ggplot2 tutorial - Command lines Part 2"
 author: "Ariane Ducellier"
-date: "10/12/2023"
+date: "10/10/2024"
 output: pdf_document
 ---
 
@@ -23,7 +23,7 @@ library(Lock5Data)
 ## Layers
 
 ```{r block10}
-df <- read_csv("../data/gapminder-data.csv")
+df <- read_csv("../../data/gapminder-data.csv")
 p1 <- ggplot(df, aes(x=Electricity_consumption_per_capita))
 p2 <- p1 + geom_histogram()
 p2
@@ -42,7 +42,7 @@ p4
 ## Scales
 
 ```{r block13}
-df <- read_csv("../data/gapminder-data.csv")
+df <- read_csv("../../data/gapminder-data.csv")
 p1 <- ggplot(df, aes(x=gdp_per_capita))
 p2 <- p1 + geom_histogram()
 p3 <- p2 + scale_x_continuous(name='GDP per capita ($)',
@@ -70,7 +70,7 @@ theme(axis.title.x=element_blank(),
 ## Facets
 
 ```{r block15}
-df <- read_csv("../data/gapminder-data.csv")
+df <- read_csv("../../data/gapminder-data.csv")
 p <- ggplot(df, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) + geom_point()
 p
 ```
