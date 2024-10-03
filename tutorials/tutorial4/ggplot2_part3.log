@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.29)  16 OCT 2023 14:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  3 OCT 2024 10:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1140,7 +1140,7 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
 usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on ggplot2_part3.pdf (10 pages, 97308 bytes).
+Output written on ggplot2_part3.pdf (10 pages, 97262 bytes).
 PDF statistics:
  460 PDF objects out of 1000 (max. 8388607)
  351 compressed objects within 4 object streams
