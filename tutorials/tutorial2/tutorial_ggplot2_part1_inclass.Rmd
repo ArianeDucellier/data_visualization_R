@@ -1,0 +1,105 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2024-10-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(Lock5Data)
+```
+
+```{r}
+hist(airquality$Temp)
+```
+
+```{r}
+qplot(airquality$Temp)
+```
+
+```{r}
+ggplot(airquality, aes(x=Temp)) +
+  geom_histogram()
+```
+
+```{r}
+df_desc <- read_csv("../../data/historical-hourly-weather-data/weather_description.csv")
+ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
+```
+
+```{r}
+df <- na.omit(RetailSales)
+months_of_the_year <- c("Jan", "Feb", "Mar", "Apr", "May", "June",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec")
+ggplot(df) +
+  geom_bar(aes(x=factor(Month, months_of_the_year), y=Sales), stat="identity") +
+  xlab("Month")
+```
+
+```{r}
+df <- na.omit(RetailSales)
+p1 <- df %>%
+  group_by(Month) %>%
+  summarize(Sales=sum(Sales)) %>%
+  mutate(high=factor(ifelse(Sales>4500, 1, 0))) %>%
+  ggplot(aes(fill=high)) +
+    geom_bar(aes(x=Month, y=Sales), stat="identity")
+p1
+```
+
+```{r}
+df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
+df_hum$datetime <- as.character(df_hum$datetime)
+df_hum$Month <- substr(df_hum$datetime, 6, 7)
+ggplot(df_hum, aes(x=Month, y=Vancouver)) +
+  geom_boxplot()
+```
+
+```{r}
+a = 3.4
+v0 = 27
+time <- runif(50, min=0, max=200)
+distance <- sapply(time, function(x) v0 * x + 0.5 * a * x^2)
+df <- data.frame(time, distance)
+```
+
+```{r}
+ggplot(df, aes(x=time, y=distance)) + geom_point()
+```
+
+```{r}
+ggplot(df, aes(x=time, y=distance)) + geom_line()
+```
+
+```{r}
+df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
+```
+
+```{r}
+ggplot(df_hum, aes(x=Vancouver)) + geom_histogram(bins=15, fill="blue", color=1) +
+  ggtitle("Humidity for Vancouver city") +
+  xlab("Humidity") +
+  theme(axis.text.x=element_text(size=12), axis.text.y=element_text(size=12))
+```
+
+```{r}
+df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
+df_hum$datetime <- as.character(df_hum$datetime)
+df_hum$Month <- substr(df_hum$datetime, 6, 7)
+```
+
+```{r}
+ggplot(df_hum, aes(x=Month, y=Vancouver)) +
+  geom_boxplot(color="gray20", fill="cadetblue2") +
+  ylab("Humidity") +
+  theme(axis.text.x=element_text(size=15),
+        axis.text.y=element_text(size=15),
+        axis.title.x=element_text(size=15, color="gray20"),
+        axis.title.y=element_text(size=15, color="gray20"))
+```
+
+
