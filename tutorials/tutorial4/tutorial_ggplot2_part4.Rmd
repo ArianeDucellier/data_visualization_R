@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.width=12, fig.height=8)
 
 Load R packages
 
-```{r libraries}
+```{r libraries, message=FALSE}
 library(tidyverse)
 library(cowplot)
 library(Ecdat)
@@ -27,7 +27,7 @@ library(Ecdat)
 Define with knitr options at the beginning.
 
 ```{r block_44}
-df <- read_csv("../data/gapminder-data.csv")
+df <- read_csv("../../data/gapminder-data.csv")
 ggplot(df, aes(gdp_per_capita, Electricity_consumption_per_capita)) +   
   geom_point(aes(color=Country)) +
   xlab("GDP per capita") +
