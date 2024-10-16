@@ -1,7 +1,7 @@
 ---
-title: "Lab 9 - Plot the Monthly Closing Stock Prices and the Mean Values"
+title: "Lab 4 - Exercise 2 - Plot the Monthly Closing Stock Prices and the Mean Values"
 author: "Ariane Ducellier"
-date: "10/24/2023"
+date: "10/17/2024"
 output: pdf_document
 ---
 
@@ -24,7 +24,7 @@ library(tidyverse)
 Use the data from the Facebook dataset.
 
 ```{r data}
-df_fb <- read_csv("../data/FB.csv")
+df_fb <- read_csv("../../data/FB.csv")
 df_fb$Date <- as.Date(df_fb$Date)
 df_fb$Month <- strftime(df_fb$Date, "%m")
 df_fb$Month <- as.numeric(df_fb$Month)

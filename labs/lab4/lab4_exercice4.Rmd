@@ -1,7 +1,7 @@
 ---
-title: "Lab 11 - Creating a Variable-Encoded Regional Map"
+title: "Lab 4 - Exercise 4 - Creating a Variable-Encoded Regional Map"
 author: "Ariane Ducellier"
-date: "10/24/2023"
+date: "10/17/2024"
 output: pdf_document
 ---
 

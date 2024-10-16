@@ -1,7 +1,7 @@
 ---
-title: "Lab 8 - Using Density PLots to Compare Distributions"
+title: "Lab 4 - Exercise 1 - Using Density PLots to Compare Distributions"
 author: "Ariane Ducellier"
-date: "10/24/2023"
+date: "10/17/2024"
 output: pdf_document
 ---
 
