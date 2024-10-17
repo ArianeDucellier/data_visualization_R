@@ -1,0 +1,398 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Shiny tutorial - Part 1]{Data Visualization with R \\ Shiny tutorial - Part 1}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2024}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{What is Shiny?}
+
+		\begin{itemize}
+			\item R is an package that enables building interactive web applications that can execute R code on the backend.
+
+			\vspace{1em}
+
+			\item What can you do with Shiny?
+			\begin{itemize}
+				\item Host standalone applications on a webpage
+				\item Embed interactive charts in R Markdown documents.
+				\item Build dashboards.
+				\item Perform any R calculation and display the results on the webpage or dashboard.
+				\item Extend your Shiny applications with CSS themes, HTML widgets, and JavaScript actions.
+			\end{itemize}
+		\end{itemize}
+		
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Examples}
+
+		Let us run several examples:
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		library(shiny)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		runExample("08_html")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+		runExample("01_hello")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Examples}
+
+		UI part:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+ui <- fluidPage(
+  titlePanel(...),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput(
+        ...
+      )
+    ),
+    mainPanel(
+      plotOutput(outputId="distplot")
+    )
+  )
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Examples}
+
+		Server part:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+server <- function(input, output) {
+  output$distplot <- renderPlot({
+    ...
+  })
+}
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		Creation of Shiny app:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+shinyApp(ui=ui, server=server)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+	
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{R Markdown with interactive Shiny elements}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+Go to File >
+      New File >
+      R Markdown >
+      Shiny
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		Fill the document with the code from \verb|tutorial_shiny_1.Rmd|.
+
+		\vspace{2em}
+
+		Click on \verb|Run Document|.
+	
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Minimal example}
+
+		We need the files \verb|ui.R| and \verb|server.R| that are kept within the same folder. \verb|ui.R| describe the user interface.
+
+		\vspace{2em}		
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+fluidPage(...,
+    title = NULL, theme = NULL, lang = NULL)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		indicates that we are going to use a fluid page layout with rows containing columns.
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+titlePanel(title, windowTitle = title)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		describes the title of the application.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Minimal example}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+sidebarLayout(sidebarPanel,
+              mainPanel,
+              position = c("left", "right"),
+              fluid = TRUE)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		describe the general layout of the page, with:
+		\begin{itemize}
+			\item Inputs on the side (\verb|sidebarPanel|),
+			\item Outputs in the middle (\verb|mainPanel|).
+		\end{itemize}
+	
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Minimal example}
+
+		The panels contain input and output widgets:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+textInput(inputId = "comment",
+          label,
+          value = "",
+          width = NULL,
+          placeholder = NULL)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+textOutput(outputId = "textDisplay",
+           container = if (inline) span else div,
+           inline = FALSE)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\verb|server.R| contains functions which use \verb|inputid|	as an input, and produce \verb|outputId| as an output.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Minimal example}
+
+		\verb|server.R| contains a function describing how to use the input from \verb|ui.R| to produce the outputs from \verb|ui.R|.
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+function(input, output){
+  output$textDisplay = renderText({...input$comment...
+  })
+ )
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		The \verb|function(input, output)| contains the reactive components of the application. For example:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+renderText(expr,
+           env = parent.frame(),
+           quoted = FALSE,
+           func = NULL)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Run the minimal example}
+
+		Set the working directory to the folder that contains \verb|ui.R| and \verb|server.R|,
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+setwd("/Users/my_name/Documents/my_folder/")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		load the Shiny package:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shiny)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		and run the application:
+
+		\vspace{1em}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+runApp()
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Various widgets}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+checkboxGroupInput(inputId, label, choices=NULL, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+checkboxInput(inputId, label, value=FALSE, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+dateInput(inputId, label, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+dateRangeInput(inputId, label, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+numericInput(inputId, label, value, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+radioButtons(inputId, label, choices=NULL, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Various widgets}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+selectInput(inputId, label, choices, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+sliderInput(inputId, label, min, max, value, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+textInput(inputId, label, ...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		To see an example of how the widgets look like, type:
+
+		\vspace{1em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shiny)
+runGist(6571951)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+\end{document}
