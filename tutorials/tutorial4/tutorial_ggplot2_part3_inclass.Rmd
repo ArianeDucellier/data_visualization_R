@@ -1,0 +1,177 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2024-10-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(corrplot)
+library(gridExtra)
+library(mapproj)
+library(maps)
+```
+
+```{r}
+df <- read_csv("../../data/gapminder-data.csv")
+dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
+
+ggplot(dfs, aes(x=Year, y=Electricity_consumption_per_capita)) +
+  geom_point(aes(size=population, color=Country)) +
+  coord_cartesian(xlim=c(1950, 2020)) +
+  labs(subtitle="Electricity consumption vs Year", title="Bubbl chart") +
+  ylab("Electricity consumption") +
+  scale_size(breaks=c(0, 1e+8, 0.3e+9, 0.5e+9, 1e+9, 1.5e+9), range=c(1, 5))
+```
+```{r}
+df <- read_csv("../../data/LoanStats.csv")
+df <- df %>% drop_na(grade)
+
+ggplot(df, aes(x=loan_amnt)) +
+  geom_density() +
+  facet_wrap(~grade) +
+  xlab("Loan amount")
+```
+
+```{r}
+ggplot(df, aes(x=loan_amnt)) +
+  geom_density(aes(fill=grade), alpha=1/2) +
+  scale_fill_brewer(palette="Dark2") +
+  xlab("Loan Amount") +
+  theme_light()
+```
+
+```{r}
+df_fb <- read_csv("../../data/FB.csv")
+df_fb$Date <- as.Date(df_fb$Date)
+```
+
+```{r}
+ggplot(df_fb, aes(x=Date, y=Close, group=1)) +
+  geom_line(color="black", na.rm=TRUE) +
+  ggtitle("Daily Closing Stock Prices: Facebook") +
+  theme(plot.title=element_text(lineheight=.7, face="bold")) +
+  scale_x_date(date_breaks='3 month') +
+  theme_bw()
+```
+
+```{r}
+df_fb <- read_csv("../../data/FB.csv")
+df_fb$Date <- as.Date(df_fb$Date)
+df_fb$Month <- strftime(df_fb$Date, "%m")
+df_fb$Month <- as.numeric(df_fb$Month)
+```
+
+```{r}
+ggplot(df_fb, aes(Month, Close)) +
+  geom_point(color="red", alpha=1/2, position=position_jitter(h=0.0, w=0.0)) +
+  stat_summary(geom="line", fun="mean", color="blue", size=1) +
+  stat_summary(geom="line", fun="median", color="orange", size=1) +
+  stat_summary(geom="line", fun="quantile", fun.args=list(probs=.1), linetype=2, color="green", size=1) +
+  stat_summary(geom="line", fun="quantile", fun.args=list(probs=.9), linetype=2, color="green", size=1) +
+  scale_x_continuous(breaks=seq(0, 13, 1)) +
+  ggtitle("Monthly Closing Stcok Prices: Facebook") +
+  theme_classic()
+```
+
+```{r}
+df <- read_csv("../../data/gapminder-data.csv")
+dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
+
+ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita)) +
+  geom_point(aes(color=Country)) +
+  xlim(0, 30000) +
+  xlab("GDP per capita") +
+  ylab("Electricity consumption per capita") +
+  geom_smooth(method="lm", level=0.99)
+```
+
+```{r}
+ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita, color=Country)) +
+  geom_point() +
+  xlim(0, 30000) +
+  xlab("GDP per capita") +
+  ylab("Electricity consumption per capita") +
+  geom_smooth(method="lm", level=0.99)
+```
+
+```{r}
+p <- ggplot(mtcars, aes(disp, wt)) +
+  geom_point() +
+  geom_smooth()
+p
+```
+
+```{r}
+p1 <- p + scale_x_continuous(limits=c(325, 500)) +
+  ggtitle("scale_x_continuous")
+p2 <- p + coord_cartesian(xlim=c(325, 500)) +
+  ggtitle("coord_cartesian")
+p <- p + ggtitle("Orignal plot")
+grid.arrange(p, p1, p2, ncol=2)
+```
+
+```{r}
+df <- read_csv("../../data/gapminder-data.csv")
+df <- df[, colnames(df)[4:9]]
+df <- na.omit(df)
+colnames(df) <- c("gdp", "electricity", "mort", "pov", "bmi_m", "bmi_f")
+```
+
+```{r}
+M <- cor(df)
+corrplot(M, method="number")
+```
+
+```{r}
+corrplot(M, method="pie")
+```
+
+```{r}
+corrplot(M, method="ellipse")
+```
+
+```{r}
+states_map <- map_data("state")
+
+ggplot(states_map, aes(x=long, y=lat, group=group)) +
+  geom_polygon(fill="white", colour="black")
+```
+
+```{r}
+ggplot(states_map, aes(x=long, y=lat, group=group)) +
+  geom_path() +
+  coord_map("mercator")
+```
+
+```{r}
+europe <- map_data("world",
+    region=c("Germany", "Spain", "Italy", "France", "UK", "Ireland"))
+
+ggplot(europe, aes(x=long, y=lat, group=group, fill=region)) +
+  geom_polygon(color="black") +
+  scale_fill_brewer(palette="Set3")
+```
+
+```{r}
+arrests <- as_tibble(USArrests, rownames=NA) %>%
+  rownames_to_column("region") %>%
+  mutate(region=tolower(region))
+```
+
+```{r}
+states_arrests <- states_map %>% left_join(arrests)
+```
+
+```{r}
+ggplot(states_arrests, aes(x=long, y=lat, group=group)) +
+  geom_polygon(aes(fill=Murder), color="black") +
+  scale_fill_gradient2(low="cornflowerblue",
+                      high="firebrick1",
+                      midpoint=10)
+```
+
