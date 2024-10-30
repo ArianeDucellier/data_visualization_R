@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.29)  2 NOV 2023 09:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  30 OCT 2024 12:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1093,6 +1093,70 @@ Package gensymb Info: Using \textmu for \micro on input line 23.
 ]
 \openout4 = `shiny_2.vrb'.
 
+ (./shiny_2.vrb) [3
+
+]
+\openout4 = `shiny_2.vrb'.
+
+
+(./shiny_2.vrb) [4
+
+]
+\openout4 = `shiny_2.vrb'.
+
+ (./shiny_2.vrb) [5
+
+]
+\openout4 = `shiny_2.vrb'.
+
+ (./shiny_2.vrb) [6
+
+]
+\openout4 = `shiny_2.vrb'.
+
+ (./shiny_2.vrb
+LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
+ut line 3.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
+thkerncmss.
+)
+LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 
+3.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmss.fd
+File: ts1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)) [7
+
+]
+\openout4 = `shiny_2.vrb'.
+
+
+(./shiny_2.vrb) [8
+
+]
+\openout4 = `shiny_2.vrb'.
+
+ (./shiny_2.vrb) [9
+
+]
+\openout4 = `shiny_2.vrb'.
+
+ (./shiny_2.vrb) [10
+
+]
+\openout4 = `shiny_2.vrb'.
+
  (./shiny_2.vrb
 LaTeX Font Info:    Trying to load font information for OMS+cmss on input line 
 9.
@@ -1111,48 +1175,12 @@ LaTeX Font Warning: Font shape `OML/cmss/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
 (Font)              for symbol `textgreater' on input line 10.
 
-LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 
-11.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmss.fd
-File: ts1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-)) [3
+) [11
 
 {/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 \openout4 = `shiny_2.vrb'.
 
-
-(./shiny_2.vrb
-LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
- (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
-
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 3.
-
-(/usr/local/texlive/2023/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
-File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
-thkerncmss.
-)) [4
-
-]
-\openout4 = `shiny_2.vrb'.
-
- (./shiny_2.vrb) [5
-
-]
-\openout4 = `shiny_2.vrb'.
-
- (./shiny_2.vrb) [6
-
-]
-\openout4 = `shiny_2.vrb'.
-
- (./shiny_2.vrb) [7
+ (./shiny_2.vrb) [12
 
 ]
 \tf@nav=\write7
@@ -1164,8 +1192,7 @@ thkerncmss.
 \tf@snm=\write9
 \openout9 = `shiny_2.snm'.
 
-
-(./shiny_2.aux)
+ (./shiny_2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1173,13 +1200,13 @@ Package rerunfilecheck Info: File `shiny_2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29554 strings out of 476025
- 608750 string characters out of 5790017
- 1866388 words of memory out of 5000000
- 49397 multiletter control sequences out of 15000+600000
+ 29596 strings out of 476025
+ 609577 string characters out of 5790017
+ 1870388 words of memory out of 5000000
+ 49419 multiletter control sequences out of 15000+600000
  520234 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,122p,382b,1555s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,122p,382b,1522s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><
@@ -1187,10 +1214,10 @@ Here is how much of TeX's memory you used:
 sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr
 /local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb>
-Output written on shiny_2.pdf (7 pages, 103803 bytes).
+Output written on shiny_2.pdf (12 pages, 126906 bytes).
 PDF statistics:
- 377 PDF objects out of 1000 (max. 8388607)
- 276 compressed objects within 3 object streams
- 15 named destinations out of 1000 (max. 500000)
- 451 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 589 PDF objects out of 1000 (max. 8388607)
+ 439 compressed objects within 5 object streams
+ 25 named destinations out of 1000 (max. 500000)
+ 703 words of extra memory for PDF output out of 10000 (max. 10000000)
 

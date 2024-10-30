@@ -1,0 +1,25 @@
+\frametitle{Reactive user interfaces}
+		
+		In \verb|ui.R|:
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+uiOutput("yearSelectorUI")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		In \verb|server.R|
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+output$yearSelectorUI = renderUI(
+  selectedYears = ...
+  selectInput( ... , selectedYears)
+})
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		When the value in \verb|selectedYears| change, the choice of years in the widget will also change.
+
