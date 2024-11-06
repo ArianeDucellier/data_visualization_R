@@ -1,24 +1,36 @@
 ---
-title: "Flexdashboard 2"
-runtime: shiny
+title: "Flexdashboard 2" # Your title
+runtime: shiny # This time, we need shiny to incorporate shiny elements like widgets
 output: 
   flexdashboard::flex_dashboard:
-    orientation: rows
+    orientation: rows # We change the orientation of the dashboard elements
     vertical_layout: fill
 ---
 
 ```{r setup, include=FALSE}
+# Load the libraries - We need the flexdashboard package
 library(flexdashboard)
 library(tidyverse)
 library(leaflet)
 
+# Load the data set
 load("geocodedData.Rdata")
 ```
+
+<!-- Create a sidebar on the left part of the dashboard -->
 
 Column {.sidebar}
 -----------------------------------------------------------------------
 
+<!-- This is the title of the side bar -->
+
+### Widgets
+
+<!-- R code to create what will be displayed in the column.
+     We can now include Shiny widgets. -->
+
 ```{r}
+# Make a slider to select the years
 sliderInput("year",
             "Years included",
             min = 1952,
@@ -28,24 +40,36 @@ sliderInput("year",
             step = 5
 )
 
+# Make a check box to display the trend
 checkboxInput("linear", label = "Add trend line?", value = FALSE)
 ```
+
+<!-- On the right part of the dashboard, the rows will be displayed
+     on top of each other. -->
 
 Row
 -----------------------------------------------------------------------
 
+<!-- This is the title of the row -->
+
 ### Life expectancy over time
+
+<!-- R code to create what will be displayed in the column.
+     We can now include Shiny interactive elements and
+     use the input from the widgets. -->
 
 ```{r}
 renderPlot({
   
   thePlot = mapData %>%
+    # Select the years displayed with the slider
     filter(year >= input$year[1], year <= input$year[2]) %>%
     group_by(continent, year) %>%
     summarise(meanLife = mean(lifeExp)) %>%
     ggplot(aes(x = year, y = meanLife, group = continent, colour = continent)) +
     geom_line()
-  
+
+  # Show the trend if the box is checked by the user
   if(input$linear){ 
     thePlot = thePlot + geom_smooth(method = "lm") 
   } 
@@ -54,10 +78,18 @@ renderPlot({
 })
 ```
 
+<!-- We can have several tabs on the row. -->
+
 Row {.tabset}
 -----------------------------------------------------------------------
 
+<!-- This is the title of the first tab -->
+
 ### Life expectancy
+
+<!-- R code to create what will be displayed in the column.
+     We can now include Shiny interactive elements and
+     use the input from the widgets. -->
 
 ```{r}
 
@@ -75,7 +107,13 @@ renderLeaflet({
 
 ```
 
+<!-- This is the title of the second tab -->
+
 ### GDP per capita
+
+<!-- R code to create what will be displayed in the column.
+     We can now include Shiny interactive elements and
+     use the input from the widgets. -->
 
 ```{r}
 

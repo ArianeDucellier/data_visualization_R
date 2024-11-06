@@ -1,5 +1,5 @@
 ---
-title: "Flexdashboard 1"
+title: "Flexdashboard 1" # Your title
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -7,19 +7,29 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+# Load the libraries - We need the flexdashboard package
 library(flexdashboard)
 library(tidyverse)
 library(leaflet)
 
+# Load the data set
 load("geocodedData.Rdata")
 ```
+
+<!-- Create a first column on the left part of the dashboard -->
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
+<!-- This is the title of the column -->
+
 ### Life expectancy over time
 
+<!-- R code to create what will be displayed in the column -->
+
 ```{r}
+
+# We just make a line plot of the data with ggplot2
 
 mapData %>%
   group_by(continent, year) %>%
@@ -29,12 +39,23 @@ mapData %>%
 
 ```
 
+<!-- Create a second column on the right of the first column -->
+
 Column {data-width=350}
 -----------------------------------------------------------------------
 
+<!-- We can have several rows: each one has a title and a content defined by
+     the R Markdown header and the R code block -->
+
+<!-- This is the title of the first row -->
+
 ### Life expectancy
 
+<!-- R code to create what will be displayed in the row -->
+
 ```{r}
+
+# Now we are plotting a map
 
 mapData %>%
   filter(year == 2007) %>%
@@ -47,9 +68,15 @@ mapData %>%
 
 ```
 
+<!-- This is the title of the second row -->
+
 ### GDP per capita
 
+<!-- R code to create what will be displayed in the row -->
+
 ```{r}
+
+# Now we are plotting another map
 
 mapData %>%
   filter(year == 2007) %>%
