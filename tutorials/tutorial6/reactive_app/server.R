@@ -64,7 +64,18 @@ function(input, output) {
   
   # Produce the leaflet map
   output$map = renderLeaflet({
+    
+    withProgress(message="Please wait", value=0, {
 
+    incProgress(1/3, detail="Loading data")
+    Sys.sleep(0.5)
+
+    incProgress(1/3, detail="Loading data")
+    Sys.sleep(0.5)
+    
+    incProgress(1/3, detail="Loading data")
+    Sys.sleep(0.5)
+    
     # We use the original (non-filtered) data    
     mapData %>%
       # kep only the year selected with the reactive widget
@@ -83,7 +94,7 @@ function(input, output) {
                  weight = 1,
                  radius = ~ lifeExp * 5000, 
                  popup = ~ paste(country, lifeExp))
-
+    })
   })
 
   # Produce the simple table
