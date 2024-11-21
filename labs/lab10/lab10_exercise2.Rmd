@@ -1,8 +1,8 @@
 ---
-title: "Lab - Network data"
+title: "Lab 10 - Network data"
 author: "Ariane Ducellier"
 output: pdf_document
-date: "2023-12-05"
+date: "2024-11-21"
 ---
 
 ```{r setup, include=FALSE}
@@ -29,7 +29,7 @@ airports <- c("ATL", "DFW", "DEN", "ORD", "LAX", "JFK", "LAS", "MCO", "MIA",
 Flights data set
 
 ```{r flights}
-flights <- read_csv("../data/routes.csv")
+flights <- read_csv("../../data/routes.csv")
 flights <- flights %>%
   filter(`source airport` %in% airports, `destination apirport` %in% airports) %>%
   group_by(`source airport`, `destination apirport`) %>% summarise(count=n())

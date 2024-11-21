@@ -1,8 +1,8 @@
 ---
-title: "Lab - Text data"
+title: "Lab 10 - Text data"
 author: "Ariane Ducellier"
 output: pdf_document
-date: "2023-12-05"
+date: "2024-11-21"
 ---
 
 ```{r setup, include=FALSE}

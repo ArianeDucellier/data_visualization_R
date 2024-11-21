@@ -1,8 +1,8 @@
 ---
-title: "Tutorial - Network data"
+title: "Tutorial 10 - Network data"
 author: "Ariane Ducellier"
 output: pdf_document
-date: "2023-12-05"
+date: "2024-11-21"
 ---
 
 ```{r setup, include=FALSE}
@@ -31,7 +31,7 @@ plot(gu, vertex.label=NA)
 ## A more complex graph dataset
 
 ```{r}
-refugeedata <- read_delim("../data/dataset-unhcr-refugees-data-sudan-south-sudan-2016.csv", "," )
+refugeedata <- read_delim("../../data/dataset-unhcr-refugees-data-sudan-south-sudan-2016.csv", "," )
 ```
 
 ```{r}
