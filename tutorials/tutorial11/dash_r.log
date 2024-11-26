@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  20 NOV 2023 22:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  25 NOV 2024 16:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1127,7 +1127,7 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
 usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on dash_r.pdf (4 pages, 65623 bytes).
+Output written on dash_r.pdf (4 pages, 65572 bytes).
 PDF statistics:
  211 PDF objects out of 1000 (max. 8388607)
  156 compressed objects within 2 object streams
