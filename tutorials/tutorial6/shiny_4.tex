@@ -1,0 +1,289 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Shiny tutorial]{Data Visualization with R \\ Shiny tutorial}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2025}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Improving the UI - Using shiny themes}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shinythemes)
+fluidpage(theme=shinytheme("darkly"),
+...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		If you want the user to be able to change the theme:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shinythemes)
+fluidpage(theme=shinytheme("darkly"),
+          themeSelector(),
+...)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{2em}
+
+		See a list of themes here: \href{http://rstudio.github.io/shinythemes/}{http://rstudio.github.io/shinythemes/}
+ 	
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Improving the UI - Using the grid layout}
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+fluidPage(title="...",
+  fluidRow(
+    column(6,
+      wellPanel(
+        sliderInput( ... ))),
+    column(6, ... ))
+  hr(),
+  ...
+)      
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		The sum of the  widths of the columns must be 12. \verb|wellPanel| creates a panel around the slider. \verb|hr()| creates a horizontal rule to break the screen.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Downloading plots}
+
+		In the file \verb|ui.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+downloadButton("downloadPlot",
+               label = "Download plot")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		In the file \verb|server.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+thePlot <- reactive( ... code to make plot ... )
+output$downloadPlot <- downloadHandler(
+  filename <- function(){"filename"},
+  content <- function(file){
+    png(file, width=980, height=400, ... )
+    iris.plot <- thePlot()
+    print(iris.plot)
+    dev.off()
+  },
+  contentType = "image/png"
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Downloading data}
+
+		In the file \verb|ui.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+downloadButton("downloadData",
+               label = "Download data")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		In the file \verb|server.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+theData <- reactive( ... code to produce data ... )
+output$downloadData <- downloadHandler(
+  filename = function(){"iris.csv"},
+  content <- function(file){
+    write.csv(theData(), file)
+  },
+  contentType = "text/csv"
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Interactive plots - Click points}
+
+		In the file \verb|ui.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+plotOutput("plot", click = "plot_click"),
+                 tableOutput("plot_clickedpoints")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		In the file \verb|server.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+output$plot_clickedpoints <- renderTable({
+  res <- nearPoints(iris,
+                    input$plot_click,
+                    "Sepal.Length",
+                    "Sepal.Width")
+  if (nrow(res) == 0)
+    return()
+  res
+})
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Interactive plots - Hover over plot}
+
+		In the file \verb|ui.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+plotOutput("plot",
+           hover = hoverOpts(id = "plot_hover",
+                             delayType = "throttle")
+)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\vspace{1em}
+
+		In the file \verb|server.R|:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+output$plot_hoverinfo <- renderPrint({
+  cat("Hover (throttled):\n")
+  str(input$plot_hover)
+})  
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Sharing with Gist}
+
+		Go to \href{https://gist.github.com/}{https://gist.github.com/}.
+
+		\vspace{1em}
+
+		If you have a GitHub account, you should have on account on Gist too.
+
+		\vspace{1em}
+
+		Create a project with a description, an \verb|ui.R| and a \verb|server.R| files.
+
+		\vspace{1em}
+
+		Get the URL of your project.
+
+		\vspace{1em}
+
+		In RStudio, run:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shiny)
+runGist("https://gist.github.com/MyName/identifier")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Sharing with GitHub}
+
+		On GitHub, create a repository with your dataset, and the \verb|ui.R| and \verb|server.R| files.
+
+		\vspace{1em}
+
+		In rStudio, run:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(shiny)
+runGitHub("repository_name", "user_name")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Sharing through Shinyapps.io}
+
+		Create a free account on \href{https://www.shinyapps.io/}{https://www.shinyapps.io/}.
+
+		\vspace{1em}
+
+		In RStudio, install the package \verb|rsconnect|.
+
+		\vspace{1em}
+
+		When creating your account, \verb|Shinyapps.io| will ask you to set your \verb|Shinyapps.io| account information on RStudio by running:
+		
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+rsconnect::setAccountInfo(name='yourname',
+token='some_token', secret='some_secret')
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		To deploy your application on \verb|Shinyapps.io|, run on RStudio:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+library(rsconnect)
+rsconnect::deployApp("/path/your_path_to_your_app")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		Check on \verb|Shinyapps.io| the URL of your application:
+
+		\href{https://arianeducellier.shinyapps.io/magnitudes/}{https://arianeducellier.shinyapps.io/magnitudes/}
+
+	\end{frame}
+
+\end{document}

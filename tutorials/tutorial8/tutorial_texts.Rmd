@@ -1,0 +1,77 @@
+---
+title: "STAT 451 - Visualizing Data - Autumn 2025"
+author: "Ariane Ducellier"
+date: "11/20/2025"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load R packages.
+
+```{r libraries}
+library(corrplot)
+library(RColorBrewer)
+library(tm)
+library(wordcloud)
+```
+
+## Make a word cloud
+
+```{r}
+# Set number of colors and palette
+pal = brewer.pal(6, "RdGy")
+
+# Choose minimum frequency and the range of the size of the words
+wordcloud("The objective of this course is to provide students with a comprehensive understanding of data visualization techniques using R. Through hands-on projects and practical exercises, students will learn how to effectively visualize and communicate insights from data, enabling them to make informed decisions and tell compelling data-driven stories. The course will cover data visualization principles, R programming for data visualization, and the use of popular R packages for creating static and interactive visualizations. Learning objectives: We will cover three main topics: Fundamentals of data visualization: Visual perception and cognition principles, choosing the right chart types based on data and objectives, theory of visual clues and effective use of coordinates, scales and colors, best practices for creating clear and compelling visualizations. Practical data visualization with R: We will focus on ggplot2, but also explore other R packages for geographic data visualization and advanced data visualization (e.g. networks, tree maps, word clouds). Interactive visualization techniques and dashboard design: We will cover principles of effective dashboard design and creation of interactive visualizations for better user engagement. We will use R Shiny to add interactivity with tooltips, filters, and zooming/panning.", min.freq=1, scale=c(2, 0.5), random.color=TRUE, color=pal)
+```
+
+To use a list of words and their frequencies.
+
+```{r}
+wordcloud(c("inequality", "law", "policy", "unemployment", "job", "economy", "democracy", "Republicans", "congress", "America", "growth"),
+            freq=c(26, 9, 2, 7, 30, 26, 1, 4, 3, 9, 57, 9), min.freq=0, color="red")
+```
+
+To read a text file and preprocess it, before doing the word cloud.
+
+```{r}
+file = readLines("../../data/syllabus.txt")
+doc = Corpus(VectorSource(file))
+doc = tm_map(doc, tolower)
+doc = tm_map(doc, removePunctuation)
+doc = tm_map(doc, removeNumbers)
+doc = tm_map(doc, removeWords, stopwords("english"))
+wordcloud(as.character(doc), scale=c(2, 0.5))
+```
+
+## Make two word clouds
+
+```{r}
+files = DirSource("../../data/debate/")
+data = Corpus(DirSource("../../data/debate/"))
+data = tm_map(data, tolower)
+data = tm_map(data, removePunctuation)
+data = tm_map(data, removeNumbers)
+data = tm_map(data, removeWords, c(stopwords("english"), "biden", "trump"))
+data = TermDocumentMatrix(data)
+data = as.matrix(data)
+colnames(data) = c("biden", "trump")
+comparison.cloud(data, max.words=100, title.size=2, colors=c("blue", "red"))
+```
+
+## Plot correlations between texts
+
+```{r}
+data(crude)
+data = tm_map(crude, content_transformer(tolower))
+data = tm_map(data, removePunctuation)
+data = tm_map(data, removeNumbers)
+data = tm_map(data, removeWords, stopwords("english"))
+data = TermDocumentMatrix(data)
+data = as.matrix(data)
+crf = cor(data)
+corrplot(crf, method = c("ellipse"))
+```

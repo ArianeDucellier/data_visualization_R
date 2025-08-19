@@ -1,7 +1,7 @@
 ---
-title: "Ggplot2 tutorial - Command lines Part 1"
+title: "STAT 451 - Visualizing Data - Autumn 2025"
 author: "Ariane Ducellier"
-date: "10/08/2024"
+date: "10/07/2025"
 output: pdf_document
 ---
 

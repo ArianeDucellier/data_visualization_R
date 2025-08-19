@@ -1,0 +1,59 @@
+---
+title: "STAT 451 - Visualizing Data - Autumn 2025"
+author: "Ariane Ducellier"
+date: "11/20/2025"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load R packages.
+
+```{r libraries}
+library(dendroextras)
+library(vcd)
+```
+
+## Dendrograms
+
+Simple dendrogram with synthetic data.
+
+```{r}
+set.seed(5)
+x = rnorm(10)
+y = rnorm(10)
+z = seq(1, 10, by=1)
+mtx = data.frame(cbind(x, y, z))
+d = dist(mtx, method = "euclidean")
+clust = hclust(d, "ave")
+par(mfrow=c(1, 2))
+plot(mtx$x, mtx$y, type="n", xlab="x", ylab="y")
+text(mtx$x, mtx$y, labels=z)
+plot(clust, main="Dendrogram")
+```
+
+More complex dendrogram.
+
+```{r}
+data(USArrests)
+par(mar=c(2, 10, 2, 10), cex=0.6)
+clst1=colour_clusters(hclust(dist(USArrests), "ave"), 5, groupLabels=as.roman)
+plot(clst1, main="Dendogram with 5 clusters", horiz=TRUE)
+```
+
+## Mosaic plots
+
+```{r}
+mosaic(~Admit + Gender + Dept, data=UCBAdmissions)
+```
+
+Customizing the plot.
+
+```{r}
+mosaic(~Dept + Gender + Admit, data=UCBAdmissions,
+       highlighting="Admit",
+       highlighting_fill=c("lightblue", "pink"),
+       direction=c("v", "h", "v"))
+```

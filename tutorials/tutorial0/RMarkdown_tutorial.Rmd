@@ -1,13 +1,19 @@
 ---
-title: "R Markdown tutorial"
+title: "STAT 451 - Visualizing Data - Autumn 2025"
 author: "Ariane Ducellier"
-date: "9/26/2024"
+date: "09/25/2025"
 output: pdf_document
 ---
+
+# Tutorial R Markdown
+
+By default, these lines are included when you create a new R Markdown document. "echo=TRUE" means that your code will be included by default in the final knitted document. As this specific chunk uses the option "include=FALSE", it will be evaluated, but neither the code nor its output will be displayed.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Below are some examples of R chunks that are included in your new R Markdown document. Note the difference between the first chunk that uses the default "echo=TRUE" to print both the code and the output, and the second chunk that uses the option "echo=FALSE" to hide the code but show the output (here the plot).
 
 ## R Markdown
 
@@ -31,6 +37,8 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 ## Quick Markdown tutorial
 
+Let us now look at the most used syntax to write text in R Markdown format.
+
 _Italic text_
 
 **Bold text**
@@ -41,9 +49,9 @@ _Italic text_
 
 ### Header three
 
-[R Markdown](https://rmarkdown.rstudio.com)
+[Link to a website: R Markdown](https://rmarkdown.rstudio.com)
 
-![RStudio interface](RMarkdown.png)
+![Caption for a figure: RStudio interface](RMarkdown.png)
 
 > "A quote"
 
@@ -53,18 +61,20 @@ _Italic text_
 1. Ordered list item 1
 2. Ordered list item 2
 
-Line 1 followed by two spaces  
+Line 1 followed by at least two spaces to break the line  
 Line 2
 
 $x = \frac{y}{z}$
 
-## More RMarkdown
+We can also save the result of some computation and include it in the text later.
 
 ```{r compute}
 result <- 2 + 4
 ```
 
 Here is the result: `r result`.
+
+It is also possible to include tables displaying the content of a dataframe.
 
 ```{r ktable, results='asis'}
 library(knitr)

@@ -1,7 +1,7 @@
 ---
-title: "Tidyverse tutorial 2 - More advanced operations"
+title: "STAT 451 - Visualizing Data - Autumn 2025"
 author: "Ariane Ducellier"
-date: "10/03/2024"
+date: "10/02/2025"
 output: pdf_document
 ---
 

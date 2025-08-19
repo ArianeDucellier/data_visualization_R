@@ -1,0 +1,35 @@
+---
+title: "STAT 451 - Visualizing Data - Autumn 2025"
+author: "Ariane Ducellier"
+date: "10/23/2025"
+output: html_document
+runtime: shiny
+---
+
+```{r, echo = FALSE, message = FALSE}
+
+library(tidyverse)
+library(gapminder)
+
+inputPanel( 
+  checkboxInput("linear", label = "Add trend line?", value = FALSE) 
+) 
+
+# draw the plot 
+renderPlot({ 
+  
+  thePlot = gapminder %>%
+    filter(year > 1960) %>%
+    group_by(continent, year) %>%
+    summarise(meanLife = mean(lifeExp)) %>%
+    ggplot(aes(x = year, y = meanLife, group = continent, colour = continent)) +
+    geom_line()
+  
+  if(input$linear){ 
+    thePlot = thePlot + geom_smooth(method = "lm") 
+  } 
+  
+  print(thePlot)
+})
+
+```

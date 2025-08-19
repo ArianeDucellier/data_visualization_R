@@ -1,22 +1,34 @@
 ---
-title: "Tidyverse tutorial 1 - Basic operations"
+title: "STAT 451 - Visualizing Data - Autumn 2025"
 author: "Ariane Ducellier"
-date: "10/01/2024"
+date: "09/30/2025"
 output: pdf_document
 ---
+
+# Tutorial Tidyverse part 1
+
+Today, we are going to review useful R functions for reading and exploring data sets. The objective is to make sure that you have all the tools you need to explore your data set before starting to visualize it. For more on data exploration with R, I recommend the two books:
+  
+Data Wrangling with R Load, Explore, Transform and Visualize Data for Modeling with Tidyverse Libraries.
+Santos, Gustavo R.  
+2023; Birmingham : Packt Publishing, Limited
+  
+R for data science : import, tidy, transform, visualize, and model data
+Wickham, Hadley, author.  
+2023; Sebastopol, CA : O'Reilly Media, Inc.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Load R packages.
+We will need the following R libraries:
 
-```{r libraries}
+```{r libraries, message=FALSE}
 library(tidyverse)
 library(skimr)
 ```
 
-# 1. Read data (csv format)
+## 1. Read data (csv format)
 
 Read csv files with basic R.
 
@@ -32,13 +44,15 @@ df_t <- read_csv("../../data/gapminder-data.csv")
 print(class(df_t))
 ```
 
+Read select columns, specify the encoding of the missing values.
+
 ```{r read_csv_sub}
 df_t_sub <- read_csv("../../data/gapminder-data.csv",
   col_select=c("Country", "Year", "gdp_per_capita"),
   na=c("", "NA"))
 ```
 
-# 2. Get basic information on the data.
+## 2. Get basic information on the data.
 
 Reads the first part of a data frame.
 
@@ -78,7 +92,9 @@ Provides a broad overview of a data frame, handles data of all types, dispatchin
 #skim(df_t)
 ```
 
-# 3. The pipe operator
+## 3. The pipe operator
+
+The magrittr package provides the %>% operator as a shortcut for modifying an object in place. It is installed by default when installing tidyverse.
 
 ```{r iris}
 data(iris)
@@ -90,6 +106,8 @@ df_iris <- iris %>%
   arrange(value)
 ```
 
+is the same as:
+
 ```{r iris_alt}
 data(iris)
 df_iris_alt <- group_by(iris, Species)
@@ -99,7 +117,9 @@ df_iris_alt <- gather(df_iris_alt, measure, value, -Species)
 df_iris_alt <- arrange(df_iris_alt, value)
 ```
 
-# 4. Transform the data
+## 4. Transform the data
+
+We will review some basic transformations.
 
 ```{r get_data}
 header <- c("age", "workclass", "fnlwgt", "education",
@@ -110,7 +130,7 @@ df <- read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/adult/
   col_names=header, trim_ws=TRUE)
 ```
 
-## 4.1 Slicing
+### 4.1 Slicing
 
 Cuts unwanted parts of the data set.
 
@@ -122,7 +142,7 @@ df %>% slice_max(age, prop=0.30)
 df %>% slice_sample(n=10, replace=TRUE)
 ```
 
-## 4.2 Filtering
+### 4.2 Filtering
 
 Apply a condition to one of the variables to filter unwanted rows of the data.
 
@@ -130,7 +150,7 @@ Apply a condition to one of the variables to filter unwanted rows of the data.
 df %>% filter(age > 30)
 ```
 
-## 4.3 Selecting
+### 4.3 Selecting
 
 Select specific columns.
 
@@ -138,7 +158,7 @@ Select specific columns.
 df %>% select(marital_status, age)
 ```
 
-## 4.4 Unique values
+### 4.4 Unique values
 
 Get unique entries for categorical variables.
 
@@ -146,7 +166,7 @@ Get unique entries for categorical variables.
 df %>% distinct(sex)
 ```
 
-## 4.5 Grouping
+### 4.5 Grouping
 
 Group by column and summarize.
 
@@ -156,7 +176,7 @@ df %>%
   summarize(age_avg=mean(age))
 ```
 
-## 4.6 Summarizing
+### 4.6 Summarizing
 
 The summary may be:
 - counting observations
@@ -178,7 +198,7 @@ We can also apply the summary over selected columns.
 df %>% select(1, 3, 5, 11, 12, 13) %>% summarize(across(everything(), mean))
 ```
 
-## 4.7 Arranging
+### 4.7 Arranging
 
 To sort the data set.
 
@@ -196,7 +216,7 @@ df %>%
   arrange(desc(avg_net_gain))
 ```
 
-## 4.8 Separating and uniting
+### 4.8 Separating and uniting
 
 This is often useful to create new columns.
 
@@ -208,21 +228,21 @@ df %>% separate(target, into=c("sign", "amount"), sep="\\b")
 df %>% unite(sex, race, age, col="description", sep="_", remove=FALSE)
 ```
 
-## 4.8 Mutate function
+### 4.8 Mutate function
 
-Designed to create new variables.
+This function can be used for many purposes. You can create new variables:
 
 ```{r mutate_add_new}
 df %>%
   mutate(total_gain = capital_gain - capital_loss,
-              tax = ifelse(total_gain >= 15000,
-                           total_gain * 0.1,
-                           0)
+                tax = ifelse(total_gain >= 15000,
+                             total_gain * 0.1,
+                             0)
   ) %>%
   arrange(desc(tax))
 ```
 
-We can use the mutate function to replace values (e.g. "?" by NA).
+We can use the mutate function to replace values (e.g. "?" by NA). Let see how many "?" we have in this dataset.
 
 ```{r look_question_marks}
 for (variable in colnames(df)) {
@@ -232,6 +252,8 @@ for (variable in colnames(df)) {
 }
 ```
 
+We now replace the "?" by NA in the three columns workclass, occupation and native_country.
+
 ```{r replace}
 df_replaced <- df %>%
   mutate(workclass = replace(workclass, workclass=="?", NA),
@@ -239,6 +261,8 @@ df_replaced <- df %>%
          native_country =replace(native_country, native_country=="?", NA)
   )
 ```
+
+Let us check that all the "?" have been replaced.
 
 ```{r look_question_marks_new}
 for (variable in colnames(df_replaced)) {
@@ -248,20 +272,25 @@ for (variable in colnames(df_replaced)) {
 }
 ```
 
+An alternative is to use the na_if function.
+
 ```{r na_if}
 df %>% mutate(workclass = na_if(workclass, "?"),
               occupation = na_if(occupation, "?"),
               native_country = na_if(native_country, "?"))
 ```
 
-Additional examples:
+Here are additional examples of the use of the mutate function. We can create a new column based on the values of another column:
 
 ```{r mutate_ex1}
 df %>%
-  mutate(over_under = recode(target, "<=50K"="under",
-                                     ">50K"="over")) %>%
+  mutate(over_under = case_match(target,
+                                "<=50K" ~ "under",
+                                ">50K" ~ "over")) %>%
   select(target, over_under)
 ```
+
+or cut the range of a variable into intervals:
 
 ```{r mutate_ex2}
 df %>%
@@ -273,7 +302,9 @@ df %>%
   select(age, age_avg, over_under_age_avg)
 ```
 
-## 4.9 Joining tibbles
+### 4.9 Joining tibbles
+
+Joining two data sets is a very useful and common function. We are going to use these 3 small data sets as an example.
 
 ```{r data}
 sales <- data.frame(
@@ -299,7 +330,7 @@ products <- data.frame(
   )
 ```
 
-### 4.9.1 Left join
+#### 4.9.1 Left join
 
 All the rows from sales and matched rows from products.
 
@@ -307,7 +338,7 @@ All the rows from sales and matched rows from products.
 sales %>% left_join(products, by="product_cd")
 ```
 
-### 4.9.2 Right join
+#### 4.9.2 Right join
 
 All the rows from stores and matched rows from sales.
 
@@ -315,7 +346,7 @@ All the rows from stores and matched rows from sales.
 sales %>% right_join(stores, by="store_cd")
 ```
 
-### 4.9.3 Inner join
+#### 4.9.3 Inner join
 
 All the rows common to sales and stores.
 
@@ -323,7 +354,7 @@ All the rows common to sales and stores.
 sales %>% inner_join(stores, by="store_cd")
 ```
 
-### 4.9.4 Full join
+#### 4.9.4 Full join
 
 All the rows from sales and stores.
 
@@ -331,7 +362,7 @@ All the rows from sales and stores.
 sales %>% full_join(stores)
 ```
 
-### 4.9.5 Anti-join
+#### 4.9.5 Anti-join
 
 Only rows that are in sales but not in products.
 
@@ -339,7 +370,9 @@ Only rows that are in sales but not in products.
 sales %>% anti_join(products)
 ```
 
-## 4.10 Reshaping tables
+### 4.10 Reshaping tables
+
+This is useful when you do not have a tidy data set. A tidy data set if often required by plotting functions and many data exploration functions. Let us look at this example:
 
 ```{r data2}
 df_wide <- data.frame(
@@ -350,7 +383,7 @@ df_wide <- data.frame(
 )
 ```
 
-This is not a tidy data set (there is more than 1 observation per row).
+This is not a tidy data set (there is more than 1 observation per row). We can convert it to a tidy data set using the pivot function.
 
 ```{r wide_long}
 df_long <- df_wide %>% 
@@ -359,7 +392,7 @@ df_long <- df_wide %>%
                values_to = "expenses")
 ```
 
-If we need a smaller table for visualization or for a presentation.
+If we need a smaller table for visualization or for a presentation, we can pivot it back to the original format that is more compact and easier to read for your audience.
 
 ```{r long_wide}
 df_wide_2 <- df_long %>%

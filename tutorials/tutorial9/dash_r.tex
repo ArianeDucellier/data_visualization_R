@@ -1,0 +1,98 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,positioning,shapes,shapes.multipart} 
+\tikzstyle{every picture}+=[remember picture]
+
+\definecolor{mygreen}{rgb}{0.88,0.95,0.88}
+
+\usetheme{Warsaw}
+
+\title[Data Visualization with R - Dash tutorial]{Data Visualization with R \\ Dash tutorial}
+\author{Ariane Ducellier}
+\date{University of Washington - Fall 2025}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{What is Dash?}
+
+		\verb|plotly| graphing library makes interactive, publication-quality graphs:
+		\begin{itemize}
+			\item With Python: \href{https://plotly.com/python/}{https://plotly.com/python/}.
+			\item With R: \href{https://plotly.com/r/}{https://plotly.com/r/}.
+		\end{itemize}
+
+		\vspace{1em}
+
+		\verb|Dash| is an open-source framework for building data visualization interfaces.:
+		\begin{itemize}
+			\item For Python: \href{https://dash.plotly.com/}{https://dash.plotly.com/}.
+			\item For R: \href{https://dash.plotly.com/r}{https://dash.plotly.com/r}.
+		\end{itemize}
+
+		\vspace{1em}
+
+		There is also a commercial version \verb|Dash Enterprise|.
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Installing Dash}
+
+		In RStudio, run:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+install.packages("remotes")
+remotes::install_github("plotly/dashR",
+                        upgrade = "always")
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{About Dash syntax}
+
+		The three bits of codes are equivalent:
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+app <- dash_app()
+app %>% set_layout(
+app %>% run_app()
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}		
+dash_app() %>%
+  set_layout(...) %>%
+  run_app()
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+app <- dash_app()
+set_layout(app, ...)
+run_app(app)
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
+	\end{frame}
+
+\end{document}

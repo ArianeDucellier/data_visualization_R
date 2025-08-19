@@ -1,0 +1,101 @@
+---
+title: "STAT 451 - Visualizing Data - Autumn 2025"
+author: "Ariane Ducellier"
+date: "11/13/2025"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE)
+```
+
+Load R packages
+
+```{r libraries}
+library(stars)
+library(sf)
+library(ggplot2)
+```
+
+## Reading vector and raster data
+
+```{r}
+harv_boundary <- read_sf("../../data/harv/harv_boundary.shp")
+harv_dtm <- read_stars("../../data/harv/harv_dtmfull.tif")
+```
+
+```{r}
+ggplot() +
+  geom_stars(data = harv_dtm) +
+  scale_fill_viridis_c() +
+  geom_sf(data = harv_boundary, fill = "transparent")
+```
+
+## Cropping the raster data using the boundary from the vector data
+
+```{r}
+harv_dtm_cropped <- st_crop(harv_dtm, harv_boundary)
+```
+
+```{r}
+harv_dtm
+harv_dtm_cropped
+```
+
+```{r}
+ggplot() +
+  geom_stars(data = harv_dtm_cropped) +
+  scale_fill_viridis_c() +
+  geom_sf(data = harv_boundary, fill = "transparent")
+```
+
+```{r}
+ggplot() +
+  geom_stars(data = harv_dtm_cropped) +
+  scale_fill_viridis_c(na.value = "transparent") +
+  geom_sf(data = harv_boundary, fill = "transparent")
+```
+
+## Masking instead of cropping
+
+```{r}
+harv_dtm_masked <- st_crop(harv_dtm, harv_boundary, crop = FALSE)
+harv_dtm_masked
+```
+
+```{r}
+ggplot() +
+  geom_stars(data = harv_dtm_masked) +
+  scale_fill_viridis_c(na.value = "transparent") +
+  geom_sf(data = harv_boundary, fill = "transparent")
+```
+
+```{r}
+ggplot() +
+  geom_stars(data = harv_dtm_cropped) +
+  scale_fill_viridis_c(na.value = "transparent") +
+  geom_sf(data = harv_boundary, fill = "transparent") +
+  coord_sf(datum = st_crs(harv_dtm))
+```
+
+## Cropping with a box
+
+```{r}
+bbox <- st_bbox(c(xmin = 731000, ymin = 4713000, xmax = 732000, ymax = 4714000), crs = st_crs(harv_dtm))
+```
+
+```{r}
+harv_dtm_small <- st_crop(harv_dtm, bbox)
+```
+
+```{r}
+harv_soils <- read_sf("../../data/harv/harv_soils.shp")
+harv_soils_small <- st_crop(harv_soils, bbox)
+```
+
+```{r}
+ggplot() +
+  geom_stars(data = harv_dtm_small) +
+  scale_fill_viridis_c(na.value = "transparent") +
+  geom_sf(data = harv_soils_small, fill = "transparent")
+```
