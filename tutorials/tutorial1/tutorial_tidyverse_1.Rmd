@@ -221,7 +221,7 @@ df %>%
 This is often useful to create new columns.
 
 ```{r separate}
-df %>% separate(target, into=c("sign", "amount"), sep="\\b")
+df %>% separate_wider_regex(cols=target, patterns=c(sign="(?:<=|>)", amount="\\d+", unit="."))
 ```
 
 ```{r unite}
@@ -242,7 +242,7 @@ df %>%
   arrange(desc(tax))
 ```
 
-We can use the mutate function to replace values (e.g. "?" by NA). Let see how many "?" we have in this dataset.
+We can use the mutate function to replace values (e.g. "?" by NA). Let see how many "?" we have in this data set.
 
 ```{r look_question_marks}
 for (variable in colnames(df)) {
