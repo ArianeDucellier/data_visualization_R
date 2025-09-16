@@ -5,11 +5,15 @@ date: "10/02/2025"
 output: pdf_document
 ---
 
+# Tutorial Tidyverse part 2
+
+Today, we are going to continue reviewing useful R functions for reading and exploring data sets. We will focus on dealing with missing data and getting data from the web.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Load R packages.
+We will need the following R libraries:
 
 ```{r libraries}
 library(httr)
@@ -20,6 +24,8 @@ library(tidyverse)
 ```
 
 ## 1. Dealing with missing data
+
+We will read a data set and replace the ? by NA.
 
 ```{r get_data}
 header <- c("age", "workclass", "fnlwgt", "education",
@@ -36,6 +42,8 @@ df <-df %>%
 
 ### 1.1 Filling values with previous value
 
+A first method is to fill the missing data with the previous value in the table. This is a good method when dealing with time series data for example.
+
 ```{r fill_previous}
 df_fill1 <- df %>%
   fill(workclass, occupation, native_country, .direction="down")
@@ -43,7 +51,7 @@ df_fill1 <- df %>%
 
 ### 1.2 Filling values with most frequent value
 
-For categorical variables.
+This method is useful for categorical variables.
 
 ```{r fill_frequent}
 m_freq_workcls <- names(table(df$workclass))[which.max(table(df$workclass))]
@@ -55,13 +63,13 @@ df_fill2 <- df %>%
 
 ### 1.3 Dropping rows with missing values
 
-Dropping rows with at least one missing value.
+You can drop all the rows that have at least one missing value,
 
 ```{r omit}
 df_no_na <- df %>% na.omit()
 ```
 
-Dropping rows with missing values for specific columns.
+or drop only the rows that have missing values for specific columns.
 
 ```{r drop}
 df_native <- df %>%
@@ -70,18 +78,22 @@ df_native <- df %>%
 
 ### 1.4 Imputing with mice
 
+Let us read the dataset.
+
 ```{r data}
 data("txhousing")
 txhousing$date <- date_decimal(txhousing$date, tz="GMT")
 txhousing$city <- as.factor(txhousing$city)
 ```
 
+We drop the rows that have 5 missing values because it will be difficult to impute with so many missing columns.
+
 ```{r drop_5nas}
 idx <- which(rowSums(is.na(txhousing)) == 5)
 txhousing <- txhousing[-idx,]
 ```
 
-Impute median value for sales, volume and median.
+For the sales, volume and median columns, we impute the missing data with the median value of the variable.
 
 ```{r impute_median}
 txhousing$sales[is.na(txhousing$sales)] <- median(txhousing$sales, na.rm=TRUE)
@@ -89,7 +101,7 @@ txhousing$volume[is.na(txhousing$volume)] <- median(txhousing$volume, na.rm=TRUE
 txhousing$median[is.na(txhousing$median)] <- median(txhousing$median, na.rm=TRUE)
 ```
 
-Use mice to impute listings and inventory.
+We use the mice ([Multivariate Imputation by Chained Equations](https://www.jstatsoft.org/article/view/v045i03)) package to impute the missing values for the listings and inventory columns.
 
 ```{r impute_mice}
 impute <- mice(data.frame(txhousing[,7:8]), seed=123)
@@ -101,7 +113,7 @@ txhousing_clean <- txhousing %>%
 
 ### 1.5 Implicit missing values
 
-The price for the 1st quarter of 2021 is missing, but you won't see it but just looking for the rows with NA.
+In this example, the price for the 1st quarter of 2021 is missing, but you won't see it by just looking for the rows with NA in the data set.
 
 ```{r data_missing}
 stocks <- tibble(
@@ -111,7 +123,7 @@ stocks <- tibble(
 )
 ```
 
-It becomes obvious when you pivot to a wider table, but then you no longer have tidy data.
+It becomes obvious that the row is missing when you pivot the data set to a wider table, but then you no longer have tidy data.
 
 ```{r wider}
 stocks %>%
@@ -121,7 +133,7 @@ stocks %>%
   )
 ```
 
-the complete function will fill your tidy dataset with the missing rows and NA for the missing value:
+The complete function will fill your tidy data set with the missing rows and use NAs for the missing values.
 
 ```{r complete}
 stocks %>% complete(year, qtr)
@@ -129,17 +141,21 @@ stocks %>% complete(year, qtr)
 
 ## 2. Getting data from the web
 
+This is an example on how to copy a data table from a web page.
+
 - Go to the [Wiki page](https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)).
 - Right-click and select Inspect.
 - Find the piece of code that highlights the table.
 - Right-click and select Copy > XPath.
+
+You first start by reading the entire content of the web page.
 
 ```{r read_page}
 page <- "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)"
 gdp <- rvest::read_html(page)
 ```
 
-Get the first paragraph.
+Then you can start by getting the text of the first paragraph.
 
 ```{r get_paragraph}
 p1 <- gdp %>%
@@ -148,16 +164,18 @@ p1 <- gdp %>%
 p1[3]
 ```
 
-Get the table.
+If you have found the XPath corresponding to the table that you are interested in, you can read the table.
 
 ```{r get_table}
 gdp_df <- gdp %>%
-  html_elements(xpath = '//*[@id="mw-content-text"]/div[1]/table[2]') %>%
+  html_elements(xpath = '/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/table[2]') %>%
   html_table() %>%
   .[[1]]
 ```
 
 ## 3. Getting data from an API
+
+To get data from an API, you will need the base URL and the end point. It should be provided in the API documentation.
 
 The base URL is: https<nolink>://api.fiscaldata.treasury.gov/services/api/fiscal_service
 
@@ -170,6 +188,8 @@ url <- "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accou
 treasury_api <- GET(url)
 ```
 
+You can then transform the JSON format into a data frame.
+
 ```{r json_to_df}
 result <- content(treasury_api, "text", encoding="UTF-8")
 df_json <- fromJSON(result, flatten=TRUE)
@@ -178,14 +198,14 @@ df <- as.data.frame(df_json$data)
 
 ## 4. Miscellaneous functions
 
-To apply the same function to all the columns in the data set:
+This is a list of miscellaneous useful functions that we have not covered yet. The first one is used to apply the same function to all the columns in the data set.
 
 ```{r map}
 mtcars %>% 
   select(hp, wt) %>%  map(mean)
 ```
 
-To combine data sets by rows:
+This function is used to combine data sets by rows,
 
 ```{r bind_rows}
 A <- mtcars[1:3, ]
@@ -193,7 +213,7 @@ B <- mtcars[4:6, ]
 AB <- A %>% bind_rows(B)
 ```
 
-To combine data sets by columns:
+and this one to combine data sets by columns.
 
 ```{r bind_cols}
 A <- mtcars[1:5, 1:3]
@@ -201,7 +221,7 @@ B <- mtcars[1:5, 4:6]
  AB <- A %>% bind_cols(B)
 ```
 
-Another way or creating a new column with a condition. It allows handling multiple cases of logical tests.
+This is another way of creating a new column with a condition on another column. It allows handling multiple cases of logical tests.
 
 ```{r case_when}
 mtcars %>% 
