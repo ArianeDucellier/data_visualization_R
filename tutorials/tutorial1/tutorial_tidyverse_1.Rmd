@@ -89,7 +89,7 @@ Provides a broad overview of a data frame, handles data of all types, dispatchin
 
 ```{r skim}
 # Comment this line for knitting with pdf
-#skim(df_t)
+skim(df_t)
 ```
 
 ## 3. The pipe operator
