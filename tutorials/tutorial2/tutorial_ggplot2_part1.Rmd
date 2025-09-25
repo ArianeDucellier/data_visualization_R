@@ -5,38 +5,60 @@ date: "10/07/2025"
 output: pdf_document
 ---
 
+# Tutorial Tidyverse part 1
+
+Today, we are going to focus on basic ggplot2 functions. For more on ggplot, I recommend this book:
+
+Applied data visualization with R and ggplot2 : Create useful, elaborate, and visually appealing plots
+Moulik, Tania
+2018; Birmingham, UK : Packt Publishing Ltd.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Load R packages
+We will need the following R libraries:
 
 ```{r libraries}
 library(tidyverse)
+library(ggpubr)
+library(gridExtra)
 library(Lock5Data)
 ```
 
-# Part 1 - Basic Plotting in ggplot2
+## Basic Plotting in ggplot2
 
-## Histograms
+We will first review basic types of data visualization.
+
+### Histograms
+
+The default way on plotting with R is to call a plotting function and pass the data to be plotted as an argument.
 
 ```{r block1}
 hist(airquality$Temp)
 ```
 
+Similar (deprecated) basic functions exist in ggplot2:
+
 ```{r block2}
 qplot(airquality$Temp)
 ```
 
+However, users are encouraged to use the full ggplot2 capabilities for their plots. Each plotting script starts by declaring the data set and the columns to be used for the plotting, and then call different ggplot2 functions to add elements to the data visualization.
+
 ```{r block3}
-ggplot(airquality, aes(x=Temp)) + geom_histogram()
+ggplot(airquality, aes(x=Temp)) + 
+  geom_histogram()
 ```
 
-## Bar plots
+### Bar plots
+
+You may want to visualize the number of occurrences of each value of a categorical variable within a dataset. You then only need to sepcify the x coordinates.
 
 ```{r block4}
 df_desc <- read_csv("../../data/historical-hourly-weather-data/weather_description.csv")
-ggplot(df_desc, aes(x=Vancouver)) + geom_bar()
+ggplot(df_desc, aes(x=Vancouver)) + 
+  geom_bar()
 ```
 
 ```{r block5}
@@ -44,11 +66,11 @@ df <- na.omit(RetailSales)
 months_of_the_year <- c("Jan", "Feb", "Mar", "Apr", "May", "June",
                         "July", "Aug", "Sep", "Oct", "Nov", "Dec")
 ggplot(df) +
-geom_bar(aes(x=factor(Month, months_of_the_year), y=Sales), stat="identity") +
-xlab("Month")
+  geom_bar(aes(x=factor(Month, months_of_the_year), y=Sales))#, stat="identity") #+
+#  xlab("Month")
 ```
 
-## Box plots
+### Box plots
 
 ```{r block6}
 df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
@@ -58,7 +80,7 @@ ggplot(df_hum, aes(x=Month, y=Vancouver)) +
 geom_boxplot()
 ```
 
-## Scatter plots and line plots
+### Scatter plots and line plots
 
 ```{r block7}
 a = 3.4
@@ -70,7 +92,7 @@ ggplot(df, aes(x=time, y=distance)) + geom_point()
 ggplot(df, aes(x=time, y=distance)) + geom_line()
 ```
 
-## Changing histogram defaults and adding aesthetics
+### Changing histogram defaults and adding aesthetics
 
 ```{r block8}
 df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
@@ -84,7 +106,7 @@ xlab("Humidity") +
 theme(axis.text.x=element_text(size=12), axis.text.y=element_text(size=12))
 ```
 
-## Changing boxplot defaults and adding aesthetics
+### Changing boxplot defaults and adding aesthetics
 
 ```{r block9}
 df_hum <- read_csv("../../data/historical-hourly-weather-data/humidity.csv")
@@ -97,4 +119,123 @@ theme(axis.text.x=element_text(size=15),
 axis.text.y=element_text(size=15),
 axis.title.x=element_text(size=15, color="gray20"),
 axis.title.y=element_text(size=15, color="gray20"))
+```
+
+## Grammar of Graphics and Visual Components
+
+### Layers
+
+```{r block10}
+df <- read_csv("../../data/gapminder-data.csv")
+p1 <- ggplot(df, aes(x=Electricity_consumption_per_capita))
+p2 <- p1 + geom_histogram()
+p2
+```
+
+```{r block11}
+p3 <- p1 + geom_histogram(bins=15)
+p3
+```
+
+```{r block12}
+p4 <- p3 + xlab("Electricity consumption per capita")
+p4
+```
+
+### Scales
+
+```{r block13}
+df <- read_csv("../../data/gapminder-data.csv")
+p1 <- ggplot(df, aes(x=gdp_per_capita))
+p2 <- p1 + geom_histogram()
+p3 <- p2 + scale_x_continuous(name='GDP per capita ($)',
+                              limits=c(0, 50000),
+                              breaks=seq(0, 40000, 4000),
+                              labels=c('0', '4K', '8K', '12K', '16K', '20K',
+                                       '24K', '28K', '32K', '36K', '40K'))
+p3
+```
+
+### Polar coordinates
+
+```{r block14}
+t <- seq(0, 360, by=15)
+r <- 2
+qplot(r, t) + 
+coord_polar(theta="y") +
+scale_y_continuous(breaks=seq(0, 360, 30)) +
+theme(axis.title.x=element_blank(),
+      axis.title.y=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks.y=element_blank())
+```
+
+### Facets
+
+```{r block15}
+df <- read_csv("../../data/gapminder-data.csv")
+p <- ggplot(df, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) + geom_point()
+p
+```
+
+```{r block16, fig.height = 8, fig.width = 4, fig.align="center"}
+p + facet_grid(Country ~ .) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita")
+```
+
+```{r block17, fig.height = 3, fig.width = 8, fig.align="center"}
+p + facet_grid(. ~ Country) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita") +
+theme(axis.text.x=element_text(angle=90))
+```
+
+```{r block18}
+p + facet_wrap(~Country) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita")
+```
+
+```{r block19}
+ordered_countries <- df %>%
+  group_by(Country) %>%
+  summarize(mean = round(mean(gdp_per_capita))) %>%
+  arrange(desc(mean)) %>%
+  mutate(labels = str_c(Country, ": $", mean))
+country.labs <- ordered_countries$labels
+names(country.labs) <- ordered_countries$Country
+
+df_ordered <- df %>%
+  mutate(Country = factor(Country, levels=ordered_countries$Country))
+
+ggplot(df_ordered, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) +
+  geom_point() +
+  facet_wrap(~Country,
+             labeller=labeller(Country = country.labs)) +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita")
+```
+
+### Shapes and colors
+
+```{r block20}
+dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States"))
+var1 <- "Electricity_consumption_per_capita"
+var2 <- "gdp_per_capita"
+name1 <- "Electricity/capita"
+name2 <- "GDP/capita"
+ggplot(df, aes_string(x=var1, y=var2)) +
+geom_point(color=2, shape=2) + 
+xlim(0, 10000) +
+xlab(name1) +
+ylab(name2)
+```
+
+```{r block21}
+ggplot(dfs, aes_string(x=var1, y=var2)) +
+geom_point(aes(color=Country, shape=Country)) +
+xlim(0, 10000) +
+xlab(name1) +
+ylab(name2)
 ```

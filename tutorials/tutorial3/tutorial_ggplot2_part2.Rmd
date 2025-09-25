@@ -5,136 +5,24 @@ date: "10/16/2025"
 output: pdf_document
 ---
 
+# Tutorial Ggplot part 3 - More advanced geoms and statistics
+
+Today, we are going to focus on more advanced plots with Ggplot and how to incorporate some basic statistics into the plots.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Load R packages
+We will need the following R libraries:
 
-```{r libraries}
+```{r libraries, message=FALSE}
 library(tidyverse)
-library(ggpubr)
+library(corrplot)
+library(cowplot)
+library(Ecdat)
 library(gridExtra)
-library(Lock5Data)
-```
-
-# Part 2 - Grammar of Graphics and Visual Components
-
-## Layers
-
-```{r block10}
-df <- read_csv("../../data/gapminder-data.csv")
-p1 <- ggplot(df, aes(x=Electricity_consumption_per_capita))
-p2 <- p1 + geom_histogram()
-p2
-```
-
-```{r block11}
-p3 <- p1 + geom_histogram(bins=15)
-p3
-```
-
-```{r block12}
-p4 <- p3 + xlab("Electricity consumption per capita")
-p4
-```
-
-## Scales
-
-```{r block13}
-df <- read_csv("../../data/gapminder-data.csv")
-p1 <- ggplot(df, aes(x=gdp_per_capita))
-p2 <- p1 + geom_histogram()
-p3 <- p2 + scale_x_continuous(name='GDP per capita ($)',
-                              limits=c(0, 50000),
-                              breaks=seq(0, 40000, 4000),
-                              labels=c('0', '4K', '8K', '12K', '16K', '20K',
-                                       '24K', '28K', '32K', '36K', '40K'))
-p3
-```
-
-## Polar coordinates
-
-```{r block14}
-t <- seq(0, 360, by=15)
-r <- 2
-qplot(r, t) + 
-coord_polar(theta="y") +
-scale_y_continuous(breaks=seq(0, 360, 30)) +
-theme(axis.title.x=element_blank(),
-      axis.title.y=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks.y=element_blank())
-```
-
-## Facets
-
-```{r block15}
-df <- read_csv("../../data/gapminder-data.csv")
-p <- ggplot(df, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) + geom_point()
-p
-```
-
-```{r block16, fig.height = 8, fig.width = 4, fig.align="center"}
-p + facet_grid(Country ~ .) +
-xlab("GDP per capita") +
-ylab("Electricity consumption per capita")
-```
-
-```{r block17, fig.height = 3, fig.width = 8, fig.align="center"}
-p + facet_grid(. ~ Country) +
-xlab("GDP per capita") +
-ylab("Electricity consumption per capita") +
-theme(axis.text.x=element_text(angle=90))
-```
-
-```{r block18}
-p + facet_wrap(~Country) +
-xlab("GDP per capita") +
-ylab("Electricity consumption per capita")
-```
-
-```{r block19}
-ordered_countries <- df %>%
-  group_by(Country) %>%
-  summarize(mean = round(mean(gdp_per_capita))) %>%
-  arrange(desc(mean)) %>%
-  mutate(labels = str_c(Country, ": $", mean))
-country.labs <- ordered_countries$labels
-names(country.labs) <- ordered_countries$Country
-
-df_ordered <- df %>%
-  mutate(Country = factor(Country, levels=ordered_countries$Country))
-
-ggplot(df_ordered, aes(x=gdp_per_capita, y=Electricity_consumption_per_capita)) +
-  geom_point() +
-  facet_wrap(~Country,
-             labeller=labeller(Country = country.labs)) +
-xlab("GDP per capita") +
-ylab("Electricity consumption per capita")
-```
-
-## Shapes and colors
-
-```{r block20}
-dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States"))
-var1 <- "Electricity_consumption_per_capita"
-var2 <- "gdp_per_capita"
-name1 <- "Electricity/capita"
-name2 <- "GDP/capita"
-ggplot(df, aes_string(x=var1, y=var2)) +
-geom_point(color=2, shape=2) + 
-xlim(0, 10000) +
-xlab(name1) +
-ylab(name2)
-```
-
-```{r block21}
-ggplot(dfs, aes_string(x=var1, y=var2)) +
-geom_point(aes(color=Country, shape=Country)) +
-xlim(0, 10000) +
-xlab(name1) +
-ylab(name2)
+library(mapproj)
+library(maps)
 ```
 
 ## Themes
@@ -206,4 +94,304 @@ p4 + scale_fill_brewer(palette="Pastel1")
 
 ```{r block29}
 p4 + scale_fill_brewer(palette="Oranges")
+```
+
+## Bubble charts
+
+A bubble chart is a data visualization that displays three dimensions of data using x and y coordinates for two variables and the size of circular "bubbles" to represent a third variable. However, we will see in the lectures that using the size of points (bubbles) in a bubble chart is not an ideal method for making precise comparisons between values. Use it adequately.
+
+```{r block30, message=FALSE, warning=FALSE}
+df <- read_csv("../../data/gapminder-data.csv")
+dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
+
+ggplot(dfs, aes(x=Year, y=Electricity_consumption_per_capita)) +
+  geom_point(aes(size=population, color=Country)) +
+  coord_cartesian(xlim=c(1950, 2020)) +
+  labs(subtitle="Electricity consumption vs Year", title="Bubble chart") +
+  ylab("Electricity consumption") +
+  scale_size(breaks=c(0, 1e+8, 0.3e+9, 0.5e+9, 1e+9, 1.5e+9), range=c(1, 5))
+```
+
+## Density plots
+
+A density plot is a statistical visualization that displays the distribution of a continuous variable by estimating the probability density function of the data. It represents the data using a smooth curve, where the height of the curve at any given point indicates the relative frequency or concentration of data points in that region, providing a more nuanced view of data distribution compared to histograms.
+
+```{r block31, message=FALSE}
+df <- read_csv("../../data/LoanStats.csv")
+df <- df %>% drop_na(grade)
+
+ggplot(df, aes(x=loan_amnt)) +
+  geom_density() +
+  facet_wrap(~grade) +
+  xlab("Loan amount")
+```
+
+We can also superimpose the density plots for easier comparison. Noe that it works better with a small number of values for the categorical variable considered.
+
+```{r block32, message=FALSE }
+df <- read_csv("../../data/LoanStats.csv")
+df <- df %>% drop_na(grade)
+
+ggplot(df, aes(x=loan_amnt)) +
+  geom_density(aes(fill=grade), alpha=1/2) +
+  scale_fill_brewer(palette="Dark2") +
+  xlab("Loan Amount") +
+  theme_light()
+```
+
+## Time series
+
+Line plots are ideal for time series data because they effectively illustrate trends, patterns, and changes over time by connecting data points with lines, making it easy to visualize the continuity and progression of values across sequential time intervals.
+
+```{r block33, message=FALSE}
+df_fb <- read_csv("../../data/FB.csv")
+df_fb$Date <- as.Date(df_fb$Date)
+
+ggplot(df_fb, aes(x=Date, y=Close, group=1)) + 
+  geom_line(color="black", na.rm=TRUE) +
+  ggtitle("Daily Closing Stock Prices: Facebook") + 
+  theme(plot.title = element_text(lineheight=.7, face="bold")) + 
+  scale_x_date(date_breaks='3 month') +
+  theme_bw()
+```
+
+## Statistical summaries
+
+A statistical summary on a visualization plot is a concise representation of key statistical measures or characteristics of the data, such as mean, median, quantile, or standard deviation, often displayed alongside or integrated into the main visual elements to provide additional context and insight into the underlying data distribution.
+
+```{r block34, message=FALSE, warning=FALSE}
+df_fb <- read_csv("../../data/FB.csv")
+df_fb$Date <- as.Date(df_fb$Date)
+df_fb$Month <- strftime(df_fb$Date,"%m")
+df_fb$Month <- as.numeric(df_fb$Month)
+
+ggplot(df_fb, aes(Month, Close)) + 
+  geom_point(color="red", alpha=1/2, position=position_jitter(h=0.0, w=0.0)) +
+  stat_summary(geom="line", fun="mean", color="blue", size=1) +
+  stat_summary(geom="line", fun="median", color="orange", size=1) +
+  stat_summary(geom="line", fun="quantile", fun.args=list(probs=.1), linetype=2, color="green", size=1) +
+  stat_summary(geom="line", fun="quantile", fun.args=list(probs=.9), linetype=2, color="green", size=1) +
+  scale_x_continuous(breaks=seq(0, 13, 1)) +
+  ggtitle("Monthly Closing Stock Prices: Facebook") +
+  theme_classic()
+```
+
+## Linear regression
+
+We can also include some statistical modeling into the data visualization. For examples, with a scatter plot we main include the linear regression of the y variable over the x variable to show possible linear relationship.
+
+```{r block35, message=FALSE, warning=FALSE}
+df <- read_csv("../../data/gapminder-data.csv")
+dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
+
+ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita)) +
+  geom_point(aes(color=Country)) +
+  xlim(0, 30000) +
+  xlab("GDP per capita") +
+  ylab("Electricity consumption per capita") +
+  geom_smooth(method=lm, level=0.99)
+```
+
+If we want to do a linear regression separately for each country, we would proceed like this:
+
+```{r block36, message=FALSE, warning=FALSE}
+df <- read_csv("../../data/gapminder-data.csv")
+dfs <- subset(df, Country %in% c("Germany", "India", "China", "United States", "Japan"))
+ggplot(dfs, aes(gdp_per_capita, Electricity_consumption_per_capita, color=Country)) +
+geom_point() +
+xlab("GDP per capita") +
+ylab("Electricity consumption per capita") +
+geom_smooth(method=lm)
+```
+
+## Setting the horizontal scale
+
+We used geom_smooth for the linear regression, but it can also be used generally to better see patterns in the presence of overplotting. If we want to limit the size of the window in the x axis, we should note the difference between coord_cartesian and scale_x_continuous. With coord_cartesian, the smoothing is done on all the data, but only the chosen window is plotted. With scale_x-continuous, the smoothing is done only for the chosen window.
+
+```{r block37, message=FALSE, warning=FALSE}
+p <- ggplot(mtcars, aes(disp, wt)) +
+  geom_point() +
+  geom_smooth()
+p1 <- p + scale_x_continuous(limits = c(325, 500)) +
+  ggtitle("scale_x_continuous")
+p2 <- p + coord_cartesian(xlim = c(325, 500)) +
+  ggtitle("coord_cartesian")
+p <- p + ggtitle("Original plot")
+grid.arrange(p, p1, p2, ncol=2)
+```
+
+## Correlations
+
+The pakage corrplot can be used to show a graphical display of a correlation matrix.
+
+```{r block38, message=FALSE}
+df <- read_csv("../../data/gapminder-data.csv")
+df <- df[, colnames(df)[4:9]]
+df <- na.omit(df)
+colnames(df) <- c("gdp", "electricity", "mort", "pov", "bmi_m", "bmi_f")
+M <- cor(df)
+corrplot(M, method="number")
+```
+
+```{r block39}
+corrplot(M, method="pie")
+```
+
+```{r block40}
+corrplot(M, method="ellipse")
+```
+
+## Maps
+
+GGplot contains basic function such as geom_polyygon and geom_path to make maps. We will see in another tutorial more advanced R packages to represent geospatial data.
+
+```{r block41}
+states_map <- map_data("state")
+
+ggplot(states_map, aes(x=long, y=lat, group=group)) +
+  geom_polygon(fill="white", colour="black")
+```
+
+```{r block42}
+ggplot(states_map, aes(x=long, y=lat, group=group)) +    
+  geom_path() +
+  coord_map("mercator")
+```
+
+```{r block43}
+europe <- map_data("world",
+    region=c("Germany", "Spain", "Italy", "France", "UK", "Ireland"))
+
+ggplot(europe, aes(x=long, y=lat, group=group, fill=region)) +
+  geom_polygon(color="black") +
+  scale_fill_brewer(palette="Set3")
+```
+
+We may also want to add data to the map. A color scale to represent a continuous variable will then be more appropriate. Note than color intensity and color hue are not the best visual cues for a precise comparison between values, but may be used if we only want to show a general spatial pattern.
+
+```{r block44, message=FALSE}
+arrests <- as_tibble(USArrests, rownames=NA) %>%
+  rownames_to_column("region") %>%
+  mutate(region = tolower(region))
+states_arrests <- states_map %>% left_join(arrests)
+
+ggplot(states_arrests, aes(x=long, y=lat, group=group)) +
+  geom_polygon(aes(fill=Murder), color="black") +
+  scale_fill_gradient2(low="cornflowerblue", 
+                       high="firebrick1", 
+                       midpoint = 10)
+```
+
+# Part 4 - Miscellaneous functions
+
+## Setting the figure size in RMarkdown
+
+Define with knitr options at the beginning.
+
+```{r block_44}
+df <- read_csv("../../data/gapminder-data.csv")
+ggplot(df, aes(gdp_per_capita, Electricity_consumption_per_capita)) +   
+  geom_point(aes(color=Country)) +
+  xlab("GDP per capita") +
+  ylab("Electricity consumption per capita")
+```
+
+```{r block_45, fig.height=4, fig.width=8}
+ggplot(df, aes(gdp_per_capita, Electricity_consumption_per_capita)) +   
+  geom_point(aes(color=Country)) +
+  xlab("GDP per capita") +
+  ylab("Electricity consumption per capita")
+```
+
+```{r block_46, fig.asp=0.3, fig.width=8, out.width="50%"}
+ggplot(df, aes(gdp_per_capita, Electricity_consumption_per_capita)) +   
+  geom_point(aes(color=Country)) +
+  xlab("GDP per capita") +
+  ylab("Electricity consumption per capita")
+```
+
+## Setting the figure size when saving
+
+```{r block_47}
+ggsave(filename = "figures/small_memory_size.png", ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point(size=2, shape=23) + theme_bw(base_size = 10),
+  width = 5, height = 4, dpi = 150, units = "in", device='png')
+ggsave(filename = "figures/big_memory_size.png", ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point(size=2, shape=23) + theme_bw(base_size = 10),
+  width = 5, height = 4, dpi = 300, units = "in", device='png')
+ggsave(filename = "figures/big_figure.png", ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point(size=2, shape=23) + theme_bw(base_size = 10),
+  width = 10, height = 8, dpi = 300, units = "in", device='png')
+```
+
+You need to scale the figures to get the same size of dots and fonts.
+
+![Small width and height](figures/big_memory_size.png){width=50%}
+
+![Big width and height](figures/big_figure.png){width=100%}
+
+## Highlighting parts of the map
+
+We are interested in the gross state product (GSP) of the three states: New York, New Jersey and Connecticut.
+
+```{r block_48}
+us_map <- map_data("state")
+us_prod <- Produc[Produc$year==1985,]
+us_prod$region <- gsub("_", " ", tolower(us_prod$state))
+merged_data <- left_join(us_map, us_prod[, c("region", "gsp")], by="region")
+choropleth <- ggplot(merged_data) +
+  geom_polygon(aes(x=long, y=lat, group=group, fill=gsp), color="black") +
+  theme_void() +
+  theme(legend.position="bottom") +
+  scale_fill_continuous(guide=guide_colorbar(barheight=unit(2, units="mm"),
+                                             barwidth=unit(5, units="cm")))
+choropleth
+```
+
+```{r block_49}
+tristate <- c("new york", "new jersey", "connecticut")
+long_lim <- merged_data$long[merged_data$region %in% tristate]
+lat_lim <- merged_data$lat[merged_data$region %in% tristate]
+outer <- merged_data[!merged_data$region %in% tristate,]
+
+choropleth +
+  geom_polygon(data=outer, aes(x=long, y=lat, group=group),
+               fill="gray", color="black") +
+  coord_fixed(xlim=c(min(long_lim), max(long_lim)),
+              ylim=c(min(lat_lim),max(lat_lim)),
+              ratio=1.3)
+```
+
+## Changing the map projection
+
+```{r block_50}
+choropleth +
+  coord_map() +
+  ggtitle("US Map - mercator projection")
+```
+
+```{r block_51}
+choropleth +
+  coord_map(projection = "gilbert") +
+  ggtitle("US Map - gilbert projection")
+```
+
+```{r block_52}
+choropleth +
+  coord_map(projection = "conic", lat0 = 50) +
+  labs(title = "US Map - conic projection",
+       subtitle = "latitute zero = 50")
+```
+
+## Contour plots
+
+```{r contour, fig.width=8, fig.height=12}
+p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
+p1 <- p + geom_contour()
+p2 <- p + geom_contour_filled()
+p3 <- p + geom_raster(aes(fill = density)) +
+  geom_contour(color="white")
+plot_grid(p1, p2, p3, align = "v", nrow = 3, rel_heights = c(1/3, 1/3, 1/3))
+```
+
 ```
