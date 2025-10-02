@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  3 OCT 2024 10:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  1 OCT 2025 17:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1062,37 +1062,6 @@ Package gensymb Info: Using \textmu for \micro on input line 22.
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 \openout4 = `ggplot2_part2.vrb'.
 
- (./ggplot2_part2.vrb) [2
-
-]
-\openout4 = `ggplot2_part2.vrb'.
-
-
-(./ggplot2_part2.vrb
-Overfull \hbox (3.13927pt too wide) in paragraph at lines 8--18
-[][]  
- []
-
-) [3
-
-]
-\openout4 = `ggplot2_part2.vrb'.
-
- (./ggplot2_part2.vrb) [4
-
-]
-\openout4 = `ggplot2_part2.vrb'.
-
- (./ggplot2_part2.vrb) [5
-
-]
-\openout4 = `ggplot2_part2.vrb'.
-
- (./ggplot2_part2.vrb) [6
-
-]
-\openout4 = `ggplot2_part2.vrb'.
-
  (./ggplot2_part2.vrb
 LaTeX Font Info:    Trying to load font information for U+msa on input line 8.
 
@@ -1115,29 +1084,29 @@ LaTeX Font Info:    Trying to load font information for TS1+cmss on input line
 8.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmss.fd
 File: ts1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-)) [7
+)) [2
 
 ]
 \openout4 = `ggplot2_part2.vrb'.
 
 
-(./ggplot2_part2.vrb) [8
+(./ggplot2_part2.vrb) [3
 
 ]
 \openout4 = `ggplot2_part2.vrb'.
 
- (./ggplot2_part2.vrb) [9
+ (./ggplot2_part2.vrb) [4
 
 ]
 \openout4 = `ggplot2_part2.vrb'.
 
  (./ggplot2_part2.vrb)
-[10
+[5
 
 ]
 \openout4 = `ggplot2_part2.vrb'.
 
- (./ggplot2_part2.vrb) [11
+ (./ggplot2_part2.vrb) [6
 
 ]
 \tf@nav=\write7
@@ -1154,21 +1123,29 @@ Package rerunfilecheck Info: File `ggplot2_part2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27897 strings out of 476025
- 586297 string characters out of 5790017
- 1865388 words of memory out of 5000000
- 47741 multiletter control sequences out of 15000+600000
+ 27861 strings out of 476025
+ 585250 string characters out of 5790017
+ 1864388 words of memory out of 5000000
+ 47723 multiletter control sequences out of 15000+600000
  520234 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,388b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
-></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
-usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on ggplot2_part2.pdf (11 pages, 98967 bytes).
+
+pdfTeX warning (dest): name{Navigation7} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Navigation11} has been referenced but does not exis
+t, replaced by a fixed one
+
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb><
+/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></
+usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on ggplot2_part2.pdf (6 pages, 77795 bytes).
 PDF statistics:
- 486 PDF objects out of 1000 (max. 8388607)
- 376 compressed objects within 4 object streams
- 23 named destinations out of 1000 (max. 500000)
- 511 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 291 PDF objects out of 1000 (max. 8388607)
+ 220 compressed objects within 3 object streams
+ 15 named destinations out of 1000 (max. 500000)
+ 313 words of extra memory for PDF output out of 10000 (max. 10000000)
 

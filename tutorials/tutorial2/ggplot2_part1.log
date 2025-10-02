@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  3 OCT 2024 10:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  1 OCT 2025 17:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1120,6 +1120,38 @@ Overfull \hbox (5.69836pt too wide) in paragraph at lines 58--59
  (./ggplot2_part1.vrb) [13
 
 ]
+\openout4 = `ggplot2_part1.vrb'.
+
+
+(./ggplot2_part1.vrb) [14
+
+]
+\openout4 = `ggplot2_part1.vrb'.
+
+ (./ggplot2_part1.vrb
+Overfull \hbox (3.13927pt too wide) in paragraph at lines 8--18
+[][]  
+ []
+
+) [15
+
+]
+\openout4 = `ggplot2_part1.vrb'.
+
+ (./ggplot2_part1.vrb) [16
+
+]
+\openout4 = `ggplot2_part1.vrb'.
+
+ (./ggplot2_part1.vrb) [17
+
+]
+\openout4 = `ggplot2_part1.vrb'.
+
+
+(./ggplot2_part1.vrb) [18
+
+]
 \tf@nav=\write7
 \openout7 = `ggplot2_part1.nav'.
 
@@ -1129,16 +1161,15 @@ Overfull \hbox (5.69836pt too wide) in paragraph at lines 58--59
 \tf@snm=\write9
 \openout9 = `ggplot2_part1.snm'.
 
-
-(./ggplot2_part1.aux)
+ (./ggplot2_part1.aux)
 Package rerunfilecheck Info: File `ggplot2_part1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27932 strings out of 476025
- 585534 string characters out of 5790017
- 1868388 words of memory out of 5000000
- 47799 multiletter control sequences out of 15000+600000
+ 27964 strings out of 476025
+ 586345 string characters out of 5790017
+ 1869388 words of memory out of 5000000
+ 47811 multiletter control sequences out of 15000+600000
  514267 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,388b,727s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1146,10 +1177,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
 usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on ggplot2_part1.pdf (13 pages, 99857 bytes).
+Output written on ggplot2_part1.pdf (18 pages, 120820 bytes).
 PDF statistics:
- 540 PDF objects out of 1000 (max. 8388607)
- 425 compressed objects within 5 object streams
- 27 named destinations out of 1000 (max. 500000)
- 523 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 735 PDF objects out of 1000 (max. 8388607)
+ 582 compressed objects within 6 object streams
+ 37 named destinations out of 1000 (max. 500000)
+ 715 words of extra memory for PDF output out of 10000 (max. 10000000)
 

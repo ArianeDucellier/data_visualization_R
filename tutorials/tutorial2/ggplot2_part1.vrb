@@ -1,18 +1,26 @@
-\frametitle{Adding aesthetics to the boxplot}
+\frametitle{Shapes and colors}
 
-		Add labels to the box plot:
+		You can change shape and color for the entire plot:
 
 		\vspace{2em}
 
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-ggplot(df_hum, aes(x=month, y=Vancouver)) +
-geom_boxplot(color=1, fill=3) +
-ylab("Humidity") +
-theme(axis.text.x=element_text(size=15),
-axis.text.y=element_text(size=15),
-axis.title.x=element_text(size=15, color=2),
-axis.title.y=element_text(size=15, color=2))
+ggplot(df, aes_string(x=var1, y=var2)) +
+geom_point(color=2, shape=2)
 		\end{BVerbatim}
 		\end{exampleblock}{}
-		
+
+		\vspace{2em}
+
+		Or assign a different shape and color for each group of a categorical variable:
+
+		\vspace{2em}
+
+		\begin{exampleblock}{}
+		\begin{BVerbatim}
+ggplot(df, aes_string(x=var1, y=var2)) +
+geom_point(aes(color=Country, shape=Country))
+		\end{BVerbatim}
+		\end{exampleblock}{}
+
