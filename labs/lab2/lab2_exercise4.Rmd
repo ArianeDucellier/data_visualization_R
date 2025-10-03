@@ -1,15 +1,17 @@
 ---
-title: "Lab 3 - Exercise 2 - Using Faceting to Understand Data"
+title: "STAT 451 - Visualizing Data - Autumn 2025"
 author: "Ariane Ducellier"
-date: "10/10/2024"
+date: "10/07/2025"
 output: pdf_document
 ---
 
+# Lab 2: Ggplot2 - Exercise 4
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 ```
 
-In this lab, we are going to visualize the distributions of loan amounts for different credit grades (column name = grade).
+In this lab, we are going to visualize the distributions of loan amounts for different credit grades (column name = grade). Think histograms and trellis display.
 
 ## Libraries
 

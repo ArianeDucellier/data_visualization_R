@@ -1,0 +1,56 @@
+---
+title: "STAT 451 - Visualizing Data - Autumn 2025"
+author: "Ariane Ducellier"
+date: "10/07/2025"
+output: pdf_document
+---
+
+# Lab 2: Ggplot2 - Exercise 2
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+```
+
+In this lab, you are going to explore an educational data set by making several one- and two-dimensional visualizations. Do not forget to add aesthetics to the plot.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(tidyverse)
+```
+
+## Data
+
+Load the data.
+
+```{r data}
+df_edu <- read_csv("../../data/xAPI-Edu-Data.csv")
+```
+
+## 1D plots
+
+Make one-dimensional plots to visualize the data set by topic, gender, parent's school satisfaction and visited resources.
+
+You may choose between bar plots and histograms.
+
+Fill the cell with the code to make the plots.
+
+```{r plot1}
+```
+
+## 2D plots
+
+Make two-dimensional plots to visualize the relationship between:
+
+- number of visited resources by topic,
+- number of announcement views and number of visited resources,
+- discussion participation by gender
+
+You may choose between box plots or scatter plots.
+
+Fill the cell with the code to make the plots.
+
+```{r plot2}
+```

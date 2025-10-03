@@ -1,0 +1,48 @@
+---
+title: "STAT 451 - Visualizing Data - Autumn 2025"
+author: "Ariane Ducellier"
+date: "10/07/2025"
+output: pdf_document
+---
+
+# Lab 2: Ggplot2 - Exercise 5
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+```
+
+In this lab, we are going to visualize the relationship between loan amounts and credit grades (column name = grade) for different home ownership categories. Think box plots abd trellis display.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(tidyverse)
+```
+
+## Data
+
+Load and preprocess the data.
+
+```{r data}
+# read in the data
+df <- read_csv("../../data/LoanStats.csv")
+
+## Clean the data!
+# subtract sub data set with only the stated column names
+dfn <- df[, c("home_ownership", "loan_amnt", "grade")] 
+
+# omit any data entries with NA/missing values
+dfn <- na.omit(dfn)
+
+# remove data entries with "None" home ownership
+dfn <- subset(dfn, !dfn$home_ownership %in% c("NONE"))
+```
+
+## Plot
+
+Complete the cell with the code to make the plot.
+
+```{r plot}
+```
