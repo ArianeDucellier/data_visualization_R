@@ -1,0 +1,37 @@
+---
+title: "STAT 451 - Visualizing Data - Autumn 2025"
+author: "Ariane Ducellier"
+date: "10/16/2025"
+output: pdf_document
+---
+
+# Lab 3: Ggplot2 - Exercise 1
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+```
+
+In this lab, we are going to visualize the relationship between BMI for males and BMI for females for different countries. Think scatter plot and using different colors for a qualitative variable.
+
+## Libraries
+
+Load the necessary libraries.
+
+```{r libraries}
+library(tidyverse)
+```
+
+## Data
+
+Load the data.
+
+```{r data}
+df <- read_csv("../../data/gapminder-data.csv")
+```
+
+## Plot
+
+Complete the cell with the code to make the plot.
+
+```{r plot}
+```

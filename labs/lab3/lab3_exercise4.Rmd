@@ -1,15 +1,17 @@
 ---
-title: "Lab 4 - Exercise 3 - Studying Correlated Variables"
+title: "STAT 451 - Visualizing Data - Autumn 2025"
 author: "Ariane Ducellier"
-date: "10/17/2024"
+date: "10/16/2025"
 output: pdf_document
 ---
 
+# Lab 3: Ggplot2 - Exercise 4
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 ```
 
-In this lab, we are going to visualize two highly correlated variables from the loan data set.
+In this lab, we are going to visualize two highly correlated variables from the loan data set. Think scatter plot and linear regression.
 
 ## Libraries
 
