@@ -5,7 +5,7 @@ date: "10/07/2025"
 output: pdf_document
 ---
 
-# Tutorial Tidyverse part 1
+# Tutorial Ggplot part 1
 
 Today, we are going to focus on basic ggplot2 functions. For more on ggplot, I recommend this book:
 
@@ -26,7 +26,7 @@ library(gridExtra)
 library(Lock5Data)
 ```
 
-## Basic Plotting in ggplot2
+## Basic plotting in ggplot2
 
 We will first review basic types of data visualization.
 
@@ -157,7 +157,7 @@ ggplot(df_hum, aes(x=Month, y=Vancouver)) +
         axis.title.y=element_text(size=15, color="gray20"))
 ```
 
-## Grammar of Graphics and Visual Components
+## Grammar of graphics and visual components
 
 To make more complex plots by adding contextual elements and customizing the properties of the plot, we add an additional function to the existing plot. We will see today some of these additional plotting function and continue exploring them in the next tutorial.
 
