@@ -1,3 +1,5 @@
+# Widgets - Definition of the user interface
+
 fluidPage(
 
   titlePanel("STAT 451 - Visualizing Data - Autumn 2025 - Widget values and data types"),

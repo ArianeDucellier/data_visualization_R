@@ -1,3 +1,5 @@
+# Widgets - Definition of the server part
+
 function(input, output) {
   
   output$textDisplay_checkGroup = renderText({

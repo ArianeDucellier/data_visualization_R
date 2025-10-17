@@ -6,29 +6,39 @@ output: html_document
 runtime: shiny
 ---
 
+# Tutorial Shiny part 1
+
+We are going to start by creating a very simple dashboard within an RMarkdown document. You just need to choose the option Shiny / Shiny Document when creating a new RMarkdown document. Then all the code for the user interface and the creation of the dashboard content can be specified in a code chunk in the RMarkdown file. Finally, you can click Run Document to see the dashboard.
+
 ```{r, echo = FALSE, message = FALSE}
 
+# Load the necessary libraries
 library(tidyverse)
 library(gapminder)
 
-inputPanel( 
+# Create a panel for the user to enter some input
+inputPanel(
+  # Create a check box
   checkboxInput("linear", label = "Add trend line?", value = FALSE) 
 ) 
 
-# draw the plot 
+# Function to draw a plot 
 renderPlot({ 
-  
+
+  # Create the plot
   thePlot = gapminder %>%
     filter(year > 1960) %>%
     group_by(continent, year) %>%
     summarise(meanLife = mean(lifeExp)) %>%
     ggplot(aes(x = year, y = meanLife, group = continent, colour = continent)) +
     geom_line()
-  
+
+  # Add the trend if the box has been checked by the user  
   if(input$linear){ 
     thePlot = thePlot + geom_smooth(method = "lm") 
   } 
-  
+
+  # Print the plot  
   print(thePlot)
 })
 
