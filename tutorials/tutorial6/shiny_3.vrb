@@ -1,26 +1,32 @@
-\frametitle{Improving the UI - Adding icons}
+\frametitle{Sharing through Shinyapps.io}
+
+		Create a free account on \href{https://www.shinyapps.io/}{https://www.shinyapps.io/}.
+
+		\vspace{1em}
+
+		In RStudio, install the package \verb|rsconnect|.
+
+		\vspace{1em}
+
+		When creating your account, \verb|Shinyapps.io| will ask you to set your \verb|Shinyapps.io| account information on RStudio by running:
 		
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-tabPanel("Trend",
-          plotOutput("trend"),
-          icon = icon("calendar"))
+rsconnect::setAccountInfo(name='yourname',
+token='some_token', secret='some_secret')
 		\end{BVerbatim}
 		\end{exampleblock}{}
+
+		To deploy your application on \verb|Shinyapps.io|, run on RStudio:
 
 		\begin{exampleblock}{}
 		\begin{BVerbatim}
-tabPanel("Summary",
-         textOutput("summary"),
-         icon = icon("user", lib = "glyphicon"))
+library(rsconnect)
+rsconnect::deployApp("/path/your_path_to_your_app")
 		\end{BVerbatim}
 		\end{exampleblock}{}
 
-		\vspace{2em}
+		Check on \verb|Shinyapps.io| the URL of your application:
 
-		See a list of icons here:
-		\begin{itemize}
-			\item \href{https://fontawesome.com/icons}{https://fontawesome.com/icons}
-			\item \href{https://icons.getbootstrap.com/}{https://icons.getbootstrap.com/}
-		\end{itemize}
- 	
+		\href{https://arianeducellier.shinyapps.io/magnitudes/}{https://arianeducellier.shinyapps.io/magnitudes/}
+

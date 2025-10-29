@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  19 AUG 2025 08:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  29 OCT 2025 15:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1138,6 +1138,53 @@ Package gensymb Info: Using \textmu for \micro on input line 23.
  (./shiny_3.vrb) [11
 
 ]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb) [12
+
+]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb) [13
+
+]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb) [14
+
+]
+\openout4 = `shiny_3.vrb'.
+
+
+(./shiny_3.vrb) [15
+
+]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb) [16
+
+]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb) [17
+
+]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb)
+[18
+
+]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb) [19
+
+]
+\openout4 = `shiny_3.vrb'.
+
+ (./shiny_3.vrb) [20
+
+]
 \tf@nav=\write7
 \openout7 = `shiny_3.nav'.
 
@@ -1152,10 +1199,10 @@ Package rerunfilecheck Info: File `shiny_3.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29222 strings out of 476025
- 605192 string characters out of 5790017
- 1864388 words of memory out of 5000000
- 49081 multiletter control sequences out of 15000+600000
+ 29294 strings out of 476025
+ 607175 string characters out of 5790017
+ 1870388 words of memory out of 5000000
+ 49117 multiletter control sequences out of 15000+600000
  514267 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,382b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1163,10 +1210,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
 usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on shiny_3.pdf (11 pages, 102391 bytes).
+Output written on shiny_3.pdf (20 pages, 142879 bytes).
 PDF statistics:
- 517 PDF objects out of 1000 (max. 8388607)
- 393 compressed objects within 4 object streams
- 23 named destinations out of 1000 (max. 500000)
- 595 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 919 PDF objects out of 1000 (max. 8388607)
+ 701 compressed objects within 8 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 1081 words of extra memory for PDF output out of 10000 (max. 10000000)
 
