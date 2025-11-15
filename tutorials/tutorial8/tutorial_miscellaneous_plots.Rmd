@@ -5,6 +5,8 @@ date: "11/20/2025"
 output: pdf_document
 ---
 
+# Miscellaneous plotting functions
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
