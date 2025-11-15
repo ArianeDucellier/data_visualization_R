@@ -1,9 +1,11 @@
 ---
-title: "Lab 10 - Text data"
+title: "STAT 451 - Visualizing Data - Autumn 2025"
 author: "Ariane Ducellier"
+date: "11/20/2025"
 output: pdf_document
-date: "2024-11-21"
 ---
+
+# Lab 8: Text data
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
